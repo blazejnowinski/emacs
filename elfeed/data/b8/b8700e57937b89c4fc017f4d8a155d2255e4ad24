@@ -1,0 +1,109 @@
+
+         
+         <p>TMR provides facilities for setting timers using a convenient
+notation. Lots of commands are available to operate on timers, while
+there also exists a tabulated view to display all timers in a nice
+grid.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">tmr</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/tmr">https://protesilaos.com/emacs/tmr</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/tmr-changelog">https://protesilaos.com/emacs/tmr-changelog</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/tmr">https://github.com/protesilaos/tmr</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/tmr">https://gitlab.com/protesilaos/tmr</a></li>
+    </ul>
+  </li>
+  <li>Backronym: TMR May Ring; Timer Must Run.</li>
+</ul>
+
+<p>Below are the release notes.</p>
+
+<hr />
+
+<h2>Version 1.2.0 on 2025-10-06</h2>
+
+<p>This release introduces several quality-of-life refinements to an
+already stable and featureful package.</p>
+
+<h3>Timers can now appear on the modeline</h3>
+
+<p>The new minor mode <code class="language-plaintext highlighter-rouge">tmr-mode-line-mode</code> controls whether running
+timers are displayed on the mode line. More specifically, they are
+displayed in the <code class="language-plaintext highlighter-rouge">global-mode-string</code>, which can also be set in the
+<code class="language-plaintext highlighter-rouge">tab-bar-mode</code> (this way the information appears in one place instead
+of all the mode lines, assuming default settings).</p>
+
+<p>The exact format of a timer on display is controlled by the user
+option <code class="language-plaintext highlighter-rouge">tmr-mode-line-format</code>. The number of timers is set with the
+option <code class="language-plaintext highlighter-rouge">tmr-mode-line-max-timers</code>. The separator between multiple
+timers is <code class="language-plaintext highlighter-rouge">tmr-mode-line-separator</code>. The length of each timer’s
+optional description is subject to <code class="language-plaintext highlighter-rouge">tmr-mode-line-max-desc-length</code>.
+While the entire indicator can have a prefix, per <code class="language-plaintext highlighter-rouge">tmr-mode-line-prefix</code>.</p>
+
+<p>Thanks to Steven Allen for contributing the original version of this
+feature in pull request 2: <a href="https://github.com/protesilaos/tmr/pull/2">https://github.com/protesilaos/tmr/pull/2</a>.
+Steven has assigned copyright to the Free Software Foundation. Further
+changes by me, such as to make the timers on the mode line clickable
+(which produces a tabulated view, per <code class="language-plaintext highlighter-rouge">tmr-tabulated-view</code>).</p>
+
+<h3>Notifications for more operating systems</h3>
+
+<p>Timers can optionally trigger a system notification, via the abnormal
+hook <code class="language-plaintext highlighter-rouge">tmr-timer-finished-functions</code>. The relevant function is
+<code class="language-plaintext highlighter-rouge">tmr-notification-notify</code>. It used to only support Linux. Now it is
+extended to handle Android, Windows, and Haiku.</p>
+
+<p>Thanks to Lucas Quintana for the contribution in pull request 10:
+<a href="https://github.com/protesilaos/tmr/pull/10">https://github.com/protesilaos/tmr/pull/10</a>. Lucas has assigned
+copyright to the Free Software Foundation.</p>
+
+<h3>The tabulated timers have a “duration” column</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">tmr-tabulated-view</code> command (alias <code class="language-plaintext highlighter-rouge">tmr-list-timers</code>) now
+includes a “duration” column, in addition to all the other informative
+data on display.</p>
+
+<p>[ Remember that the tabulated view can be used to create, duplicate,
+  edit, etc. the timers. ]</p>
+
+<p>Thanks to jpg for suggesting this in issue 11:
+<a href="https://github.com/protesilaos/tmr/issues/11">https://github.com/protesilaos/tmr/issues/11</a>.</p>
+
+<h3>Miscellaneous</h3>
+
+<ul>
+  <li>
+    <p>System notifications specify the <code class="language-plaintext highlighter-rouge">:app-icon</code> of Emacs. It will be
+displayed, if the underlying software supports it (I see it on
+Linux, anyway).</p>
+  </li>
+  <li>
+    <p>The option to play the <code class="language-plaintext highlighter-rouge">tmr-sound-file</code> via the abnormal hook
+<code class="language-plaintext highlighter-rouge">tmr-timer-finished-functions</code> is redone to not rely on the system
+shell (implicitly <code class="language-plaintext highlighter-rouge">bash</code>). This way, users who use exotic shell
+alternatives will not run into any trouble. This is done in response
+to a relevant problem that g-gundam was facing with the <code class="language-plaintext highlighter-rouge">nushell</code>:
+<a href="https://github.com/protesilaos/tmr/pull/7">https://github.com/protesilaos/tmr/pull/7</a>.</p>
+  </li>
+  <li>
+    <p>The function <code class="language-plaintext highlighter-rouge">tmr-notification-notify</code> is better at informing the
+user that it has produced the warning about the lack of DBUS
+support. Before, the notification did not identity itself as
+belonging to the <code class="language-plaintext highlighter-rouge">tmr</code> package.</p>
+  </li>
+  <li>
+    <p>The function <code class="language-plaintext highlighter-rouge">tmr-running-timers-p</code> is now available as a standalone
+function to do what was done before inside other functions. This is
+useful for anyone writing custom code on top of <code class="language-plaintext highlighter-rouge">tmr</code>. Thanks to
+Eugene Mikhaylov for suggesting the idea in issue 9:
+<a href="https://github.com/protesilaos/tmr/issues/9">https://github.com/protesilaos/tmr/issues/9</a>.</p>
+  </li>
+  <li>
+    <p>The manual is updated to include whatever necessary from the
+aforementioned.</p>
+  </li>
+</ul>
+        
+      

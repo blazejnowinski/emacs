@@ -1,0 +1,408 @@
+
+	
+<p>
+Working with Emacs means that you will need to access, create files and manage files on your drives. Emacs comes shipped with <code class="verbatim">dired</code> (pronounced <em>dir-ed</em>), a potent file manager. This article explains the basic principles of using dired and shows how to manage files with Emacs to organise your hard drive.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+The source files of the book and EWS configuration are also freely available on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Accessing directories and files with dired
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>Dired is short for “<a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html">directory editor</a>”, but it can do much more than just that. This software has an illustrious history. The first version of dired was a stand-alone program written circa 1974, so its origins are even further back in time than Emacs. The software comes packaged with Emacs and it provides a front end to various <a href="https://www.gnu.org/software/coreutils/">GNU core utilities</a>.</p>
+<p>
+You activate the file manager with the <code>dired</code> function or the <code class="verbatim">C-x C-d</code> shortcut. When you hit <code class="verbatim">enter</code>, Emacs will create a buffer with the content of the directory of your open buffer. You can also enter another directory in the minibuffer before you hit the <code class="verbatim">enter</code> key. Another useful function is <code class="verbatim">dired-jump</code> (<code class="verbatim">C-x C-j</code>) which opens dired and jumps to the file linked to the current buffer. The <code class="verbatim">q</code> button closes the dired window but does not kill (remove) it. </p>
+<p>
+You can navigate the content with the arrow keys and press <code class="verbatim">j</code> to jump to a specific file by entering part of its name. </p>
+<p>
+The enter key opens the respective file or directory. To open a file or directory in another window, press <code class="verbatim">o</code> (Using <code class="verbatim">C-o</code> open the file in another window, but the cursor stays in Dired). The carat key <code class="verbatim">^</code> takes you to the parent folder.</p>
+<p>
+Note that every time you open a new directory, Emacs will open a new dired buffer. After a while, you can litter your Emacs session with unused dired buffers. Pressing the <code class="verbatim">a</code> key opens a directory in the same buffer. This functionality is disabled by default because the Emacs developers strangely believe that new users find it confusing. <em>Emacs Writing Studio</em> configures this behaviour by default.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Copying and Moving Files
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>To copy a file, press the <code class="verbatim">C</code> button. Dired will ask for a new name and location in the minibuffer. To move a file, you press <code class="verbatim">R</code> because moving a file is the same as renaming it with a new directory.</p>
+<p>
+There is no need to close the buffer before you rename an open file. Emacs will link the open buffer to the new filename. </p>
+<p>
+If you have two open dired buffers, <em>Emacs Writing Studio</em> copies and moves from the folder in the active window to the other dired buffer.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Renaming files
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Renaming the file is the same as moving it. So press <code class="verbatim">R</code> and type a new filename.</p>
+<p>
+It is sometimes useful to copy the name of a file to the kill ring with the <code class="verbatim">w</code> key, so you can use it to rename the file. So to rename a file, copy the name with <code class="verbatim">w</code>, rename the file with <code class="verbatim">R</code> and paste the existing name with <code class="verbatim">C-y</code> and edit the name to your new version.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Removing files
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>You can select and deselect files for deletion (killed) with the <code class="verbatim">d</code> and <code class="verbatim">u</code> buttons. After you selected the files you like to delete, press <code class="verbatim">x</code> to execute the deletion. Press capital <code class="verbatim">D</code> if you like to remove a single file.</p>
+<p>
+By default, Emacs permanently removes files. The <em>Emacs Writing Studio</em> is configured so that files are moved to the recycle bin.</p>
+<p>
+When you delete or trash a currently open file, Emacs will also ask you to close the appropriate buffer.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Working on Multiple Files
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>You can select multiple files to work on at the same time by marking them. The <code class="verbatim">m</code> button marks a file, and the <code class="verbatim">u</code> removes the mark. The capital <code class="verbatim">U</code> removes all marks in the buffer. The <code class="verbatim">t</code> key reverses your markings, which is helpful when you want to select everything but one or two files.</p>
+<p>
+This method requires you to manually select each file. You can also use <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Regexps.html">regular expressions</a> to select files. Regular expressions are a powerful set of logical rules to select sections of text. Simply put, regex is wildcards on steroids—press <code class="verbatim">% m</code> to open the regular expression selection prompt.</p>
+<p>
+For example, <code class="verbatim">^2023.*_journal*</code> selects all <a href="https://lucidmanager.org/productivity/taking-notes-with-emacs-denote/">Denote files</a> that start with the <code class="verbatim">2023</code> and that have the <code class="verbatim">journal</code> file tag.  Now press <code class="verbatim">t</code> to invert the selection and <code class="verbatim">k</code> to remove the selected files from view. This sequence is a useful method to find related files.</p>
+<p>
+After you selected multiple files in this manner, you can use all file commands to act on the selected targets, for example moving all 2023 files with the <code class="verbatim">_journal</code> tag to another folder.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Opening a file with another program
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Emacs is a Swiss-Army chainsaw, but it cannot do everything. Sometimes you might like to open a file in other software, such as your image editor or video player.</p>
+<p>
+You can open files with external software by pressing <code class="verbatim">&amp;</code> after which dired will ask for the appropriate software. You need to type the name of the executable file of the software you like to use, e.g. <code class="verbatim">gimp</code>.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+Manage files with Emacs dired
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>If your head is buzzing with all the different key bindings, the table lists the functionality described in this article. These are only a small snapshot of the functions of the directory editor in Emacs. You can press the <code class="verbatim">h</code> key while in a dired buffer to view all functionality and related keybindings.</p>
+<figure>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Function</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="verbatim">a</code></td>
+<td><code class="verbatim">dired-find-alternate-file</code></td>
+<td>Open folder in same buffer</td>
+</tr>
+<tr>
+<td><code class="verbatim">C</code></td>
+<td><code class="verbatim">dired-do-copy</code></td>
+<td>Copy a file</td>
+</tr>
+<tr>
+<td><code class="verbatim">j</code></td>
+<td><code class="verbatim">dired-goto-file</code></td>
+<td>Jump to a file</td>
+</tr>
+<tr>
+<td><code class="verbatim">g</code></td>
+<td><code class="verbatim">revert-buffer</code></td>
+<td>Refresh the dired buffer</td>
+</tr>
+<tr>
+<td><code class="verbatim">m</code></td>
+<td><code class="verbatim">dired-mark</code></td>
+<td>Mark file under cursor</td>
+</tr>
+<tr>
+<td><code class="verbatim">% m</code></td>
+<td><code class="verbatim">dired-mark-files=regexp</code></td>
+<td>Mark by regular expression</td>
+</tr>
+<tr>
+<td><code class="verbatim">o</code></td>
+<td><code class="verbatim">dired-find-file-other-window</code></td>
+<td>Open file in other window</td>
+</tr>
+<tr>
+<td><code class="verbatim">q</code></td>
+<td><code class="verbatim">quit-window</code></td>
+<td>Close the buffer</td>
+</tr>
+<tr>
+<td><code class="verbatim">R</code></td>
+<td><code class="verbatim">dired-do-rename</code></td>
+<td>Rename (move) a file</td>
+</tr>
+<tr>
+<td><code class="verbatim">t</code></td>
+<td><code class="verbatim">dired-toggle-marks</code></td>
+<td>Inverse marked files</td>
+</tr>
+<tr>
+<td><code class="verbatim">u</code></td>
+<td><code class="verbatim">dired-unmark</code></td>
+<td>Unmark file under cursor</td>
+</tr>
+<tr>
+<td><code class="verbatim">U</code></td>
+<td><code class="verbatim">dired-unmark-all-marks</code></td>
+<td>Unmark all files</td>
+</tr>
+<tr>
+<td><code class="verbatim">&amp;</code></td>
+<td><code class="verbatim">dired-do-async-shell-command</code></td>
+<td>Open file with other program</td>
+</tr>
+<tr>
+<td><code class="verbatim">enter</code></td>
+<td><code class="verbatim">dired-find-file</code></td>
+<td>Open file</td>
+</tr>
+</tbody>
+</table>
+<figcaption>
+Dired key bindings.
+</figcaption>
+</figure>
+<p>
+The dired package is a convenient and powerful tool to keep your drives organised and access your information. Developers have published an extensive collection of extensions to dired to add functionality, which you can find in the package manager.</p>
+<p>
+Dired lists files and directories in alphabetical order. I prefer a different view, which shows directories on top and files below them. The parameters determine the order of the entries in the folder.</p>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Removing hidden files from view
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Your Dired view might be littered with hidden files and folders that start with a dot. You can remove these by marking them with a regular expression and removing these lines from view, but that is a bit awkward to do every time you open a Dired buffer. The Dired-X package provides functionality to hide files that meet a certain condition. The <em>Emacs Writing Studio</em> configuration for Dired omits all files staring with a dot.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  <span style="color:#888">;; Hide hidden files</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">dired-hide-dotfiles</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:hook</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">dired-mode</span> <span style="color:#333">.</span> <span style="color:#963">dired-hide-dotfiles-mode</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:bind</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#007020">:map</span> <span style="color:#963">dired-mode-map</span> (<span style="background-color:#fff0f0">&#34;.&#34;</span> <span style="color:#333">.</span> <span style="color:#963">dired-hide-dotfiles-mode</span>)))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Dired Configuration
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p><em>Emacs Writing Studio</em> uses the following configuration for Dired:</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">dired</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:ensure</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#036;font-weight:bold">nil</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:commands</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">dired</span> <span style="color:#963">dired-jump</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:init</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#007020">with-eval-after-load</span> <span style="color:#a60;background-color:#fff0f0">&#39;dired</span> (<span style="color:#007020">require</span> <span style="color:#a60;background-color:#fff0f0">&#39;dired-x</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:config</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#06b;font-weight:bold">put</span> <span style="color:#a60;background-color:#fff0f0">&#39;dired-find-alternate-file</span> <span style="color:#a60;background-color:#fff0f0">&#39;disabled</span> <span style="color:#036;font-weight:bold">nil</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">dired-listing-switches</span>
+</span></span><span style="display:flex;"><span>     <span style="background-color:#fff0f0">&#34;-goah --group-directories-first --time-style=long-iso&#34;</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">dired-dwim-target</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">delete-by-moving-to-trash</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">dired-omit-files</span> (<span style="color:#007020">rx</span> (<span style="color:#963">seq</span> <span style="color:#963">bol</span> <span style="background-color:#fff0f0">&#34;.&#34;</span>))) <span style="color:#888">;; Omit dot files</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:bind</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#007020">:map</span> <span style="color:#963">dired-mode-map</span> (<span style="background-color:#fff0f0">&#34;.&#34;</span> <span style="color:#333">.</span> <span style="color:#963">dired-omit-mode</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:hook</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">dired-mode</span> <span style="color:#333">.</span> <span style="color:#963">dired-omit-mode</span>))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+Backup files
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>This last bit of configuration code defines how Emacs deals with automated backups. The default setting is that the system stores these files in the folder where the original files lives, clutterin/g your drive with copies of your stuff. The setting below modifies the <code class="verbatim">backup-directory-alist</code> variable so that Emacs saves all backups in your configuration folder. This configuration also eliminates lock files, which are only useful when working in shared folders.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  <span style="color:#888">;; Backup files</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">setq-default</span> <span style="color:#963">backup-directory-alist</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#333">`</span>((<span style="background-color:#fff0f0">&#34;.&#34;</span> <span style="color:#333">.</span> <span style="color:#333">,</span>(<span style="color:#06b;font-weight:bold">expand-file-name</span> <span style="background-color:#fff0f0">&#34;backups/&#34;</span> <span style="color:#963">user-emacs-directory</span>)))
+</span></span><span style="display:flex;"><span>                <span style="color:#963">create-lockfiles</span> <span style="color:#036;font-weight:bold">nil</span>)  <span style="color:#888">; No lock files</span></span></span></code></pre></div>
+</div>
+<p>
+Alternatively, you could instruct Emacs to not save backups at all with <code>(setq-default make-backup-files nil)</code>. I prefer keeping backups as they have saved my bacon a few times in the past.</p>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+Recent Files and Bookmarks
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Whenever you return to Emacs you might want to open a file you were working on recently. The recent files minor mode (<code>recentf-mode</code>) provides a transient list of the files you most recently opened. </p>
+<p>
+This minor mode saves the most recent opened files when you exit Emacs to a file in your configuration folder. However, it might be more useful to save the recent files regularly to ensure it is saved. The <code>run-at-time</code> function runs a function at a regular interval, in this case every five minutes. The <code>recentf-edit-list</code> function opens the file with your recent acquisitions and lets you delete selected files.</p>
+<p>
+By default, the recent files mode stores the last twenty opened files, which you can change by modifying the <code>recentf-max-saved-items</code> variable. </p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; Recent files</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">recentf</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:config</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">recentf-mode</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">run-at-time</span> <span style="color:#036;font-weight:bold">nil</span> (<span style="color:#06b;font-weight:bold">*</span> <span style="color:#00d;font-weight:bold">5</span> <span style="color:#00d;font-weight:bold">60</span>) <span style="color:#a60;background-color:#fff0f0">&#39;recentf-save-list</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">recentf-max-saved-items</span> <span style="color:#00d;font-weight:bold">50</span>))</span></span></code></pre></div>
+</div>
+<p>
+Recent files are transient as they are continuously updated as you open new files. For a more permanent list of files you like to open, use <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Bookmarks.html">bookmarks</a>.</p>
+<p>
+You can store a file as a bookmark with <code class="verbatim">C-x r m</code> (<code>bookmark-set</code>). The bookmark will also store the location of the cursor, so you can maintain multiple bookmarks for a file. The default name for the bookmark is the name of the file. You can also enter a bespoke name in the minibuffer before hitting <code class="verbatim">ENTER</code>.</p>
+<p>
+To view a list of all bookmarks in the minibuffer and select the one you like to open, use <code class="verbatim">C-x r b</code> (<code>bookmark-jump</code>). </p>
+<p>
+Bookmarks are saved in the <code class="verbatim">bookmarks</code> file in your configuration folder every time a new bookmark is created. The <code>bookmark-save-flag</code> is set to one so that the bookmarks file is saved every time you add a new one. The default value only saves it when you exit Emacs, which mean you could loose bookmarks in the unlikely event of an Emacs or system crash.</p>
+<p>
+If you like to remove  bookmark no longer required then use the <code>bookmark-delete</code> function, which has no default keybinding but is bound to <code class="verbatim">C-x r D</code> in the <em>Emacs Writing Studio</em> configuration.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; Bookmarks</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">bookmark</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">bookmark-save-flag</span> <span style="color:#00d;font-weight:bold">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:bind</span>
+</span></span><span style="display:flex;"><span>    (<span style="background-color:#fff0f0">&#34;C-x r D&#34;</span> <span style="color:#333">.</span> <span style="color:#963">bookmark-delete</span>))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>If you like to support my work, then please purchase the <em>Emacs Writing Studio</em> book.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+You can find the source files for the book and the latest configuration files on GitHub:</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+Emacs is a malleable system, so everybody will have their personal preferences to undertake a task. Any article on how to be productive with Emacs is thus opinionated. If you have a different way of doing things, please share your views and leave a comment below, or complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email.</p>
+<p>
+The next article in this series discusses how to use <a href="https://lucidmanager.org/productivity/using-emacs-image-dired/">dired to view images</a>.</p>
+</div>
+</div>
+
+      

@@ -1,0 +1,142 @@
+
+         
+         <p>[ This is of interest to users who want to create a new theme on top of
+  Modus (for private purposes or as a package). ]</p>
+
+<p>The current development target of the Modus themes includes the
+function <code class="language-plaintext highlighter-rouge">modus-themes-generate-palette</code>. I have updated the manual
+with a detailed, step-by-step guide on how to use that function to
+derive a custom theme. I am doing it with Solarized, since it is
+well-known. Start here: <a href="https://protesilaos.com/emacs/modus-themes#h:3a7ede17-f0d4-4322-8e69-1804ed69012b">https://protesilaos.com/emacs/modus-themes#h:3a7ede17-f0d4-4322-8e69-1804ed69012b</a></p>
+
+<p>The reason I wrote this function is to make it easier for users to get
+started with their Modus ports. The common workflow is for someone to
+copy a colour scheme from their favourite terminal emulator and use it
+as a starting point for their Emacs theme. Modus will do the heavy
+lifting in the background.</p>
+
+<p><code class="language-plaintext highlighter-rouge">modus-themes-generate-palette</code> returns a fully fledged Modus palette:
+the literal hundreds of entries are all defined, even if we only give
+it a couple of colour values. The more colours we specify, the more
+defined the character of the resulting palette will be—and we have
+complete control, as the manual demonstrates.</p>
+
+<p>A good starting point is to provide values for the main background (<code class="language-plaintext highlighter-rouge">bg-main</code>),
+main foreground (<code class="language-plaintext highlighter-rouge">fg-main</code>), and the basic hues of <code class="language-plaintext highlighter-rouge">red</code>, <code class="language-plaintext highlighter-rouge">green</code>,
+<code class="language-plaintext highlighter-rouge">yellow</code>, <code class="language-plaintext highlighter-rouge">blue</code>, <code class="language-plaintext highlighter-rouge">magenta</code>, and <code class="language-plaintext highlighter-rouge">cyan</code>.</p>
+
+<p>Options for power users are available. Though the point is to lower
+the barrier to entry for those who want to start with something
+tolerable. Then they can trust that I cover everything they need to
+gradually evolve their theme to be as complete as core Modus.</p>
+
+<p>In the manual I used Solarized as an example, with usable code
+snippets that you can copy+paste. Those yield a theme, if you try
+them. Below is a complete, albeit generic, Modus+Solarized theme. It
+is a decent starting point.</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; Modus+Solarized dark</span>
+<span class="p">(</span><span class="nb">defvar</span> <span class="nv">modus-solarized-dark-palette</span>
+  <span class="p">(</span><span class="nv">modus-themes-generate-palette</span>
+   <span class="o">'</span><span class="p">((</span><span class="nv">bg-main</span> <span class="s">"#073642"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">fg-main</span> <span class="s">"#EEE8D5"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">red</span> <span class="s">"#DC322F"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">green</span> <span class="s">"#859900"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">yellow</span> <span class="s">"#B58900"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">blue</span> <span class="s">"#268BD2"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">magenta</span> <span class="s">"#D33682"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">cyan</span> <span class="s">"#2AA198"</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nv">modus-themes-theme</span>
+ <span class="ss">'modus-solarized-dark</span>
+ <span class="ss">'modus-solarized-themes</span>
+ <span class="s">"Sample of a basic Solarized dark port."</span>
+ <span class="ss">'dark</span>
+ <span class="ss">'modus-solarized-dark-palette</span>
+ <span class="no">nil</span>
+ <span class="no">nil</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Do not rush to play around with this snippet. The chapter in the
+manual I linked to above has much more about this topic. Take some
+time to read through it. You can extend the port to also map out all
+the colors you want. Thus:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; Modus+Solarized dark</span>
+<span class="p">(</span><span class="nb">defvar</span> <span class="nv">modus-solarized-dark-palette</span>
+  <span class="p">(</span><span class="nv">modus-themes-generate-palette</span>
+   <span class="c1">;; We provide the two base colors of Solarized, plus most of its</span>
+   <span class="c1">;; accents.  These form the BASE-COLORS we pass as an argument.</span>
+   <span class="c1">;; All other color values come from those.  The BASE-COLORS here</span>
+   <span class="c1">;; are enough to generate a new palatte that has no traces of, say,</span>
+   <span class="c1">;; the `modus-vivendi' color values.</span>
+   <span class="o">'</span><span class="p">((</span><span class="nv">bg-main</span> <span class="s">"#073642"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">fg-main</span> <span class="s">"#EEE8D5"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">red</span> <span class="s">"#DC322F"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">green</span> <span class="s">"#859900"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">yellow</span> <span class="s">"#B58900"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">blue</span> <span class="s">"#268BD2"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">magenta</span> <span class="s">"#D33682"</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">cyan</span> <span class="s">"#2AA198"</span><span class="p">))</span>
+   <span class="c1">;; The COOL-OR-WARM-PREFERENCE is derived internally based on</span>
+   <span class="c1">;; `bg-main'.  We can pass it here if we feel strongly about it.</span>
+   <span class="no">nil</span>
+   <span class="c1">;; If we need to specify the CORE-PALETTE from where to inherit any</span>
+   <span class="c1">;; missing colors and/or semantic mappings, we can give it here.</span>
+   <span class="c1">;; Though nil is the appropriate starting point, as the code will</span>
+   <span class="c1">;; handle things internally.</span>
+   <span class="no">nil</span>
+   <span class="c1">;; And here are our MAPPINGS where we can specify what values apply</span>
+   <span class="c1">;; to which semantic color.  The `modus-themes-list-colors' shows</span>
+   <span class="c1">;; them all.</span>
+   <span class="c1">;;</span>
+   <span class="c1">;; Note that in our BASE-COLORS above we never wrote what, say,</span>
+   <span class="c1">;; `magenta-warmer' is: it is derived programmatically from the</span>
+   <span class="c1">;; `magenta' we have there.  Absent that, it would be taken from</span>
+   <span class="c1">;; the CORE-PALETTE.</span>
+   <span class="o">'</span><span class="p">((</span><span class="nv">cursor</span> <span class="nv">magenta-warmer</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">bg-hl-line</span> <span class="nv">bg-blue-nuanced</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">bg-paren-match</span> <span class="nv">bg-magenta-subtle</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">bg-region</span> <span class="nv">bg-blue-intense</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">fg-region</span> <span class="nv">fg-dim</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">bg-mode-line-active</span> <span class="nv">bg-blue-nuanced</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">fg-mode-line-active</span> <span class="nv">blue-warmer</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">border-mode-line-active</span> <span class="nv">blue-cooler</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nv">modus-themes-theme</span>
+ <span class="ss">'modus-solarized-dark</span>
+ <span class="ss">'modus-solarized-themes</span>
+ <span class="s">"Sample of a basic Solarized dark port."</span>
+ <span class="ss">'dark</span>
+ <span class="ss">'modus-solarized-dark-palette</span>
+ <span class="no">nil</span>
+ <span class="no">nil</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Using this infrastructure, I am confident that we can implement any
+colour scheme as a Modus theme—and, again, we can configure every
+part of it.</p>
+
+<p>The manual is extensive, though remember that I remain at your
+disposal in case something is unclear: open an issue in the Modus
+themes repository or <a href="https://protesilaos.com/contact/">contact me</a>
+and I will help you.</p>
+
+<h2>Sources</h2>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">modus-themes</code> (also built into Emacs)</li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/modus-themes">https://protesilaos.com/emacs/modus-themes</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/modus-themes-changelog">https://protesilaos.com/emacs/modus-themes-changelog</a></li>
+  <li>Colour palette: <a href="https://protesilaos.com/emacs/modus-themes-colors">https://protesilaos.com/emacs/modus-themes-colors</a></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/modus-themes-pictures">https://protesilaos.com/emacs/modus-themes-pictures</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/modus-themes">https://github.com/protesilaos/modus-themes</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/modus-themes">https://gitlab.com/protesilaos/modus-themes</a></li>
+    </ul>
+  </li>
+  <li>Backronym: My Old Display Unexpectedly Sharpened … themes.</li>
+</ul>
+        
+      

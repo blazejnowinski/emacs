@@ -1,0 +1,28 @@
+
+         
+         <p>Raw link: <a href="https://www.youtube.com/watch?v=IVTqn9IgBN4">https://www.youtube.com/watch?v=IVTqn9IgBN4</a></p>
+         
+         <p><strong>UPDATE 2026-04-13 18:00 +0300:</strong> I wrote the package during the
+stream: <a href="https://github.com/protesilaos/modus-themes-exporter">https://github.com/protesilaos/modus-themes-exporter</a>.</p>
+
+<hr />
+
+<p>[ The stream will be recorded. You can watch it later. ]</p>
+
+<p>Today, the 13th of April 2026, at 15:00 Europe/Athens I will do a live
+stream in which I will develop the new <code class="language-plaintext highlighter-rouge">modus-themes-exporter</code> package
+for Emacs.</p>
+
+<p>The idea for this package is based on an old experiment of mine: to
+get the palette of a Modus theme and “export” it to another file
+format for use in supported terminal emulators or, potentially, other
+applications.</p>
+
+<p>My focus today will be on writing the core functionality and testing
+it with at least one target application.</p>
+
+<p>Prior work of mine from my pre-Emacs days is the
+<code class="language-plaintext highlighter-rouge">tempus-themes-generator</code>, which was written in Bash:
+<a href="https://gitlab.com/protesilaos/tempus-themes-generator">https://gitlab.com/protesilaos/tempus-themes-generator</a>.</p>
+        
+      

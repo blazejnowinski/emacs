@@ -1,0 +1,312 @@
+
+	
+<p>
+The first step in the <em>Emacs Writing Studio</em> <a href="https://lucidmanager.org/productivity/emacs-workflow/">workflow</a> is ingestion (reading, listening and watching) new content. Reading ebooks with Emacs is straightforward as it provides functionality to read several popular types of electronic documents, such as PDF and ePub. The software can also browse the web with an unobtrusive plain text browser.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+The source files of the book and EWS configuration are also freely available on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<figure>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/RGUvNnO7lj4?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<figcaption>
+Emacs Writing Studio video demonstration of reading e-books, managing a bibliography, reading websites and listening to music.
+</figcaption>
+</figure>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Reading Documents
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>Emacs is excels at working with plain text in almost every imaginable format. However, it needs assistance from external software to display other document types, such as PDF or office formats. The diagram below shows the various external software packages necessary to render pages from the supported file formats. When you start the <em>Emacs Writing Studio</em> configuration, you will receive a warning if any of the required packages is unavailable on your system.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/doc-view.png" alt="Document conversion in Doc-View" title="Document conversion in Doc-View" width="300"/>
+<figcaption>
+Document conversion in Doc-View.
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+ePub files
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>An ePub file (Electronic Publication) is a widely used open standard format for digital books, magazines, and other written content. The content can adapt to different screen sizes, making it ideal for e-readers, tablets, and other devices.</p>
+<p>
+An ePub file is a website in a box. The content and the layout are stored in a ZIP file. You can see the raw content of an ePub file with an archiving utility. You need to install the <code class="verbatim">unzip</code> package to view the content.</p>
+<p>
+The <code class="verbatim">nov</code> package by <a href="https://depp.brause.cc/nov.el/">Vasilij Schneidermann</a> lets you read ePub books inside Emacs. The code after the <code class="verbatim">:init</code> line associates files with the <code class="verbatim">.epub</code> extension to this package.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  <span style="color:#888">;; Read ePub files</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">nov</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:init</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">add-to-list</span> <span style="color:#a60;background-color:#fff0f0">&#39;auto-mode-alist</span> <span style="color:#333">&#39;</span>(<span style="background-color:#fff0f0">&#34;\\.epub\\&#39;&#34;</span> <span style="color:#333">.</span> <span style="color:#963">nov-mode</span>)))</span></span></code></pre></div>
+</div>
+<p>
+You can now open ebooks like any other Emacs file. Use the arrow and <code class="verbatim">page-up</code> / <code class="verbatim">page-down</code> keys to navigate each chapter. Several keyboard shortcuts are available to navigate the book:</p>
+<ul>
+<li><code class="verbatim">t</code>: go Table of contents</li>
+<li><code class="verbatim">n</code> and <code class="verbatim">p</code> or <code class="verbatim">[</code> and <code class="verbatim">]</code>: Next or previous chapter</li>
+<li><code class="verbatim">q</code>: Quit the ebook reader</li>
+<li><code class="verbatim">?</code>: Help file with list of other keyboard shortcuts</li>
+</ul>
+<p>To increase or decrease the text, use the <code class="verbatim">C-x C-+</code> and <code class="verbatim">C-c C--</code> shortcuts. To reset the length of the lines, press <code class="verbatim">g</code> to re-render the document.</p>
+<p>
+The ebooks are opened as a read-only file. You can copy and paste text into your bibliographic notes. Opening the file as an archive with the <code class="verbatim">a</code> key shows the document&#39;s structure. From here, you can also copy images from the book with the <code class="verbatim">C</code> keyboard shortcut. For more information about using files in Emacs, read <a href="https://lucidmanager.org/productivity/manage-files-with-emacs/">manage files with Emacs</a>.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+PDF files
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The Portable Document Format (PDF) is a versatile format developed by Adobe in the early 1990s. This format presents documents consistently, regardless of the software, hardware, or operating system used to view them. This format is codified in an international standard and has become the de facto standard for electronic literature.</p>
+<p>
+The layout of PDF documents is fixed, in contrast with other electronic formats, which can adjust to the screen size. A PDF file is usually designed for printing and, as such, follows a traditional physical layout and typography.</p>
+<p>
+Emacs can display PDF files out of the box with the DocView major mode. However, you will need some external software for DocView to work. <a href="https://www.ghostscript.com/">GhostScript</a> or <a href="https://mupdf.com/">MUPDF</a> convert PDF files to images and provides them to DocView. This approach works because Emacs has built-in functionality to <a href="https://lucidmanager.org/productivity/using-emacs-image-dired/">display and manipulate images</a>.</p>
+<p>
+This conversion means that DocView can be sluggish with large documents and will warn you. The <code>large-file-warning-threshold</code> variable sets the threshold for these warnings, which is 10 Mb by default. This value is a bit low for modern systems and in <em>Emacs Writing Studio</em>, this threshold is 50 Mb.</p>
+<p>
+Use the arrow and <code class="verbatim">page-up</code> / <code class="verbatim">page-down</code> keys to turn pages. Several keyboard shortcuts are available to navigate the file:</p>
+<ul>
+<li><code class="verbatim">P</code>: Zoom to the full page</li>
+<li><code class="verbatim">W</code>: Fit document width to window</li>
+<li><code class="verbatim">H</code>: Fit height to window</li>
+<li><code class="verbatim">+</code> / <code class="verbatim">-</code>: Zoom in and out</li>
+<li><code class="verbatim">M-g g</code>: Jump to page</li>
+<li><code class="verbatim">M-&lt;</code> / <code class="verbatim">M-&gt;</code>: Jump to first page or last page</li>
+<li><code class="verbatim">k</code>: Kill (close) the file</li>
+<li><code class="verbatim">?</code>: Help file</li>
+</ul>
+<p>To enable searching in PDF and other supported document formats, you must have the <code class="verbatim">pdftotext</code> software installed, which is part of the <code class="verbatim">poppler</code> package, a PDF utility named after a <a href="https://poppler.freedesktop.org/">Futurama episode</a>.</p>
+<p>
+You can search within the document with <code>doc-view-search</code> (bound to <code class="verbatim">C-s</code>), which starts a search, creates a list of all matching pages and shows how many pages that contain the search query were found. After completing the search, you can jump to the next page containing a match with an additional <code class="verbatim">C-s</code>.  DocView does not highlight the searched term, but pressing <code class="verbatim">C-t</code> (<code>doc-view-show-tooltip</code>) shows the search results for this page in a tooltip.</p>
+<p>
+Poppler also allows you to view a PDF file as a plain text file with the <code class="verbatim">C-c t</code> shortcut (<code>doc-view-open-text</code>). This option makes it easier to search and copy relevant text. Return to the graphical view of the text by pressing <code class="verbatim">C-c C-c</code> twice.</p>
+<p>
+We need some configuration to optimise how DocView displays pages. This code enhances the resolution of the page images to 300 DPI.</p>
+<p>
+If you use Emacs 29.1 or higher and have the <code class="verbatim">MuPDF</code> software available, then DocView will convert PDF pages to SVG files instead of PNG files, which provides a crisper image and better for zooming in closely.</p>
+<p>
+Lastly, this configuration also moves the threshold for warning against opening large files to 50Mb ($50 \times 2^{20}$ bytes).</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  <span style="color:#888">;; Doc-View</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">doc-view</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">doc-view-resolution</span> <span style="color:#00d;font-weight:bold">300</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">doc-view-mupdf-use-svg</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">large-file-warning-threshold</span> (<span style="color:#06b;font-weight:bold">*</span> <span style="color:#00d;font-weight:bold">50</span> (<span style="color:#06b;font-weight:bold">expt</span> <span style="color:#00d;font-weight:bold">2</span> <span style="color:#00d;font-weight:bold">20</span>))))</span></span></code></pre></div>
+</div>
+<p>
+This article on the <a href="https://emacsnotes.wordpress.com/2018/08/09/222/">Emacs Notes website</a> also provides a detailed explanation of how to configure and use DocView and enhances the dropdown menu functionality.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+DjVu Books
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The DjVu format is designed primarily to store scanned documents. DocView can read DjVu files when <a href="https://djvu.sourceforge.net/">DjVuLibre</a> is available on your system.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Office Suite Documents
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>The built-in DocView package can read Microsoft Office and LibreOffice files (text documents and presentations), but you first need to install the <a href="https://www.libreoffice.org/">LibreOffice software</a>.</p>
+<p>
+When opening an office document, Emacs invokes LibreOffice to convert the file to a PDF, from where the abovementioned functionality is available.</p>
+<p>
+There is currently a confirmed bug in Org mode (version 9.6.6) that overrides the associations between LibreOffice and Doc View mode. The code below is a workaround to reinstate the desired behaviour and associates the various file extensions with Doc View. The bug is slotted to be resolved in version 9.7.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  <span style="color:#888">;; Reading LibreOffice files</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">ox-odt</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:ensure</span> <span style="color:#036;font-weight:bold">nil</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#888">;; Correct settings </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:config</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">add-to-list</span> <span style="color:#a60;background-color:#fff0f0">&#39;auto-mode-alist</span> <span style="color:#333">&#39;</span>(<span style="background-color:#fff0f0">&#34;\\.\\(?:OD[CFIGPST]\\|od[cfigpst]\\)\\&#39;&#34;</span> <span style="color:#333">.</span> <span style="color:#963">doc-view-mode-maybe</span>)))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Reading websites
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>Emacs has a built-in web browser called <code class="verbatim">eww</code> (The Emacs Web Wowser). This package provides a simple, no-frills experience focusing on readability by displaying a website as a plain text file. It can display images but does not render any CSS for formatting or JavaScript.</p>
+<p>
+A wowser is somebody with strong moral views for temperance and abstinence. So perhaps the plain text approach to browsing is a moral stance on the current World Wide Web and its security and privacy issues.</p>
+<p>
+You can open a URL or search the web with the command <code class="verbatim">M-x eww</code>. If the input doesn&#39;t look like a URL or domain name, Emacs searches the web with the DuckDuckGo search engine. </p>
+<p>
+Use the arrow and page-up / page-down keys to navigate the page. Several keyboard shortcuts are available to navigate the webpage:</p>
+<ul>
+<li><code class="verbatim">&lt;</code>, <code class="verbatim">&gt;</code>: Beginning and end of the page</li>
+<li><code class="verbatim">R</code>: Readable format (only display the main text)</li>
+<li><code class="verbatim">M-I</code>: Toggle images</li>
+<li><code class="verbatim">H</code>: Browsing history</li>
+<li><code class="verbatim">&amp;</code>: Open the page in the external browser</li>
+<li><code class="verbatim">G</code>: New search or website</li>
+<li><code class="verbatim">q</code>: Quit the window</li>
+<li><code class="verbatim">?</code>: Help file with list of other keyboard shortcuts</li>
+</ul>
+<p>When opening a link to a website from inside Emacs, it will open the default browser on your operating system instead of <code class="verbatim">eww</code>. If you prefer to use <code class="verbatim">eww</code> as the default, add this to your configuration file: <code>(setq-default browse-url-browser-function &#39;eww-browse-url)</code>.</p>
+<p>
+Many blogs and podcasts use RSS feeds to notify their readers of new content. The <a href="https://lucidmanager.org/productivity/read-rss-feeds-with-emacs-and-elfeed/">Elfeed package</a> lets you follow your favourite web content using these feeds.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+Reading eBooks with Emacs
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>This chapter focused on how to read documents in non-text formats. Reading these formats requires external software, in sumarry, to read all these formats you need to install:</p>
+<ul>
+<li>Ghostscript (<code>gs</code>) or MuPDF (<code>mutool</code>): Reading PDF files</li>
+<li>Poppler (<code>pdftotext</code>): Converting PDF files to text</li>
+<li>LibreOffice (<code>soffice</code>): Reading and exporting to office documents</li>
+<li><code>unzip</code>: Reading ePub ebooks</li>
+<li>DjVuLibre (<code>ddjvu</code>): Reading DjVu ebooks</li>
+</ul>
+<p>The <em>Emacs Writing Studio</em> configuration issues a warning when any of these packages is unavailable. Emacs will work normally, but some functionality might be unavailable.</p>
+<p>
+Emacs can also publish documents in most of these formats, starting with an Org mode file and export this to the desired format. <em>Emacs Writing Studio</em> discusses:</p>
+<ol>
+<li><a href="https://lucidmanager.org/productivity/publishing-with-org-mode-export/">Publishing Articles and Books with Org Mode Export</a> (PDF, office formats and ePub)</li>
+<li><a href="https://lucidmanager.org/productivity/create-websites-with-org-mode-and-hugo/">Create websites with Emacs and Hugo</a></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>If you like to support my work, then please purchase the <em>Emacs Writing Studio</em> book.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+You can find the source files for the book and the latest configuration files on GitHub:</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+Emacs is a malleable system, and everybody has personal preferences on how to undertake a task and configure Emacs. Any article on how to use Emacs is thus opinionated. If you have a different way of doing things, please complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email or contact me on social media.</p>
+<p>
+The next article discusses how to read <a href="https://lucidmanager.org/productivity/read-rss-feeds-with-emacs-and-elfeed/">RSS feeds</a> to follow your favourite blogs and podcasts.</p>
+</div>
+</div>
+
+      

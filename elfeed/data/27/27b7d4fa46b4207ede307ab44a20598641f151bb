@@ -1,0 +1,302 @@
+
+	
+<p>
+Emacs is a powerful text editor that lets you manage your life and be creative and productive with text. This focus on text does mean that Emacs cannot help you managing and editing images. This article shows how to view and manage images with Emacs using the image-mode and the built-in image-dired package by Mathias Dahl and Stefan Kangas.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+The source files of the book and EWS configuration are also freely available on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Prerequisites
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>Image-mode and the image-dired package are bundled with Emacs, so there is no need to install packages, but you might need some additional software.</p>
+<p>
+You can view images without external software, but you cannot manipulate them. The <a href="https://imagemagick.org/">ImageMagick software suite</a> provides functionality for editing and manipulating images.</p>
+<p>
+<em>Emacs Writing Studio</em> checks whether the required software is available when it starts. Check the <code class="verbatim">*Messages*</code> buffer to see of there are any warnings. </p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Viewing images
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>Emacs can display various popular image formats out-of-the-box with image mode. You can open an image file directly with <code>find-file</code> or through the <a href="https://lucidmanager.org/productivity/manage-files-with-emacs/">directory editor</a> (dired). You can also open an image from within an Org file with <code class="verbatim">C-c C-o</code> (<code>org-open-at-point</code>) with the cursor on the image. Emacs automatically scales the image to snugly fit inside the display window.</p>
+<p>
+A range of keyboard shortcuts are available to view images. The <code class="verbatim">n</code> and <code class="verbatim">p</code> keys (next and previous) or the left and right arrows flick though the images in the current directory.</p>
+<p>
+Image mode also provides several commands to change the display size of images (I am unsure why the prefix key is <code class="verbatim">s</code> for some commands, but <code class="verbatim">i</code> for others, but alas):</p>
+<ul>
+<li><code class="verbatim">s o</code>: Show image at original size (when it doesn&#39;t fit in the window, scroll through the image with the arrow keys).</li>
+<li><code class="verbatim">s w</code>: Fit the current image to the height and width of the window.  </li>
+<li><code class="verbatim">i +</code>: Increase the image size by 20%</li>
+<li><code class="verbatim">i -</code>: Decrease the image size by 20%.</li>
+</ul>
+<p>Furthermore, image mode can manipulate images:</p>
+<ul>
+<li><code class="verbatim">i r</code>: Rotate the image by 90 degrees clockwise.</li>
+<li><code class="verbatim">i h</code>: Flip the image horizontally.</li>
+<li><code class="verbatim">i v</code>: Flip the image vertically.</li>
+<li><code class="verbatim">i c</code>: Crop the image.</li>
+<li><code class="verbatim">i x</code>: Cut a rectangle from the image and replace with black.</li>
+</ul>
+<p>The crop and cut commands display a rectangular frame superimposed on the image. Use the mouse to move and resize the frame. Type <code class="verbatim">m</code> to move the frame instead of resizing it and type <code class="verbatim">s</code> to convert the frame to a square. When you are satisfied with the result, type <code class="verbatim">enter</code> to crop or cut the image. You can exit the crop and cutting menu with <code class="verbatim">q</code> without changing the source file. Please note that these commands are only available when <em>ImageMagick</em> is installed.</p>
+<p>
+If you like to retain the result of the transformation, press <code class="verbatim">i o</code> to save the image under a new name. </p>
+<p>
+When you are done with watching images, use <code class="verbatim">q</code> to quit the image buffer, or <code class="verbatim">k</code> to kill the image buffer altogether.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+The image-dired package
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Viewing images individually is great, but wouldn&#39;t it be nice if you cold see thumbnails before delving into your collection? The image-dired package provides a thumbnail buffer to view and maintain images from within a <a href="https://lucidmanager.org/productivity/manage-files-with-emacs/">dired buffer</a> using thumbnails.</p>
+<p>
+Evaluate the <code>image-dired</code> function (bound to <code class="verbatim">C-c w I</code> in <em>Emacs Writing Studio</em>) and select the directory you like to use. Emacs splits the screen and presents a thumbnail screen (of up to a thousand entries) to explore your collection. Emacs stores the thumbnails in the configuration directory for future reference.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/image-dired-screenshot.jpg" alt="Viewing images with image-dired" title="Viewing images with image-dired"/>
+<figcaption>
+Viewing some travel photos in Emacs with image-dired.
+</figcaption>
+</figure>
+<p>
+Alternatively, when you are inside a Dired buffer that contains images, mark the images you like to view and generate the thumbnails with <code class="verbatim">C-t d</code> (<code>image-dired-display-thumbs</code>). If you don&#39;t mark any files, the program uses the image under the cursor.</p>
+<p>
+Yet another method of previewing your images is by marking the ones you need and generate inline thumbnails inside the Dired buffer with <code class="verbatim">C-t C-t</code> (<code>image-dired-dired-toggle-marked-thumbs</code>). The same shortcut also removes the thumbnails.</p>
+<p>
+The active image is marked with a flashing border around the thumbnail and its filename is displayed on the top of the thumbnail window.</p>
+<p>
+You can navigate the thumbnails with the arrow keys. The <code class="verbatim">&lt;</code> and <code class="verbatim">&gt;</code> keys take you to the start or end of the collection. You can remove a thumbnail from the collection with <code class="verbatim">C-d</code>. If you have selected more images than thumbnails that can fit on page, then image-dired tracks your movement, so as your cursor moves up or down, the thumbnails refresh.</p>
+<p>
+To view an image, hit <code class="verbatim">enter</code> when the thumbnail is marked. You cycle through the marked images in your collection with the <code class="verbatim">space</code> and <code class="verbatim">backspace</code> buttons, or <code class="verbatim">C-&lt;left&gt;</code> /  <code class="verbatim">C-&lt;right&gt;</code>.</p>
+<p>
+But why manually flick through your album if you can let Emacs do this for you? The <code class="verbatim">S</code> key starts a slideshow with each image shown five seconds by default. You can configure the delay with the <code>image-dired-slideshow-delay</code> variable, or drive the slideshow manually with the <code class="verbatim">space</code> and <code class="verbatim">backspace</code> keys, or <code class="verbatim">C-&lt;left&gt;</code> /  <code class="verbatim">C-&lt;right&gt;</code>.</p>
+<p>
+The main image display is in image mode, so all the actions described in the previous section apply.</p>
+<p>
+As usual, <code class="verbatim">q</code> quits the image or thumbnail window.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Tagging images
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>The image-dired software can also create a plain text database of images with searchable tags and thumbnail descriptions. </p>
+<p>
+You tag images directly from a dired buffer. The <code class="verbatim">C-t t</code> keystrokes lets you tag the selected files. You can retrieve the tags in a future session using <code class="verbatim">C-t f</code> and view the image thumbnails with <code class="verbatim">C-t d</code>, as described above. You can tag images from within a thumbnail buffer with the <code class="verbatim">t t</code> shortcut. You can also add a comment to the image by pressing <code class="verbatim">c</code> in the thumbnail viewer.</p>
+<p>
+The file name, tags and comments show in the mini buffer as you move through the image thumbnails: <code class="verbatim">directory: filename (tags): comment</code>.</p>
+<p>
+Emacs stores the metadata in the <code class="verbatim">image-dired</code> directory in your configuration folder in the <code class="verbatim">.image-dired_db</code> file. This is a plain text file that lists each file name and the tags an comment.</p>
+<p>
+Retrieving tagged files only selects images with tags in the directory of the current dired buffer. It does not work across multiple folders. </p>
+<p>
+This tagging system is nice, but it creates an integrity vulnerability in that it separates tags and files. When you accidentally remove the database, all metadata is lost. You will also loose access to the metadata when you rename an image.</p>
+<p>
+An alternative method to tag files is to use the Denote file naming convention, which encodes metadata into the name of the file.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Using Denote to manage images
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Denote is a package to produce and maintain plain text notes, but it can also be used to maintain a collection of binary (non-text) files. When using the <a href="https://lucidmanager.org/productivity/taking-notes-with-emacs-denote/">Denote file naming convention</a> for your images, you can mark parts of you collection using regular expressions. The Denote file naming convention encodes four bits of metadata about a file into the filename. Only the timestamp is compulsory and serves as a unique identifier:</p>
+<ul>
+<li>Timestamp in ISO 8601 format</li>
+<li>An alphanumeric signature (starting with double equality sign (<code>==</code>)</li>
+<li>The title in <a href="https://www.freecodecamp.org/news/snake-case-vs-camel-case-vs-pascal-case-vs-kebab-case-whats-the-difference/">kebab-case</a> (starting with double dash <code>==</code>)</li>
+<li>Keywords in <a href="https://www.freecodecamp.org/news/snake-case-vs-camel-case-vs-pascal-case-vs-kebab-case-whats-the-difference/">snake_case</a> (starting with double underscore <code class="verbatim">__</code>)</li>
+</ul>
+<p>For example, one photo in my collection is: <code class="verbatim">19930825T132000--forbidden-city-throne-palace-of-heavenly-purity__china.jpg</code>. So this photo was taken on 25 August 1993, the title describes the topic of the photograph and </p>
+<p>
+I can now go into Dired and mark files with regular expressions, searching for each of these fields. For example, using <code class="verbatim">%m _china</code> marks photos taken in China, or <code class="verbatim">%m -city</code> all images with the word &#34;city&#34; in their title. Using the Dired convention for naming files is not only great for notes, it also helps you manage your photo collection.</p>
+<p>
+The <code>denote-rename-file</code> function (<code class="verbatim">C-c w R</code>) lets you construct a Denote-compliant file name for existing images or other binary files. This function uses the last modified date as the identifier by default. But when you are sorting old collections you might want to add a date that is different to the last modified one. Adding the universal argument (<code class="verbatim">C-u</code>) will also ask you to provide a date and time, i.e. (<code class="verbatim">C-u C-c w R</code>).</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Editing Images
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Emacs is a powerful piece of software but it is mostly limited to editing text. To meaningfully work with images, you will need another package. Image-dired lets you open images in external viewers or editors by setting one variable.</p>
+<p>
+Pressing <code class="verbatim">C-enter</code> opens the file in an external viewer or editor. You can tell Emacs which external viewer to user by configuring the <code class="verbatim">image-dired-external-viewer</code> variable. I linked it to the GIMP (<a href="https://www.gimp.org/">GNU Image Manipulation Program</a>). The content of this variable obviously depends on your system and preferred viewer.</p>
+<p>
+When you are in an image-dired buffer, you open the external viewer with <code class="verbatim">C-enter</code>. Confusingly, when you are in a normal dired buffer, this function is bound to <code class="verbatim">C-t x</code>. <em>Emacs Writing Studio</em> remaps the keys so that you can use <code class="verbatim">C-enter</code> in dired and in image-dired to open an image in your favourite external editor.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+Configuration
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>Emacs image-mode and image-dired work out-of-the-box, but some configuration helps to add some convenience.</p>
+<p>
+This configuration adds keyboard shortcuts to kill an image buffer, so your Emacs session is not littered with open pictures. It also lets you view your image gallery with the arrow keys instead of the non-intuitive <code class="verbatim">space</code> and <code class="verbatim">backspace</code> combination.</p>
+<p>
+If you like reading more details about image-mode and its configuration options, type <code class="verbatim">C-h r</code> to open the Emacs manual, followed by <code class="verbatim">g image-mode return</code>.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  <span style="color:#888">;; Image viewer</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">emacs</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:bind</span>
+</span></span><span style="display:flex;"><span>    ((<span style="color:#007020">:map</span> <span style="color:#963">image-mode-map</span>
+</span></span><span style="display:flex;"><span>                (<span style="background-color:#fff0f0">&#34;k&#34;</span> <span style="color:#333">.</span> <span style="color:#963">image-kill-buffer</span>)
+</span></span><span style="display:flex;"><span>                (<span style="background-color:#fff0f0">&#34;&lt;right&gt;&#34;</span> <span style="color:#333">.</span> <span style="color:#963">image-next-file</span>)
+</span></span><span style="display:flex;"><span>                (<span style="background-color:#fff0f0">&#34;&lt;left&gt;&#34;</span>  <span style="color:#333">.</span> <span style="color:#963">image-previous-file</span>))
+</span></span><span style="display:flex;"><span>     (<span style="color:#007020">:map</span> <span style="color:#963">dired-mode-map</span>
+</span></span><span style="display:flex;"><span>      (<span style="background-color:#fff0f0">&#34;C-&lt;return&gt;&#34;</span> <span style="color:#333">.</span> <span style="color:#963">image-dired-dired-display-external</span>))))</span></span></code></pre></div>
+</div>
+<p>
+The configuration for the image-dired package defines the external viewer and defines some convenience keybindings to flick through your albums.</p>
+<p>
+To find out about further customisation options, type <code class="verbatim">C-h r</code> to open the Emacs manual, followed by <code class="verbatim">g Image-Dired return</code>.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">image-dired</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">image-dired-external-viewer</span> <span style="background-color:#fff0f0">&#34;gimp&#34;</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">image-dired-thumb-margin</span> <span style="color:#00d;font-weight:bold">10</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:bind</span>
+</span></span><span style="display:flex;"><span>    ((<span style="background-color:#fff0f0">&#34;C-c w I&#34;</span> <span style="color:#333">.</span> <span style="color:#963">image-dired</span>))
+</span></span><span style="display:flex;"><span>     (<span style="color:#007020">:map</span> <span style="color:#963">image-dired-thumbnail-mode-map</span>
+</span></span><span style="display:flex;"><span>      (<span style="background-color:#fff0f0">&#34;C-&lt;right&gt;&#34;</span> <span style="color:#333">.</span> <span style="color:#963">image-dired-display-next</span>)
+</span></span><span style="display:flex;"><span>      (<span style="background-color:#fff0f0">&#34;C-&lt;left&gt;&#34;</span> <span style="color:#333">.</span> <span style="color:#963">image-dired-display-previous</span>)))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>If you like to support my work, then please purchase the <em>Emacs Writing Studio</em> book.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+You can find the source files for the book and the latest configuration files on GitHub:</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+Emacs is a malleable system, so everybody will have their personal preferences to undertake a task. Any article on how to be productive with Emacs is thus opinionated. If you have a different way of doing things, please share your views and leave a comment below, or complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email.</p>
+<p>
+This is the last article in the <em>Emacs Writing Studio</em> series.</p>
+</div>
+</div>
+
+      

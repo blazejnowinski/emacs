@@ -1,0 +1,283 @@
+
+         
+         <p>These are the basic settings for Emacs that I shared with Sacha Chua
+during our livestreamed meeting on 2026-04-30: <a href="https://www.youtube.com/watch?v=z7pcLdwuyxE">https://www.youtube.com/watch?v=z7pcLdwuyxE</a>.</p>
+
+<p><strong>UPDATE 2026-05-01 08:24 +0300:</strong> Added a missing <code class="language-plaintext highlighter-rouge">:config</code> to the
+<code class="language-plaintext highlighter-rouge">bookmark</code> block.</p>
+
+<p><strong>UPDATE 2026-05-02 22:33 +0300:</strong> Replaced duplicate <code class="language-plaintext highlighter-rouge">variable-pitch</code>
+with the intended <code class="language-plaintext highlighter-rouge">fixed-pitch</code>.</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;;; Sensible defaults that are not too intrusive and focus on common use-cases.  By Protesilaos on 2026-04-30.</span>
+
+<span class="c1">;; These are not all of my favourite options.  I am not even including</span>
+<span class="c1">;; any of my packages.  They are just some basics that I consider</span>
+<span class="c1">;; useful, given what I have learnt from my exchange with other people</span>
+<span class="c1">;; of all skill levels.</span>
+
+
+<span class="c1">;; Persist all customisations in a separate file called "custom.el".</span>
+<span class="c1">;; It is in the same directory as the "init.el".</span>
+<span class="c1">;;</span>
+<span class="c1">;; Without the `custom-file', Emacs writes directly to the "init.el",</span>
+<span class="c1">;; which can be confusing.</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">custom-file</span> <span class="p">(</span><span class="nv">locate-user-emacs-file</span> <span class="s">"custom.el"</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">load</span> <span class="nv">custom-file</span> <span class="ss">:no-error-if-file-is-missing</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">use-package</span> <span class="nc">package</span>
+  <span class="ss">:ensure</span> <span class="no">nil</span>
+  <span class="ss">:config</span>
+  <span class="c1">;; I am not using `add-to-list' here because the default "gnu" is</span>
+  <span class="c1">;; confusing to people, given that "elpa" is the better known name</span>
+  <span class="c1">;; for it.</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">package-archives</span>
+        <span class="o">'</span><span class="p">((</span><span class="s">"gnu-elpa"</span> <span class="o">.</span> <span class="s">"https://elpa.gnu.org/packages/"</span><span class="p">)</span>
+          <span class="p">(</span><span class="s">"nongnu"</span> <span class="o">.</span> <span class="s">"https://elpa.nongnu.org/nongnu/"</span><span class="p">)</span>
+          <span class="p">(</span><span class="s">"melpa"</span> <span class="o">.</span> <span class="s">"https://melpa.org/packages/"</span><span class="p">)))</span>
+  <span class="c1">;; Prefer GNU ELPA but accept the reality of MELPA's utility to the</span>
+  <span class="c1">;; wider community.</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">package-archive-priorities</span>
+        <span class="o">'</span><span class="p">((</span><span class="s">"gnu-elpa"</span> <span class="o">.</span> <span class="mi">3</span><span class="p">)</span>
+          <span class="p">(</span><span class="s">"nongnu"</span> <span class="o">.</span> <span class="mi">2</span><span class="p">)</span>
+          <span class="p">(</span><span class="s">"melpa"</span> <span class="o">.</span> <span class="mi">1</span><span class="p">))))</span>
+
+<span class="c1">;;;; General options</span>
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">emacs</span>
+  <span class="ss">:ensure</span> <span class="no">nil</span>
+  <span class="ss">:demand</span> <span class="no">t</span>
+  <span class="ss">:init</span>
+  <span class="p">(</span><span class="nb">defun</span> <span class="nv">prot/keyboard-quit-dwim</span> <span class="p">()</span>
+    <span class="s">"Do-What-I-Mean behaviour for a general `keyboard-quit'.
+
+The generic `keyboard-quit' does not do the expected thing when
+the minibuffer is open.  Whereas we want it to close the
+minibuffer, even without explicitly focusing it.
+
+The DWIM behaviour of this command is as follows:
+
+- When the region is active, disable it.
+- When a minibuffer is open, but not focused, close the minibuffer.
+- When the Completions buffer is selected, close it.
+- In every other case use the regular `keyboard-quit'."</span>
+    <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">cond</span>
+     <span class="p">((</span><span class="nv">region-active-p</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">keyboard-quit</span><span class="p">))</span>
+     <span class="p">((</span><span class="nv">derived-mode-p</span> <span class="ss">'completion-list-mode</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">delete-completion-window</span><span class="p">))</span>
+     <span class="p">((</span><span class="nb">&gt;</span> <span class="p">(</span><span class="nv">minibuffer-depth</span><span class="p">)</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">abort-recursive-edit</span><span class="p">))</span>
+     <span class="p">(</span><span class="no">t</span>
+      <span class="p">(</span><span class="nv">keyboard-quit</span><span class="p">))))</span>
+  <span class="ss">:bind</span>
+  <span class="p">(</span><span class="s">"C-g"</span> <span class="o">.</span> <span class="nv">prot/keyboard-quit-dwim</span><span class="p">)</span>
+  <span class="ss">:config</span>
+  <span class="c1">;; Set your favourite font family and height here.  The :height is</span>
+  <span class="c1">;; 10x the point size you most commonly find on other applications.</span>
+  <span class="p">(</span><span class="nv">set-face-attribute</span> <span class="ss">'default</span> <span class="no">nil</span> <span class="ss">:family</span> <span class="s">"Aporetic Sans Mono"</span> <span class="ss">:height</span> <span class="mi">160</span><span class="p">)</span>
+  <span class="c1">;; Set your favourite font for elements that are designed to always</span>
+  <span class="c1">;; be monospaced.  The height SHOULD BE a floating point, which is</span>
+  <span class="c1">;; interpreted as relative to the `default'.</span>
+  <span class="p">(</span><span class="nv">set-face-attribute</span> <span class="ss">'fixed-pitch</span> <span class="no">nil</span> <span class="ss">:family</span> <span class="s">"Aporetic Serif Mono"</span> <span class="ss">:height</span> <span class="mf">1.0</span><span class="p">)</span>
+  <span class="c1">;; Same as above for proportionately spaced elements.  Make any</span>
+  <span class="c1">;; buffer proportionately spaced by enabling the `variable-pitch-mode'.</span>
+  <span class="c1">;;</span>
+  <span class="c1">;; [ NOTE: If you use the Modus themes or derivatives, set</span>
+  <span class="c1">;;   `modus-themes-mixed-fonts', load the theme for the option to</span>
+  <span class="c1">;;   take effect, and then enable `variable-pitch-mode':</span>
+  <span class="c1">;;   spacing-sensitive elements like Org tables and code blocks will</span>
+  <span class="c1">;;   remain monospaced. ]</span>
+  <span class="p">(</span><span class="nv">set-face-attribute</span> <span class="ss">'variable-pitch</span> <span class="no">nil</span> <span class="ss">:family</span> <span class="s">"Aporetic Sans"</span> <span class="ss">:height</span> <span class="mf">1.0</span><span class="p">)</span>
+
+  <span class="c1">;; I have never seen a user say "no" to loading a theme they have</span>
+  <span class="c1">;; downloaded.  Technically, any Elisp file can run arbitrary code,</span>
+  <span class="c1">;; so this is not doing much on the security front.</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">custom-safe-themes</span> <span class="no">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">use-short-answers</span> <span class="no">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">read-answer-short</span> <span class="no">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">help-window-select</span> <span class="no">t</span><span class="p">)</span> <span class="c1">; also check `display-buffer-alist' below</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">help-window-keep-selected</span> <span class="no">t</span><span class="p">)</span> <span class="c1">; Emacs 29</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">find-library-include-other-files</span> <span class="no">nil</span><span class="p">)</span> <span class="c1">; Emacs 29</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">window-combination-resize</span> <span class="no">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">save-interprogram-paste-before-kill</span> <span class="no">t</span><span class="p">)</span>
+  <span class="c1">;; Do not jump to the current line in `*occur*' buffers.  The reason</span>
+  <span class="c1">;; is that you are already on that line: you want to do `occur' to</span>
+  <span class="c1">;; get more than that (and, presumably, to do something with the</span>
+  <span class="c1">;; results such as to edit them with `occur-edit-mode').</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">list-matching-lines-jump-to-current-line</span> <span class="no">nil</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">completion-category-defaults</span> <span class="no">nil</span><span class="p">))</span>
+
+<span class="c1">;;;; Save minibuffer histories</span>
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">savehist</span>
+  <span class="ss">:ensure</span> <span class="no">nil</span>
+  <span class="ss">:config</span>
+  <span class="p">(</span><span class="nv">savehist-mode</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1">;;;; Delete the selected text when inserting new text</span>
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">delsel</span>
+  <span class="ss">:ensure</span> <span class="no">nil</span>
+  <span class="ss">:config</span>
+  <span class="p">(</span><span class="nv">delete-selection-mode</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1">;;;; Bookmarks</span>
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">bookmark</span>
+  <span class="ss">:ensure</span> <span class="no">nil</span>
+  <span class="ss">:config</span>
+  <span class="c1">;; Emacs 29 displays a bookmark icon on the fringe.  Many people</span>
+  <span class="c1">;; have asked me what that thing is.  I also think it is confusing.</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">bookmark-fringe-mark</span> <span class="no">nil</span><span class="p">)</span>
+  <span class="c1">;; Write changes to the bookmark file as soon as 1 modification is</span>
+  <span class="c1">;; made (addition or deletion).  Otherwise Emacs will only save the</span>
+  <span class="c1">;; bookmarks when it closes, which may never happen properly</span>
+  <span class="c1">;; (e.g. power failure).</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">bookmark-save-flag</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1">;;;; Dired</span>
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">dired</span>
+  <span class="ss">:ensure</span> <span class="no">nil</span>
+  <span class="ss">:config</span>
+  <span class="c1">;; Most people I have talked to prefer a single Dired buffer.</span>
+  <span class="c1">;; Personally I like the many Dired buffers, but I understand why</span>
+  <span class="c1">;; this feels overwhelming.</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">dired-kill-when-opening-new-dired-buffer</span> <span class="no">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">dired-auto-revert-buffer</span> <span class="nf">#'</span><span class="nv">dired-directory-changed-p</span><span class="p">)</span> <span class="c1">; also see `dired-do-revert-buffer'</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">dired-clean-up-buffers-too</span> <span class="no">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">dired-clean-confirm-killing-deleted-buffers</span> <span class="no">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">dired-recursive-copies</span> <span class="ss">'always</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">dired-recursive-deletes</span> <span class="ss">'always</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">delete-by-moving-to-trash</span> <span class="no">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">dired-create-destination-dirs</span> <span class="ss">'ask</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">dired-create-destination-dirs-on-trailing-dirsep</span> <span class="no">t</span><span class="p">)</span> <span class="c1">; Emacs 29</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">wdired-create-parent-directories</span> <span class="no">t</span><span class="p">))</span>
+
+<span class="c1">;;;; Isearch</span>
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">isearch</span>
+  <span class="ss">:ensure</span> <span class="no">nil</span>
+  <span class="ss">:config</span>
+  <span class="c1">;; ;; Enable those to make "package install" match those words with</span>
+  <span class="c1">;; ;; anything in between.  I think this is the single best tweak I</span>
+  <span class="c1">;; ;; ever made.</span>
+  <span class="c1">;;</span>
+  <span class="c1">;; (setq search-whitespace-regexp ".*?")</span>
+  <span class="c1">;; (setq isearch-lax-whitespace t)</span>
+  <span class="c1">;; (setq isearch-regexp-lax-whitespace nil)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">isearch-lazy-count</span> <span class="no">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">lazy-count-prefix-format</span> <span class="s">"(%s/%s) "</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">lazy-count-suffix-format</span> <span class="no">nil</span><span class="p">))</span>
+
+<span class="c1">;;;; Diff</span>
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">diff</span>
+  <span class="ss">:ensure</span>
+  <span class="ss">:config</span>
+  <span class="c1">;; You cannot expect the syntax highlighting of themes to look</span>
+  <span class="c1">;; equally readabable against what typically are red and green</span>
+  <span class="c1">;; backgrounds.  This should be opt-in by default, not opt-out.</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">diff-font-lock-syntax</span> <span class="no">nil</span><span class="p">))</span>
+
+<span class="c1">;;;; Ediff</span>
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">ediff</span>
+  <span class="ss">:ensure</span> <span class="no">nil</span>
+  <span class="ss">:config</span>
+  <span class="c1">;; Ediff is virtually unusable without those.  Especially on tiling</span>
+  <span class="c1">;; window managers.  But even on a regular desktop environment it is</span>
+  <span class="c1">;; confusing and cumbersome to have the control panel in another</span>
+  <span class="c1">;; frame.</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">ediff-split-window-function</span> <span class="ss">'split-window-horizontally</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">ediff-window-setup-function</span> <span class="ss">'ediff-setup-windows-plain</span><span class="p">))</span>
+
+<span class="c1">;;;; SHR</span>
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">shr</span>
+  <span class="ss">:ensure</span> <span class="no">nil</span>
+  <span class="ss">:config</span>
+  <span class="c1">;; t is bad for accessibility and generally awkward for HTML email</span>
+  <span class="c1">;; (especially with dark themes).</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">shr-use-colors</span> <span class="no">nil</span><span class="p">)</span>
+  <span class="c1">;; This option should not exist, given `variable-pitch-mode'.</span>
+  <span class="c1">;; Furthermore, its default value runs counter to almost everything</span>
+  <span class="c1">;; else in Emacs which just uses the `default' face.</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">shr-use-fonts</span> <span class="no">nil</span><span class="p">))</span>
+
+<span class="c1">;;;; Control the display of common ancillary windows</span>
+
+<span class="c1">;; Always focus common ancillary windows.  Place them in a window</span>
+<span class="c1">;; already occupied by their respective major mode or below the</span>
+<span class="c1">;; current window.</span>
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'display-buffer-alist</span>
+             <span class="o">'</span><span class="p">((</span><span class="nb">or</span> <span class="o">.</span> <span class="p">((</span><span class="nv">derived-mode</span> <span class="o">.</span> <span class="nv">occur-mode</span><span class="p">)</span>
+                      <span class="p">(</span><span class="nv">derived-mode</span> <span class="o">.</span> <span class="nv">grep-mode</span><span class="p">)</span>
+                      <span class="p">(</span><span class="nv">derived-mode</span> <span class="o">.</span> <span class="nv">Buffer-menu-mode</span><span class="p">)</span>
+                      <span class="p">(</span><span class="nv">derived-mode</span> <span class="o">.</span> <span class="nv">log-view-mode</span><span class="p">)</span>
+                      <span class="p">(</span><span class="nv">derived-mode</span> <span class="o">.</span> <span class="nv">help-mode</span><span class="p">)))</span>
+               <span class="p">(</span><span class="nv">display-buffer-reuse-mode-window</span> <span class="nv">display-buffer-below-selected</span><span class="p">)</span>
+               <span class="p">(</span><span class="nv">body-function</span> <span class="o">.</span> <span class="nv">select-window</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'display-buffer-alist</span>
+             <span class="o">'</span><span class="p">(</span><span class="s">"\\`\\*\\(Org \\(Select\\|Note\\)\\|Agenda Commands\\)\\*\\'"</span> <span class="c1">; the `org-capture' key selection, `org-add-log-note', and agenda dispatcher</span>
+               <span class="p">(</span><span class="nv">display-buffer-in-side-window</span><span class="p">)</span>
+               <span class="p">(</span><span class="nv">dedicated</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+               <span class="p">(</span><span class="nv">side</span> <span class="o">.</span> <span class="nv">bottom</span><span class="p">)</span>
+               <span class="p">(</span><span class="nv">slot</span> <span class="o">.</span> <span class="mi">0</span><span class="p">)</span>
+               <span class="p">(</span><span class="nv">window-parameters</span> <span class="o">.</span> <span class="p">((</span><span class="nv">mode-line-format</span> <span class="o">.</span> <span class="nv">none</span><span class="p">)))))</span>
+
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'display-buffer-alist</span>
+             <span class="o">'</span><span class="p">((</span><span class="nv">derived-mode</span> <span class="o">.</span> <span class="nv">calendar-mode</span><span class="p">)</span>
+               <span class="p">(</span><span class="nv">display-buffer-reuse-mode-window</span> <span class="nv">display-buffer-below-selected</span><span class="p">)</span>
+               <span class="p">(</span><span class="nv">mode</span> <span class="o">.</span> <span class="p">(</span><span class="nv">calendar-mode</span> <span class="nv">bookmark-edit-annotation-mode</span> <span class="nv">ert-results-mode</span><span class="p">))</span>
+               <span class="p">(</span><span class="nv">inhibit-switch-frame</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+               <span class="p">(</span><span class="nv">dedicated</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+               <span class="p">(</span><span class="nv">window-height</span> <span class="o">.</span> <span class="nv">fit-window-to-buffer</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'display-buffer-alist</span>
+             <span class="o">'</span><span class="p">((</span><span class="nv">derived-mode</span> <span class="o">.</span> <span class="nv">reb-mode</span><span class="p">)</span> <span class="c1">; M-x re-builder</span>
+               <span class="p">(</span><span class="nv">display-buffer-reuse-mode-window</span> <span class="nv">display-buffer-below-selected</span><span class="p">)</span>
+               <span class="p">(</span><span class="nv">inhibit-switch-frame</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+               <span class="p">(</span><span class="nv">window-height</span> <span class="o">.</span> <span class="mi">4</span><span class="p">)</span> <span class="c1">; note this is literal lines, not relative</span>
+               <span class="p">(</span><span class="nv">dedicated</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+               <span class="p">(</span><span class="nv">preserve-size</span> <span class="o">.</span> <span class="p">(</span><span class="no">t</span> <span class="o">.</span> <span class="no">t</span><span class="p">))))</span>
+
+<span class="c1">;;;; ESSENTIAL packages to install</span>
+
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">vertico</span>
+  <span class="ss">:ensure</span> <span class="no">t</span>
+  <span class="ss">:config</span>
+  <span class="p">(</span><span class="nv">vertico-mode</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">marginalia</span>
+  <span class="ss">:ensure</span> <span class="no">t</span>
+  <span class="ss">:config</span>
+  <span class="p">(</span><span class="nv">marginalia-mode</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1">;;;; VERY USEFUL but not essential packages</span>
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">orderless</span>
+  <span class="ss">:ensure</span> <span class="no">t</span>
+  <span class="ss">:config</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">completion-styles</span> <span class="o">'</span><span class="p">(</span><span class="nv">orderless</span> <span class="nv">basic</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">consult</span>
+  <span class="ss">:ensure</span> <span class="no">t</span>
+  <span class="c1">;; All commands have their utility, but those are commonly needed.</span>
+  <span class="ss">:commands</span> <span class="p">(</span><span class="nv">consult-buffer</span> <span class="nv">consult-line</span> <span class="nv">consult-outline</span> <span class="nv">consult-find</span> <span class="nv">consult-grep</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">embark</span>
+  <span class="ss">:ensure</span> <span class="no">t</span>
+  <span class="ss">:bind</span>
+  <span class="c1">;; Embark is helpful in every context, though there are other ways</span>
+  <span class="c1">;; to do what it does.  Where it stands out is in its ability to</span>
+  <span class="c1">;; deal with all the minibuffer results.  The equivalent of those</span>
+  <span class="c1">;; two commands should be a core Emacs functionality.</span>
+  <span class="p">(</span> <span class="ss">:map</span> <span class="nv">minibuffer-local-map</span>
+    <span class="p">(</span><span class="s">"C-c C-c"</span> <span class="o">.</span> <span class="nv">embark-collect</span><span class="p">)</span>
+    <span class="p">(</span><span class="s">"C-c C-e"</span> <span class="o">.</span> <span class="nv">embark-export</span><span class="p">))</span>
+  <span class="ss">:config</span>
+  <span class="c1">;; Needed for correct exporting while using Embark with Consult commands.</span>
+  <span class="p">(</span><span class="nb">use-package</span> <span class="nv">embark-consult</span>
+    <span class="ss">:ensure</span> <span class="no">t</span>
+    <span class="ss">:after</span> <span class="nv">consult</span><span class="p">))</span>
+
+<span class="c1">;; Useful when combined with `delete-by-moving-to-trash'.</span>
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">trashed</span>
+  <span class="ss">:ensure</span> <span class="no">t</span><span class="p">)</span>
+</code></pre></div></div>
+        
+      

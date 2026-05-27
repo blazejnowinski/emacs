@@ -1,0 +1,41 @@
+
+         
+         <p>Raw link: <a href="https://www.youtube.com/watch?v=vLuyt0hq4io">https://www.youtube.com/watch?v=vLuyt0hq4io</a></p>
+         
+         <p>In this ~15-minute video I demonstrate a package of mine called <code class="language-plaintext highlighter-rouge">tmr</code>
+(pronounced as an acronym or as “timer”). It uses a simple notation to
+set the duration of a timer at the minibuffer prompt. Once the timer
+elapses, Emacs shows a notification. The desktop environment will also
+include one, as well as an audio alert (those are configurable).
+Timers can optionally have a description. They may also be listed in a
+tabulated/grid view, which makes it easier to work with them (to edit
+their description, reschedule them, etc.). Running timers may also be
+displayed on the mode line.</p>
+
+<h2>Sample configuration</h2>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">use-package</span> <span class="nv">tmr</span>
+  <span class="ss">:ensure</span> <span class="no">t</span>
+  <span class="ss">:config</span>
+  <span class="p">(</span><span class="nv">define-key</span> <span class="nv">global-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-c t"</span><span class="p">)</span> <span class="nf">#'</span><span class="nv">tmr-prefix-map</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">tmr-sound-file</span> <span class="s">"/usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga"</span>
+        <span class="nv">tmr-notification-urgency</span> <span class="ss">'normal</span>
+        <span class="nv">tmr-description-list</span> <span class="ss">'tmr-description-history</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2>TMR sources</h2>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">tmr</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/tmr">https://protesilaos.com/emacs/tmr</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/tmr-changelog">https://protesilaos.com/emacs/tmr-changelog</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/tmr">https://github.com/protesilaos/tmr</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/tmr">https://gitlab.com/protesilaos/tmr</a></li>
+    </ul>
+  </li>
+  <li>Backronym: TMR May Ring; Timer Must Run.</li>
+</ul>
+        
+      

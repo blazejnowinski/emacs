@@ -1,0 +1,212 @@
+
+         
+         <p>I just published the latest stable release of <a href="https://protesilaos.com/emacs/modus-themes">the Modus
+themes</a>. The change log
+entry is reproduced further below. For any questions, you are welcome
+to <a href="https://protesilaos.com/contact/">contact me</a>. I will now work to
+apply these same changes to emacs.git, so please wait a little longer
+for the updates to trickle down to you.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">modus-themes</code> (also built into Emacs 28+)</li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/modus-themes">https://protesilaos.com/emacs/modus-themes</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/modus-themes-changelog">https://protesilaos.com/emacs/modus-themes-changelog</a></li>
+  <li>Colour palette: <a href="https://protesilaos.com/emacs/modus-themes-colors">https://protesilaos.com/emacs/modus-themes-colors</a></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/modus-themes-pictures">https://protesilaos.com/emacs/modus-themes-pictures</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/modus-themes">https://github.com/protesilaos/modus-themes</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/modus-themes">https://gitlab.com/protesilaos/modus-themes</a></li>
+    </ul>
+  </li>
+  <li>Backronym: My Old Display Unexpectedly Sharpened … themes.</li>
+</ul>
+
+<hr />
+
+<h2>5.2.0 on 2025-12-31</h2>
+
+<p>This version fixes some bugs, adds a new feature for those who want to
+derive a theme from Modus, and makes other small quality-of-life
+refinements.</p>
+
+<h3>The <code class="language-plaintext highlighter-rouge">modus-themes-with-colors</code> should work at all times</h3>
+
+<p>In the transition to version <code class="language-plaintext highlighter-rouge">5.0.0</code>, I inadvertently introduced
+regressions to the behaviour of the <code class="language-plaintext highlighter-rouge">modus-themes-with-colors</code> macro.
+This macro <code class="language-plaintext highlighter-rouge">let</code> binds the current theme’s palette around arbitrary
+Elisp expressions, which allows users to access the named colours
+therein. In versions <code class="language-plaintext highlighter-rouge">5.0.0</code> and <code class="language-plaintext highlighter-rouge">5.1.0</code> the macro could not read
+variables defined outside its scope. Users needed to write an <code class="language-plaintext highlighter-rouge">eval</code>
+around it, which I did not like. Now the macro should not require such
+workarounds: it basically is a <code class="language-plaintext highlighter-rouge">let</code> that should work as expected
+everywhere.</p>
+
+<p>This was fixed over a series of Git commits related to issue 170:
+<a href="https://github.com/protesilaos/modus-themes/issues/170">https://github.com/protesilaos/modus-themes/issues/170</a>. Thanks to
+Alexandr Semenov and realazy for reporting the problems and testing my
+revisions.</p>
+
+<h3>The <code class="language-plaintext highlighter-rouge">modus-themes-generate-palette</code> function to quickly get a palette</h3>
+
+<p>Users or package developers who want to create a theme on top of Modus
+can now get a kickstart by defining their palette with the help of the
+new <code class="language-plaintext highlighter-rouge">modus-themes-generate-palette</code> function. This function is meant
+to return a complete palette, given a list of basic colours. Users can
+thus experiment with their new theme while knowing that what they got
+contains all the definitions; definitions that they may then modify
+further (e.g. to define different semantic mappings than the defaults
+such as, for example, to have <code class="language-plaintext highlighter-rouge">(fg-heading-1 red-warmer)</code> instead of
+what originally is <code class="language-plaintext highlighter-rouge">(fg-heading-1 fg-main)</code>).</p>
+
+<p>I have written extensive documentation in the manual, which includes a
+complete example of a Solarized theme that is built on top of Modus.
+If you have any questions, you are welcome to contact me.</p>
+
+<h3>Convenience commands to select only dark or light themes</h3>
+
+<p>The commands <code class="language-plaintext highlighter-rouge">modus-themes-select-dark</code> and <code class="language-plaintext highlighter-rouge">modus-themes-select-light</code>
+use minibuffer completion to load a theme. The completion candidates
+are filtered to only dark or light themes, respectively.</p>
+
+<p>This is effectively the same as calling the command <code class="language-plaintext highlighter-rouge">modus-themes-select</code>
+with a prefix argument (<code class="language-plaintext highlighter-rouge">C-u</code> by default).</p>
+
+<p>Remember that we also have the commands <code class="language-plaintext highlighter-rouge">modus-themes-load-random</code>,
+<code class="language-plaintext highlighter-rouge">modus-themes-load-random-dark</code>, and <code class="language-plaintext highlighter-rouge">modus-themes-load-random-light</code>.
+Otherwise use the command <code class="language-plaintext highlighter-rouge">modus-themes-rotate</code>.</p>
+
+<h3>Improved prompt for theme selection</h3>
+
+<p>The minibuffer prompt used by the various Modus commands to select a
+theme now has a grouping function in place: it shows the current theme
+at the top and then all other themes grouped by their dark or light
+background. This makes it easier to find a relevant theme, especially
+if lots of them are present, such as when <code class="language-plaintext highlighter-rouge">modus-themes-include-derivatives-mode</code>
+is enabled and relevant packages/themes are available (e.g. my
+<code class="language-plaintext highlighter-rouge">ef-themes</code> and <code class="language-plaintext highlighter-rouge">standard-themes</code>).</p>
+
+<h3>Semantic colours for <code class="language-plaintext highlighter-rouge">transient.el</code> (e.g. in Magit)</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">transient.el</code> concept of “semantic colours” is now supported.
+This is used by default in Magit to denote the different types of
+keys, such as those that exit the transient, keep it active, move to
+another transient, and the like. Users who prefer the old style where
+all key bindings looked the same must customise the user option
+<code class="language-plaintext highlighter-rouge">transient-semantic-coloring</code>.</p>
+
+<p>Note that the deuteranopia- and tritanopia- optimised themes adapt
+gracefully to such “semantics”, owning to relevant internal
+refinements I made. Those themes cannot rely on the full colour
+spectrum to communicate such nuances.</p>
+
+<h3>All <code class="language-plaintext highlighter-rouge">hl-todo-mode</code> faces use a bold weight if appropriate</h3>
+
+<p>When the user option <code class="language-plaintext highlighter-rouge">modus-themes-bold-constructs</code> is set to a
+non-<code class="language-plaintext highlighter-rouge">nil</code> value, then all keywords that <code class="language-plaintext highlighter-rouge">hl-todo-mode</code> highlights will
+be rendered in a bold weight (technically, they inherit the <code class="language-plaintext highlighter-rouge">bold</code>
+face). This is how we were doing it before until I undid it by
+mistake. Thanks to Dominik Schrempf for reporting the bug in issue
+177: <a href="https://github.com/protesilaos/modus-themes/issues/177">https://github.com/protesilaos/modus-themes/issues/177</a>.</p>
+
+<h3>Theme-sensitive colours for Gnus mail groups</h3>
+
+<p>The Gnus mail groups no longer have hardcoded colour values. They will
+look different depending on the current Modus theme.</p>
+
+<h3>Faces that set a <code class="language-plaintext highlighter-rouge">:box</code> attribute handle unspecified colours</h3>
+
+<p>I updated all faces that use a <code class="language-plaintext highlighter-rouge">:box</code> attribute to account for the
+scenario of a user writing palette overrides that unset the relevant
+colour. Thanks to JD Smith for reporting a bug along those lines in
+issue 9 of my <code class="language-plaintext highlighter-rouge">standard-themes</code> repository (they are derived from the
+<code class="language-plaintext highlighter-rouge">modus-themes</code>, hence the changes here):
+<a href="https://github.com/protesilaos/standard-themes/issues/9">https://github.com/protesilaos/standard-themes/issues/9</a>.</p>
+
+<h3>The <code class="language-plaintext highlighter-rouge">calendar-today</code> and <code class="language-plaintext highlighter-rouge">org-date-selected</code> faces are disambiguated</h3>
+
+<p>These two faces are no longer using the same styles. This is because
+they can appear in the same buffer. Thanks to Rudolf Adamkovič for
+discussing this with me in the context of the same change for my
+<code class="language-plaintext highlighter-rouge">doric-themes</code> (issue 20 in doric-themes.git):
+<a href="https://github.com/protesilaos/doric-themes/issues/20">https://github.com/protesilaos/doric-themes/issues/20</a>.</p>
+
+<h3>The Modus “current theme” respects multiple enabled themes</h3>
+
+<p>The Modus concept of “current theme” respects the user’s choice for
+multiple themes loaded at once. It will return the first Modus theme
+even if it is not at the front of the list.</p>
+
+<p>[ Emacs will load multiple themes by default, which leads to awkward
+  colour combinations, unless you know what you are doing—as such all
+  the Modus commands that load a theme will disable all others, subject
+  to the user option <code class="language-plaintext highlighter-rouge">modus-themes-disable-other-themes</code>. ]</p>
+
+<p>Thanks to Pierre Téchoueyres for reporting the scenario where multiple
+other themes are loaded on top of a Modus theme. This was done in
+issue 182: <a href="https://github.com/protesilaos/modus-themes/issues/182">https://github.com/protesilaos/modus-themes/issues/182</a>.</p>
+
+<p>Also thanks to Pierre for covering another snippet that I had missed.
+This was done in pull request 184:
+<a href="https://github.com/protesilaos/modus-themes/pull/184">https://github.com/protesilaos/modus-themes/pull/184</a>.</p>
+
+<p>Pierre has assigned copyright to the Free Software Foundation.</p>
+
+<h3>Fixed symbol of inherited AUCTeX face</h3>
+
+<p>There was a typo which caused an error. Thanks to Rudolf Adamkovič for
+the patch and also for providing a relevant unit test. This was done
+in pull request 188: <a href="https://github.com/protesilaos/modus-themes/pull/188">https://github.com/protesilaos/modus-themes/pull/188</a>.</p>
+
+<p>Rudolf has assigned copyright to the Free Software Foundation.</p>
+
+<h3>Miscellaneous</h3>
+
+<ul>
+  <li>
+    <p>Thanks to Basil L. Contovounesios for simplifying a couple of
+expressions. This was done in pull request 190:
+<a href="https://github.com/protesilaos/modus-themes/pull/190">https://github.com/protesilaos/modus-themes/pull/190</a>. Basil has
+assigned copyright to the Free Software Foundation.</p>
+  </li>
+  <li>
+    <p>The faces of the built-in <code class="language-plaintext highlighter-rouge">completion-preview-mode</code> are now
+supported. Thanks to Kevin Fleming for asking me about this in issue
+178: <a href="https://github.com/protesilaos/modus-themes/issues/178">https://github.com/protesilaos/modus-themes/issues/178</a>.</p>
+  </li>
+  <li>
+    <p>Several faces that had a strike-through effect when they did not
+really need it are revised to use a wavy underline instead. The idea
+is to let the text be readable at all times, regardless of the
+effective font family. With the strike-through effect, some fonts
+completely obscure the underlying text.Thanks to Morgan Willcock for
+discussing with me the use of the strike-through style in issue 169:
+<a href="https://github.com/protesilaos/modus-themes/issues/169">https://github.com/protesilaos/modus-themes/issues/169</a>.</p>
+  </li>
+  <li>
+    <p>All <code class="language-plaintext highlighter-rouge">symbol-overlay</code> faces are unique, fixing a mistake I had done
+before.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">org-dispatcher-highlight</code>, which is used to highlight the keys
+of the Org export interface, now uses the appropriate foreground
+colour and is always rendered in a bold weight.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">org-habit</code> faces no longer call the function
+<code class="language-plaintext highlighter-rouge">readable-foreground-color</code>. This is because that function does not
+work if the theme is loaded via the <code class="language-plaintext highlighter-rouge">early-init.el</code>. Thanks to
+Gaston Cabotin for reporting the problem in issue 174:
+<a href="https://github.com/protesilaos/modus-themes/issues/174">https://github.com/protesilaos/modus-themes/issues/174</a>.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">gnus-button</code>, which Gnus uses in all sorts of places to mark
+some text as clickable, is styled with a less intense underline and
+will no longer follow the style of links, including possible palette
+overrides. This way, Gnus article buffers will not have visual
+noise. Thanks to Morgan Willcock for discussing this with me in
+issue 140: <a href="https://github.com/protesilaos/modus-themes/issues/140">https://github.com/protesilaos/modus-themes/issues/140</a>.</p>
+  </li>
+</ul>
+        
+      

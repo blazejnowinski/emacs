@@ -1,0 +1,92 @@
+
+         
+         <p><a href="https://protesilaos.com/assets/images/attachments/2026-01-09-oxford-calendar.png"><img alt="Oxford calendar for Emacs" src="https://protesilaos.com/assets/images/attachments/2026-01-09-oxford-calendar.png" /></a></p>
+
+<p>This is about a new package of mine: <code class="language-plaintext highlighter-rouge">institution-calendar</code>. It is not
+going to be available on GNU ELPA. Users will have to install it from
+source (code for this is further below). The reason is that the
+predecossor to this package, <code class="language-plaintext highlighter-rouge">oxford-calendar</code>, was not accepted:</p>
+
+<ul>
+  <li><a href="https://lists.gnu.org/archive/html/emacs-devel/2026-01/msg00337.html">https://lists.gnu.org/archive/html/emacs-devel/2026-01/msg00337.html</a>.</li>
+  <li><a href="https://lists.gnu.org/archive/html/emacs-devel/2026-01/msg00401.html">https://lists.gnu.org/archive/html/emacs-devel/2026-01/msg00401.html</a>.</li>
+</ul>
+
+<p>I will consider my options going forward, with whatever that means for
+all my packages.</p>
+
+<h2>Overview</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">institution-calendar</code> package augments the <code class="language-plaintext highlighter-rouge">M-x calendar</code> buffer
+to include indicators about the applicable term. Each term has week
+numbers, which are displayed on the side of the regular calendar data.</p>
+
+<p>The user option <code class="language-plaintext highlighter-rouge">institution-calendar-entity</code> specifies which
+institution’s data to use. Currently, the value can be either
+<code class="language-plaintext highlighter-rouge">oxford-university</code> or <code class="language-plaintext highlighter-rouge">cambridge-university</code>. Contact me and I will
+add support for your institution.</p>
+
+<p>Each term shows the week numbers it formally defines. For example, the
+University of Oxford has three terms of 8 weeks each. When the user
+option <code class="language-plaintext highlighter-rouge">institution-calendar-include-extra-week-numbers</code> is set to a
+non-<code class="language-plaintext highlighter-rouge">nil</code> value, then an additional two weeks are added: week 0 for
+one week before the term starts and an extra number after the term
+ends. This is useful for scheduling purposes, such as to arrange
+meetings in preparation of the work ahead or to report on what
+happened.</p>
+
+<p>The user option <code class="language-plaintext highlighter-rouge">institution-calendar-include-intermonth-header</code>
+writes text above the institution’s week indicators. This makes it a
+bit easier to tell them apart from the regular calendar data.</p>
+
+<h2>Showing the calendar</h2>
+
+<p>Enable the minor mode <code class="language-plaintext highlighter-rouge">institution-calendar-mode</code> to make all future
+calls to <code class="language-plaintext highlighter-rouge">M-x calendar</code> use the relevant institution data.</p>
+
+<p>If you do not want to affect the <code class="language-plaintext highlighter-rouge">M-x calendar</code> output, then use the
+command <code class="language-plaintext highlighter-rouge">institution-calendar</code>: it is functionally equivalent to
+having the aforementioned minor mode enabled, except it has no
+permanent effect on <code class="language-plaintext highlighter-rouge">M-x calendar</code>—that will keep its original
+appearance.</p>
+
+<p>If, for whatever reason, you need to check the calendar of a specific
+institution, then do <code class="language-plaintext highlighter-rouge">M-x institution-calendar-cambridge-university</code>
+or <code class="language-plaintext highlighter-rouge">M-x institution-calendar-oxford-university</code> (more such commands
+will be available to match any other institutions that this package
+will support).</p>
+
+<h2>Installation and configuration</h2>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">use-package</span> <span class="nv">institution-calendar</span>
+  <span class="ss">:ensure</span> <span class="no">nil</span> <span class="c1">; not in a package archive</span>
+  <span class="ss">:init</span>
+  <span class="p">(</span><span class="nb">unless</span> <span class="p">(</span><span class="nv">package-installed-p</span> <span class="ss">'institution-calendar</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">package-vc-install</span> <span class="s">"https://github.com/protesilaos/institution-calendar.git"</span><span class="p">))</span>
+  <span class="ss">:commands</span>
+  <span class="p">(</span><span class="nv">institution-calendar</span>
+   <span class="nv">institution-calendar-cambridge-university</span>
+   <span class="nv">institution-calendar-oxford-university</span><span class="p">)</span>
+  <span class="ss">:config</span>
+  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">institution-calendar-entity</span> <span class="ss">'oxford-university</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">institution-calendar-include-extra-week-numbers</span> <span class="no">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">institution-calendar-include-intermonth-header</span> <span class="no">nil</span><span class="p">)</span>
+
+  <span class="c1">;; If you want to permanently change what M-x calendar shows, enable</span>
+  <span class="c1">;; this mode.  Otherwise, use the relevant command from the</span>
+  <span class="c1">;; :commands listed above.</span>
+  <span class="p">(</span><span class="nv">institution-calendar-mode</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2>Sources</h2>
+
+<ul>
+  <li>Git repository: <a href="https://github.com/protesilaos/institution-calendar">https://github.com/protesilaos/institution-calendar</a></li>
+  <li>Screenshot: <a href="https://protesilaos.com/codelog/2026-01-09-emacs-oxford-calendar-package/">https://protesilaos.com/codelog/2026-01-09-emacs-oxford-calendar-package/</a></li>
+  <li>Backronyms: Interestingly Nothing Serving Teachers Implement Term
+Utilities Took Inspiration from Oxford Novices… calendar;
+Institution … Cambridge Added Lent Entry Notwithstanding Dates
+Already Recorded (yes, I always have a lot of fun writing these!).</li>
+</ul>
+        
+      

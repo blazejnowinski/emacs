@@ -1,0 +1,125 @@
+
+	
+<p>
+The Emacs User Survey was held in <a href="https://emacs-survey.netlify.app/">2020</a> and <a href="https://emacssurvey.org/">2022</a>. It is a bit ironic that the data was <a href="https://project-mage.org/emacs-is-not-enough">neither collected nor analysed with Emacs</a>. This article shows how to visualise the Emacs user survey results with plain text inside of Emacs. First, we download the CSV file and then parse it into an association list. With some bespoke functions and the quirky <code class="verbatim">chart</code> package that forms part of core Emacs.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-survey/" target="_blank"
+   title="Download emacs-survey from GitHub"
+   alt="Download emacs-survey from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-survey</span>
+  </button>
+</a>
+
+</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Read the cleaned CSV file
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>Before visualising the data, let&#39;s declare some required packages and download the 2020 Emacs user survey data.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">require</span> <span style="color:#a60;background-color:#fff0f0">&#39;csv</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">require</span> <span style="color:#a60;background-color:#fff0f0">&#39;f</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">require</span> <span style="color:#a60;background-color:#fff0f0">&#39;dash</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">require</span> <span style="color:#a60;background-color:#fff0f0">&#39;chart</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#963">url-copy-file</span>
+</span></span><span style="display:flex;"><span>   <span style="background-color:#fff0f0">&#34;https://emacs-survey.netlify.app/2020/Emacs-User-Survey-2020-clean.csv&#34;</span>
+</span></span><span style="display:flex;"><span>   <span style="background-color:#fff0f0">&#34;emacs-survey.csv&#34;</span> <span style="color:#00d;font-weight:bold">1</span>)</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Define some functions
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>The <a href="https://gitlab.com/u11/csv.el/tree/aa1dfa1263565d5fac3879c21d8ddf5f8915e411">CSV package</a> by Ulf jasper provides functionality to parse a CSV file buffer into a list of alists. Unfortunately, this package has no functionality to read CSV files or extract data, so I wrote a few additional functions. Thanks to <a href="https://www.reddit.com/r/emacs/comments/10bibet/comment/j4b1gcc/?context=3">u/deaddyfreddy</a> for helping with wrangling association lists. I initially tried chatGPT to write some elisp code, but that was a disaster. Glad to see that human intelligence still trumps the silicon variant.</p>
+<p>
+The <code class="verbatim">csv-parse-file</code> function parses a CSV file into a list of alists. The <code class="verbatim">csv-extract-column-*</code> functions extract the values from a column by number or header. The result of these functions is a simple list that can be visualised.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">defun</span> <span style="color:#963">csv-parse-file</span> (<span style="color:#963">file</span>)
+</span></span><span style="display:flex;"><span>    <span style="background-color:#fff0f0">&#34;Read CSV FILE and parse its contents.&#34;</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#007020">with-temp-buffer</span>
+</span></span><span style="display:flex;"><span>      (<span style="color:#06b;font-weight:bold">insert-file-contents</span> <span style="color:#963">file</span>)
+</span></span><span style="display:flex;"><span>      (<span style="color:#963">csv-parse-buffer</span> <span style="color:#036;font-weight:bold">t</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">defun</span> <span style="color:#963">csv-extract-column-number</span> (<span style="color:#963">n</span> <span style="color:#963">csv</span>)
+</span></span><span style="display:flex;"><span>    <span style="background-color:#fff0f0">&#34;Extract values in column N from parsed CSV file into an alist.&#34;</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#06b;font-weight:bold">mapcar</span> <span style="color:#06b;font-weight:bold">#&#39;cdr</span>
+</span></span><span style="display:flex;"><span>            (<span style="color:#963">seq-map</span> (<span style="color:#007020">lambda</span> (<span style="color:#06b;font-weight:bold">list</span>) (<span style="color:#06b;font-weight:bold">nth</span> (<span style="color:#06b;font-weight:bold">-</span> <span style="color:#963">n</span> <span style="color:#00d;font-weight:bold">1</span>) <span style="color:#06b;font-weight:bold">list</span>)) <span style="color:#963">csv</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">defun</span> <span style="color:#963">csv-extract-column-name</span> (<span style="color:#963">name</span> <span style="color:#963">csv</span>)
+</span></span><span style="display:flex;"><span>    <span style="background-color:#fff0f0">&#34;Extract the values in a column with NAME from parsed CSV into a list.&#34;</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#06b;font-weight:bold">mapcar</span> <span style="color:#06b;font-weight:bold">#&#39;cdr</span>
+</span></span><span style="display:flex;"><span>            (<span style="color:#963">seq-map</span> (<span style="color:#963">apply-partially</span> <span style="color:#06b;font-weight:bold">#&#39;assoc</span> <span style="color:#963">name</span>) <span style="color:#963">csv</span>)))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Visualise the Emacs User Survey Results
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Visualising data with in plain text is a lost art. The famous <a href="http://www.bigear.org/Wow30th/wow30th.htm">WOW signal</a> is our best candidate for a signal from an extraterrestrial civilisation. No fancy visualisations like we are used from radio astronomy, but a simple plain text data stream printed on chain paper. Computer users were creative with plain text and there is still a cult following of <a href="https://www.asciiart.eu/">ASCII art</a>, images that only use plain text characters.</p>
+<figure>
+<img src="http://www.bigear.org/Wow30th/wowcl.jpg" alt="Wow signal." title="Wow signal." width="500"/>
+<figcaption>
+Wow Signal (North American Astrophysical Observatory).
+</figcaption>
+</figure>
+<p>
+We are now spoilt with graphical displays, but there are still some packages that can visualise data with plain text, including Eric Ludlam&#39;s <a href="https://francismurillo.github.io/2017-04-15-Exploring-Emacs-chart-Library/">chart package</a>. This code can draw coloured bar charts in plain text. The <code class="verbatim">chart-bar-quicky</code> function takes several arguments, most notably the <em>x</em> and <em>y</em> variables for the chart. The <em>n</em> variable declares the number of bars to draw. We need some more helper functions to visualise the CSV data.</p>
+<p>
+We want the bar height to count each unique item, so we also need a function to create a ordered frequency table. The <code class="verbatim">visualose-frequency-table</code> mashes everything together to create a bar chart.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">defun</span> <span style="color:#963">create-frequency-table</span> (<span style="color:#963">data</span>)
+</span></span><span style="display:flex;"><span>    <span style="background-color:#fff0f0">&#34;Generate an ordered frequency table from DATA.&#34;</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#06b;font-weight:bold">sort</span> (<span style="color:#963">-frequencies</span> <span style="color:#963">data</span>)
+</span></span><span style="display:flex;"><span>          (<span style="color:#007020">lambda</span> (<span style="color:#963">a</span> <span style="color:#963">b</span>) (<span style="color:#06b;font-weight:bold">&gt;</span> (<span style="color:#06b;font-weight:bold">cdr</span> <span style="color:#963">a</span>) (<span style="color:#06b;font-weight:bold">cdr</span> <span style="color:#963">b</span>)))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">defun</span> <span style="color:#963">visualise-frequency-table</span> (<span style="color:#963">table</span> <span style="color:#963">n</span> <span style="color:#963">var</span> <span style="color:#963">title</span>)
+</span></span><span style="display:flex;"><span>    <span style="background-color:#fff0f0">&#34;Create a bar chart from a frequency TABLE with top N entries.
+</span></span></span><span style="display:flex;"><span><span style="background-color:#fff0f0">  VAR and TITLE used for display.&#34;</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">chart-bar-quickie</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#a60;background-color:#fff0f0">&#39;horizontal</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#963">title</span>
+</span></span><span style="display:flex;"><span>     (<span style="color:#06b;font-weight:bold">mapcar</span> <span style="color:#06b;font-weight:bold">#&#39;car</span> <span style="color:#963">table</span>) <span style="color:#963">var</span>
+</span></span><span style="display:flex;"><span>     (<span style="color:#06b;font-weight:bold">mapcar</span> <span style="color:#06b;font-weight:bold">#&#39;cdr</span> <span style="color:#963">table</span>) <span style="background-color:#fff0f0">&#34;Frequency&#34;</span> <span style="color:#963">n</span>))</span></span></code></pre></div>
+</div>
+<p>
+Now we are ready to visualise the data. Parsing the data can take a few moments as it contains thousands of results. The bar chart will pop up in a new buffer.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">setq</span> <span style="color:#963">emacs-survey</span>
+</span></span><span style="display:flex;"><span>        (<span style="color:#963">csv-parse-file</span> <span style="background-color:#fff0f0">&#34;emacs-survey.csv&#34;</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#963">visualise-frequency-table</span>
+</span></span><span style="display:flex;"><span>   (<span style="color:#963">create-frequency-table</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">csv-extract-column-number</span> <span style="color:#00d;font-weight:bold">6</span> <span style="color:#963">emacs-survey</span>))
+</span></span><span style="display:flex;"><span>   <span style="color:#00d;font-weight:bold">10</span>
+</span></span><span style="display:flex;"><span>   <span style="background-color:#fff0f0">&#34;Responses&#34;</span> 
+</span></span><span style="display:flex;"><span>   <span style="background-color:#fff0f0">&#34;Which version of Emacs do you primarily use?&#34;</span>)</span></span></code></pre></div>
+</div>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/emacs-survey-2020-question-5.png" alt="/images/emacs/emacs-survey-2020-question-5.png" title="/images/emacs/emacs-survey-2020-question-5.png" /><figcaption>
+Results of question six of the 2020 Emacs user Survey.
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Conclusion
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Visualising data with plain text is less aesthetic than using graphics, but it does the job of telling the story, which is the purpose of visualisation. There are other methods to create graphics inside an Emacs buffer. For example, one could use a <a href="https://irreal.org/blog/?p=10199">literate programming approach</a> and write an Org Mode file and run R, Python, MATLAB or GNUPLot code to create graphics. The latter also has an option to create graphics in plain text.</p>
+<p>
+Let&#39;s hope the following Emacs user survey will be more Emacs-centric in its&#39;s data collection and presenting the results.</p>
+</div>
+</div>
+
+      

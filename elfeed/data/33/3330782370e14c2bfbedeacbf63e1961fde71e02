@@ -1,0 +1,225 @@
+
+	
+<p>
+Music is a great tool to boost your productivity. Playing the transcendental music of J.S. Bach or Sepultura&#39;s screeching heavy metal soothes the soul while writing. Scientists have studied the <a href="https://www.frontiersin.org/articles/10.3389/fnagi.2014.00284/full">psychological effect of background music</a> and found that it can improve episodic memory, intelligence, and verbal and visual processing speeds.</p>
+<p>
+Emacs might be known as a text editor, but you can also play background music while you write, or listen to podcasts and videos in your information ingestion process. Emacs has several packages, such as <a href="https://github.com/dbrock/bongo">Bongo</a> and <a href="https://www.gnu.org/software/emms/">EMMS</a>, to help you access your collection of sound files. You might already have a great music player on your computer, but not having to switch applications to play music helps to retain your focus. </p>
+<p>
+EMMS, the <em>Emacs Multimedia System</em>, is a comprehensive music and video player for Emacs. It contains an intuitive browser that can show album covers and metadata. This article explains how to configure EMMS to convert your Emacs system into your personal jukebox.</p>
+<p>
+This article is part of <a href="https://lucidmanager.org/tags/emacs/">Emacs Writing Studio</a>, a book that explains how to use Emacs to undertake research and write and publish articles, books, and websites. Emacs Writing Studio is available as an e-book from your favourite retailer.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+The source files of the book and EWS configuration are also freely available on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Basic Installation
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>EMMS does not work out of the box when you install it via GNU ELPA. You will need some configuration and a music player. The minimum configuration for your <a href="https://lucidmanager.org/productivity/configure-emacs/">init file</a> consists of these  lines:</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; Emacs Multimedia System</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">emms</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:config</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#007020">require</span> <span style="color:#a60;background-color:#fff0f0">&#39;emms-setup</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#007020">require</span> <span style="color:#a60;background-color:#fff0f0">&#39;emms-mpris</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">emms-all</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">emms-default-players</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">emms-mpris-enable</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">emms-browser-covers</span> <span style="color:#06b;font-weight:bold">#&#39;</span><span style="color:#963">emms-browser-cache-thumbnail-async</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:bind</span>
+</span></span><span style="display:flex;"><span>    ((<span style="background-color:#fff0f0">&#34;C-c w m b&#34;</span> <span style="color:#333">.</span> <span style="color:#963">emms-browser</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w m e&#34;</span> <span style="color:#333">.</span> <span style="color:#963">emms</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w m p&#34;</span> <span style="color:#333">.</span> <span style="color:#963">emms-play-playlist</span> )
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;&lt;XF86AudioPrev&gt;&#34;</span> <span style="color:#333">.</span> <span style="color:#963">emms-previous</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;&lt;XF86AudioNext&gt;&#34;</span> <span style="color:#333">.</span> <span style="color:#963">emms-next</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;&lt;XF86AudioPlay&gt;&#34;</span> <span style="color:#333">.</span> <span style="color:#963">emms-pause</span>)))</span></span></code></pre></div>
+</div>
+<p>
+This configuration initiates EMMS with all its functionality and provides access to default music players. This setup is, however, not enough to fully enjoy your music. EMMS needs access to a music player to create sound and access to software to convert cover images to thumbnails.</p>
+<p>
+To play sounds with Emacs, you must install one of the compatible sound players (ogg123, mpg321, mplayer, mpv or VLC). EMMS uses the <code>convert</code> program of the <a href="https://imagemagick.org/">ImageMagick</a>, a software suite to edit and manipulate digital images. When you run the complete <em>Emacs Writing Studio</em> configuration, the system will check whether one of the players and ImageMagick are available.</p>
+<p>
+The last step to start playing music is to cache the music files. Evaluate the <code>emms-add-directory-tree</code> command to scan your collection. EMMS creates a cache in your Emacs configuration directory.</p>
+<p>
+EMMS can read metadata in music files for Ogg Vorbis, Opus, FLAC and MP3 files. This process might take a while, depending on the size of your collection. You can start playing music when <code class="verbatim">EMMS: All track information loaded</code> shows in the minibuffer.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Play music with EMMS
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>Phew, we can finally start enjoying the music collection. The basic principle is that you move tracks to the playlist buffer.</p>
+<p>
+The browser is the most convenient way to select the music of your liking. You start the browser with <code>emms-browser</code> (<code class="verbatim">C-c w m b</code>). Loading the browser for the first time in an Emacs session might take a while if you have an extensive music collection.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/emms-screenshot.png" alt="/images/emacs/emms-screenshot.png" title="Screenshot of the EMMS browser"/>
+<figcaption>
+Screenshot of the EMMS browser.
+</figcaption>
+</figure>
+<p>
+When in the EMMS browser, use the <code class="verbatim">b</code> key followed by a number to browse by artist, album, genre, year, composer or performer. The browser is collapsed by default, showing only album covers, artist names, or whatever you select as the browsing category. The browser is hierarchical. When, for example, browsing by genre, the hierarchy has four levels <em>Genre</em> &gt; <em>Artist</em> &gt; <em>Album</em> &gt; <em>Track</em>. Use the <code class="verbatim">1</code> to collapse and the <code class="verbatim">2-4</code> keys to expand the categories at levels 1 to 3. </p>
+<p>
+As is the case in most Emacs applications, press <code class="verbatim">?</code> for a list of available keystrokes, such as:</p>
+<ul>
+<li><code class="verbatim">r</code>: Jump to a random entry</li>
+<li><code class="verbatim">s</code>: Search by album, artist, title, performer or composer</li>
+<li><code class="verbatim">Enter</code>: Add selection to playlist</li>
+<li><code class="verbatim">C-j</code>: Add selection to playlist and play</li>
+<li><code class="verbatim">W</code>: Lookup entry on Wikipedia</li>
+</ul>
+<p>Being an Emacs buffer, standard search commands will also work for visible entries.</p>
+<p>
+When the cursor is on a category, such as an album name or a composer, it will add all tracks belonging to that category. So when the cursor is on an album it will add all tracks. When the cursor is on a single track, it will only add that track to  the playlist.</p>
+<p>
+You jump to the playlist with <code>emms</code> (<code class="verbatim">C-c w m e</code>), from where you can manage what you play. Press <code class="verbatim">?</code> for a list of keyboard shortcuts, some of which are:</p>
+<ul>
+<li><code class="verbatim">n</code> / <code class="verbatim">p</code>: Next or previous track</li>
+<li><code class="verbatim">r</code>: Play a random track.</li>
+<li><code class="verbatim">D</code>: Remove selected track from playlist</li>
+<li><code class="verbatim">C</code>: Clear playlist</li>
+</ul>
+<p>Once you have curated a funky playlist, keep it for future reference. You can save a playlist buffer in <code class="verbatim">m3u</code> or <code class="verbatim">pls</code> format for use in other multimedia players using the <code>save-buffer</code> command (<code class="verbatim">C-x s</code>). The <code>emms-play-playlist</code> function (<code class="verbatim">C-c w m p</code>) lets you load and play a saved playlist.</p>
+<p>
+The configuration above also sets the multimedia buttons on your keyboard (play, pause, next, previous). The MPRIS (<a href="https://www.freedesktop.org/wiki/Specifications/mpris-spec/">Media Player Remote Interfacing Specification</a>) extension ensures that these buttons also work when you are playing music with EMMS but are not in Emacs.</p>
+<p>
+EMMS has many advanced features available for advanced control of your sound collection. Some other useful EMMS functions are:</p>
+<ul>
+<li><code>emms-play-directory</code>: Add directory to playlist</li>
+<li><code>emms-play-find</code>: Plays all files in the music directory that match a given search criterion.</li>
+</ul>
+<p>This is only the start of using EMMS. The Emacs Multimedia System has a plethora of options you can use to fine-tune your listening experience. Read the <a href="https://www.gnu.org/software/emms/manual/">EMMS manual</a> with the info browser (<code class="verbatim">C-h i</code>) for detailed information about the various options.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>If you like to support my work, then please purchase the <em>Emacs Writing Studio</em> book.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+You can find the source files for the book and the latest configuration files on GitHub:</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+Emacs is a malleable system, and everybody has personal preferences on how to undertake a task and configure Emacs. Any article on how to use Emacs is thus opinionated. If you have a different way of doing things, please complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email or contact me on social media.</p>
+<p>
+The ingestion process of the Emacs Writing Studio workflow is now complete. The next article in this series starts the ideation process and describes how to <a href="https://lucidmanager.org/productivity/taking-notes-with-emacs-denote/">take notes with Org mode</a>.</p>
+</div>
+</div>
+
+      

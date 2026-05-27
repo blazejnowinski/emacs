@@ -1,0 +1,79 @@
+
+         
+         <p>TMR provides facilities for setting timers using a convenient
+notation. Lots of commands are available to operate on timers, while
+there also exists a tabulated view to display all timers in a nice
+grid.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">tmr</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/tmr">https://protesilaos.com/emacs/tmr</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/tmr-changelog">https://protesilaos.com/emacs/tmr-changelog</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/tmr">https://github.com/protesilaos/tmr</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/tmr">https://gitlab.com/protesilaos/tmr</a></li>
+    </ul>
+  </li>
+  <li>Video demonstration: <a href="https://protesilaos.com/codelog/2026-01-19-emacs-timers-tmr-demo/">https://protesilaos.com/codelog/2026-01-19-emacs-timers-tmr-demo/</a></li>
+  <li>Backronym: TMR May Ring; Timer Must Run.</li>
+</ul>
+
+<p>Below are the release notes.</p>
+
+<hr />
+
+<h2>Version 1.3.0 on 2026-01-25</h2>
+
+<p>This version adds some user options and new features to an already
+stable package.</p>
+
+<h3>Timers can be paused</h3>
+
+<p>The command <code class="language-plaintext highlighter-rouge">tmr-toggle-pause</code> will prompt for a running timer and
+pause it.</p>
+
+<p>Users who have something like the following in their configuration,
+have access to <code class="language-plaintext highlighter-rouge">tmr-toggle-pause</code> under the <code class="language-plaintext highlighter-rouge">P</code> key:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; All TMR commands are behind this prefix key.  So `tmr-toggle-pause' is C-c t P.</span>
+<span class="p">(</span><span class="nv">define-key</span> <span class="nv">global-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-c t"</span><span class="p">)</span> <span class="nf">#'</span><span class="nv">tmr-prefix-map</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>In the buffer produced by the command <code class="language-plaintext highlighter-rouge">tmr-tabulated-view</code> the pause
+functionality applies to the timer at point. The <code class="language-plaintext highlighter-rouge">tmr-toggle-pause</code> is
+invoked with the <code class="language-plaintext highlighter-rouge">P</code> key.</p>
+
+<p>An extra column in the tabulated view shows whether a timer is paused
+or not. Here is an example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Start      End        Duration   Remaining  Paused?  Acknowledge?   Description
+
+08:49:41   09:19:46   30m        29m 17s    Yes                     Work on TMR for 30 minutes
+08:49:31   08:54:31   5m         3m 53s                             Prepare tea
+08:49:21   08:59:21   10m        8m 42s              Yes            Edit the description with this one instead
+</code></pre></div></div>
+
+<h3>Configure the confirmation text for acknowledgements</h3>
+
+<p>When a timer is set to be acknowledged (i.e. the user must confirm
+that they saw it elapse) it prompts for confirmation. The default
+input text that confirms the acknowledgement is <code class="language-plaintext highlighter-rouge">ack</code>. This is now
+subject to configuration via the user option <code class="language-plaintext highlighter-rouge">tmr-acknowledge-timer-text</code>.</p>
+
+<h3>Change how frequently the tabulated list is refreshed</h3>
+
+<p>The buffer produced by <code class="language-plaintext highlighter-rouge">tmr-tabulated-view</code> is set to automatically
+refresh every 5 seconds by default. In previous versions this was every
+1 second. The new user option <code class="language-plaintext highlighter-rouge">tmr-tabulated-refresh-interval</code> can be
+set to a number of seconds or <code class="language-plaintext highlighter-rouge">nil</code>. In the latter case, the automatic
+refresh is disabled.</p>
+
+<h3>Removed the long-obsolete <code class="language-plaintext highlighter-rouge">tmr-tabulated.el</code></h3>
+
+<p>Its code was merged into <code class="language-plaintext highlighter-rouge">tmr.el</code> on 2024-10-30 and all it was doing
+thenceforth is issue a warning to those who would <code class="language-plaintext highlighter-rouge">require</code> the
+<code class="language-plaintext highlighter-rouge">tmr-tabulated</code> feature. Now <code class="language-plaintext highlighter-rouge">(require 'tmr-tabulated)</code> produces an
+error.</p>
+        
+      

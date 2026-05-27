@@ -1,0 +1,439 @@
+
+         
+         <p>I just published the latest stable release of <a href="https://protesilaos.com/emacs/modus-themes">the Modus
+themes</a>. The change log
+entry is reproduced further below. For any questions, you are welcome
+to <a href="https://protesilaos.com/contact/">contact me</a>. I will now work to
+apply these same changes to emacs.git, so please wait a little longer
+for the updates to trickle down to you.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">modus-themes</code> (also built into Emacs 28+)</li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/modus-themes">https://protesilaos.com/emacs/modus-themes</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/modus-themes-changelog">https://protesilaos.com/emacs/modus-themes-changelog</a></li>
+  <li>Colour palette: <a href="https://protesilaos.com/emacs/modus-themes-colors">https://protesilaos.com/emacs/modus-themes-colors</a></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/modus-themes-pictures">https://protesilaos.com/emacs/modus-themes-pictures</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/modus-themes">https://github.com/protesilaos/modus-themes</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/modus-themes">https://gitlab.com/protesilaos/modus-themes</a></li>
+    </ul>
+  </li>
+  <li>Backronym: My Old Display Unexpectedly Sharpened … themes.</li>
+</ul>
+
+<hr />
+
+<h2>5.0.0 on 2025-11-01</h2>
+
+<p>This is a major release. There are some small breaking changes. The
+big new feature is that Modus can be used as the basis for other theme
+projects. Two of my other theme packages, the <code class="language-plaintext highlighter-rouge">ef-themes</code> and the
+<code class="language-plaintext highlighter-rouge">standard-themes</code> are already done in this way: their next major
+versions will formalise what I have been developing for a while now
+(though the <code class="language-plaintext highlighter-rouge">doric-themes</code> will remain their own thing for the time
+being).</p>
+
+<h3>Build on top of Modus</h3>
+
+<p>This is of immediate interest to package developers or advanced users.
+It changes nothing for existing users of the Modus themes. Please
+refer to the manual on the matter and feel welcome to contact me if
+you have any questions—I am happy to help.</p>
+
+<p>Evaluate:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nv">info</span> <span class="s">"(modus-themes) Build on top of the Modus themes"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Or visit: <a href="https://protesilaos.com/emacs/modus-themes#h:86eb375b-9be4-43ce-879a-0686a524a63b">https://protesilaos.com/emacs/modus-themes#h:86eb375b-9be4-43ce-879a-0686a524a63b</a>.</p>
+
+<p>Why build on top of Modus? To benefit from (i) the wide face coverage
+and extensive detail-oriented testing, (ii) the use of palette
+mappings, (iii) the palette preview done with
+<code class="language-plaintext highlighter-rouge">modus-themes-list-colors</code> or related, (iv) the inclusion of the
+derivative theme in the workings of all Modus commands that load a
+theme, like <code class="language-plaintext highlighter-rouge">modus-themes-rotate</code> and <code class="language-plaintext highlighter-rouge">modus-themes-select</code> (see the
+new minor mode <code class="language-plaintext highlighter-rouge">modus-themes-include-derivatives-mode</code>).</p>
+
+<p>Derivative themes can be as simple as a few extra colours on top of,
+say, <code class="language-plaintext highlighter-rouge">modus-operandi</code>. They can also be more involved, with new
+palette mappings and custom faces that use them. Such themes can
+define commands which load only their own themes (see
+<code class="language-plaintext highlighter-rouge">modus-themes-define-derivative-command</code>) and they can even take over
+the Modus themes completely, in terms of becoming the only ones that
+are exposed to the commands that load a theme, like
+<code class="language-plaintext highlighter-rouge">modus-themes-rotate</code> and <code class="language-plaintext highlighter-rouge">modus-themes-select</code>.</p>
+
+<p>Thanks to Suleyman Boyar for fixing an intermediate omission with an
+earlier version of the code that derives a theme. I did eventually
+change the whole approach to use a function instead of a macro, but
+Suleyman’s contribution was still useful at the time. This was done in
+pull request 156: <a href="https://github.com/protesilaos/modus-themes/pull/156">https://github.com/protesilaos/modus-themes/pull/156</a>.
+The change is small, meaning that Suleyman does not need to assign
+copyright to the Free Software Foundation.</p>
+
+<h3>Colours can be copied from the palette preview buffer</h3>
+
+<p>The commands <code class="language-plaintext highlighter-rouge">modus-themes-list-colors</code> and <code class="language-plaintext highlighter-rouge">modus-themes-list-colors-current</code>
+display the given theme’s palette in a tabulated listing. Each line
+visualises the colour it references. From that buffer it is now
+possible to call the following commands (bound to the <code class="language-plaintext highlighter-rouge">modus-themes-preview-mode-map</code>):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Default key binding</th>
+      <th>Name of the command</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">w</code></td>
+      <td><code class="language-plaintext highlighter-rouge">modus-themes-preview-mode-copy-color</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">W</code></td>
+      <td><code class="language-plaintext highlighter-rouge">modus-themes-preview-mode-copy-entry</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">m</code></td>
+      <td><code class="language-plaintext highlighter-rouge">modus-themes-preview-mode-mark</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">M</code></td>
+      <td><code class="language-plaintext highlighter-rouge">modus-themes-preview-mode-mark-all</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">u</code></td>
+      <td><code class="language-plaintext highlighter-rouge">modus-themes-preview-mode-unmark</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">U</code></td>
+      <td><code class="language-plaintext highlighter-rouge">modus-themes-preview-mode-unmark-all</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <code class="language-plaintext highlighter-rouge">modus-themes-preview-mode-copy-color</code> and its
+<code class="language-plaintext highlighter-rouge">modus-themes-preview-mode-copy-entry</code> counterpart work on the line at
+point or those that are marked. The first copies the resolved colour
+value, as a string (“resolved” here means that it will find what a
+palette mapping actually stands for). The second gets the complete
+palette entry, as it appears in the underlying definition. This is a
+starting point for writing palette overrides.</p>
+
+<p>Thanks to shimeike for reporting a problem with a regression I
+introduced by mistake in one of the development versions of the
+function that handles the creation of the tabulated list. This was
+done in issue 163: <a href="https://github.com/protesilaos/modus-themes/issues/163">https://github.com/protesilaos/modus-themes/issues/163</a>.</p>
+
+<h3>New semantic palette mappings for programming contexts</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">fnname-call</code> and <code class="language-plaintext highlighter-rouge">variable-use</code> are now available. They are
+applied to faces that are used by major modes which build on top of
+<code class="language-plaintext highlighter-rouge">tree-sitter</code> program as well as the Emacs Lisp semantic highlighting
+feature of Emacs 31.</p>
+
+<p>By default, these colours are more subtle than their <code class="language-plaintext highlighter-rouge">fnname</code> and
+<code class="language-plaintext highlighter-rouge">variable</code> counterparts. The reason is that I want to avoid
+exaggerations with the wanton application of colour (“avoiding
+exaggerations” is one of the design principles of the Modus themes).</p>
+
+<p>Because of the commitment to the highest legibility standard for
+colour contrast, we are using colours that stand out in their context,
+yet are still harmonious with each other. This is due to (i) careful
+consideration of colour harmonies, (ii) enforced uniformity of styles
+where necessary to avoid emphasising the emphasis or stating the
+obvious, and (ii) the fact that not too many intense colours appear in
+close proximity to each other in most Emacs major modes. If a major
+mode or other feature adds colours virtually everywhere, then the
+Modus themes are no longer true to their character and become
+borderline unusable.</p>
+
+<p>The more subtle colours for <code class="language-plaintext highlighter-rouge">fnname-call</code> and <code class="language-plaintext highlighter-rouge">variable-use</code> do not
+prevent exaggerations, though they do make them less egregious.</p>
+
+<p>[ Note that themes do not control which face is applied where. That is
+  the job of a major mode or specialised minor modes. When in doubt,
+  work with the rule that fewer colours are better than many. ]</p>
+
+<h3>Support for Emacs Lisp semantic highlighting</h3>
+
+<p>This is built into Emacs version 31. What it does is make different
+parts of the Elisp syntax stand out visually. It also augments them
+with a mouse tooltip (technically a <code class="language-plaintext highlighter-rouge">help-echo</code>) that provides
+valuable insights about what the thing is.</p>
+
+<p>Thanks to Eshel Yaron, the author of this feature, for (i) asking me
+to review the relevant faces, (ii) helping me understand what
+“semantic highlighting” is intended for, and (iii) explaining to me
+how some faces are meant to be used. This was done in the context of
+Emacs bug 79677 and in an aside about a change to my minimalist
+<code class="language-plaintext highlighter-rouge">doric-themes</code> package:</p>
+
+<ul>
+  <li><a href="https://lists.gnu.org/archive/html/bug-gnu-emacs/2025-10/msg01156.html">https://lists.gnu.org/archive/html/bug-gnu-emacs/2025-10/msg01156.html</a>.</li>
+  <li><a href="https://lists.gnu.org/archive/html/emacs-devel/2025-10/msg00728.html">https://lists.gnu.org/archive/html/emacs-devel/2025-10/msg00728.html</a>.</li>
+</ul>
+
+<p>I wrote to Eshel that I do not want many colours clustered together.
+This design is more suitable to themes with low intensity. All my
+themes exacerbate the effect of dense colouration due to their primary
+design goal: legibility.</p>
+
+<p>Currently the added colouration of semantic highlighting is noticeable
+far more than I like. This is a compromise on my end. Future versions
+of the themes might set more semantic faces to <code class="language-plaintext highlighter-rouge">nil</code> (or anyhow make
+them subtle), subject to further review and user feedback.</p>
+
+<p>This is not a position against semantic highlighting, but a comment on
+inconsiderate themes.</p>
+
+<h3>More elements are optionally bold or italic</h3>
+
+<p>I have revised all supported faces to make them more conservative
+about when they apply typographic qualities that deviate from the
+default font. Many faces that were unconditionally rendered with a
+bold weight or an italic slant are now subject to the user options
+<code class="language-plaintext highlighter-rouge">modus-themes-bold-constructs</code> and <code class="language-plaintext highlighter-rouge">modus-themes-italic-constructs</code>.</p>
+
+<p>This means that they are like the default font family by default and
+will become bold/italic if the relevant user option is set to a
+non-<code class="language-plaintext highlighter-rouge">nil</code> value.</p>
+
+<p>Faces that are semantically bold or italic and/or which genuinely
+benefit from such typographic attributes out-of-the-box are exempt
+from this.</p>
+
+<p>Headings are also exempt because they are anyway subject to the user
+option <code class="language-plaintext highlighter-rouge">modus-themes-headings</code> which covers the height and weight of
+each heading level’s text.</p>
+
+<p>Thanks to chainedghost for reporting a regression in one of the
+commits I made. This was done in issue 167:
+<a href="https://github.com/protesilaos/modus-themes/issues/167">https://github.com/protesilaos/modus-themes/issues/167</a></p>
+
+<h3>Support for <code class="language-plaintext highlighter-rouge">lsp-mode</code> and <code class="language-plaintext highlighter-rouge">lsp-ui</code> packages</h3>
+
+<p>Thanks to Jimmy Yuen Ho Wong for the initial contribution in pull
+request 142: <a href="https://github.com/protesilaos/modus-themes/pull/142">https://github.com/protesilaos/modus-themes/pull/142</a>.
+I made some changes on top to use semantic palette mappings, where
+applicable, and other such tweaks.</p>
+
+<h3>The <code class="language-plaintext highlighter-rouge">minibuffer-nonselected</code> face is supported</h3>
+
+<p>This is coming in Emacs version 31: it highlights the active
+minibuffer when the cursor is in another window. The face is designed
+to be as noticeable as possible because this kind of scenario usually
+leads to mistakes or confusion.</p>
+
+<h3>Refinements to supported packages or face groups</h3>
+
+<ul>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">markdown-code-face</code> uses the same semantic palette mapping as
+<code class="language-plaintext highlighter-rouge">org-block</code>. This was always the intent. Thanks to Frédéric Giquel
+for the fix in pull request 160: <a href="https://github.com/protesilaos/modus-themes/pull/160">https://github.com/protesilaos/modus-themes/pull/160</a>.
+The change is small and thus does not require copyright assignment
+to the Free Software Foundation.</p>
+  </li>
+  <li>
+    <p>Fixed a word in the symbol of the <code class="language-plaintext highlighter-rouge">flymake-warning-echo-at-eol</code>. Thanks to
+Eric Ottosson for the patch in pull request 145: <a href="https://github.com/protesilaos/modus-themes/pull/145">https://github.com/protesilaos/modus-themes/pull/145</a>.
+No copyright assignment is required.</p>
+  </li>
+  <li>
+    <p>The two new Emacs 31 faces for packages that are marked for
+installation or deletion in the <code class="language-plaintext highlighter-rouge">M-x list-packages</code> buffer are now
+included. Thanks to Gautier Ponsinet for sending me the patch.
+Gautier has assigned copyright to the Free Software Foundation.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">hs-ellipsis</code> in Emacs 31 from the built-in <code class="language-plaintext highlighter-rouge">hideshow</code> package
+is also covered. It is made to conform with established patterns
+across conceptually equivalent faces (e.g. Org folded headings)
+rather than do its own thing.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">widget-field</code> uses an underline to be easier to spot. On
+supported Emacs displays (generally graphical Emacs) the underline
+is at the descent line, meaning that it does not cross through
+characters with descenders like <code class="language-plaintext highlighter-rouge">g</code>.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">git-commit</code> and <code class="language-plaintext highlighter-rouge">log-edit</code> faces for writing commit messages in
+Magit and VC are tweaked to avoid exaggerations.</p>
+  </li>
+  <li>
+    <p>The Magit section headings have a slightly modified foreground
+value.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">org-list-dt</code> face for list definition terms has a slightly
+modified foreground value to (i) be easier to spot while (ii) being
+less intense overall.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">calendar-today</code> in the <code class="language-plaintext highlighter-rouge">M-x calendar</code> interface now has a box
+around it on supported displays (graphical Emacs) to better stand
+out from its context. On unsupported displays, the face still gets
+an appropriate background value.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">org-date-selected</code> and <code class="language-plaintext highlighter-rouge">calendar-today</code> should look the same,
+contrary to how they did before. This is done in the interest of
+theme-wide consistency (i.e. the kind of detail you appreciate once
+it is no longer there).</p>
+  </li>
+  <li>
+    <p>The mode lines use an underline on displays that cannot render a
+box. This way, the faces remain distinct from their context.</p>
+  </li>
+  <li>
+    <p>All interface buttons, like those that appear in the Custom buffers,
+will be rendered with an underline on displays that cannot handle
+boxes.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">notmuch-message-summary-face</code>, which is used in threaded
+message views, now has an overline on supported displays (graphical
+Emacs). Individual messages in the thread should thus be more
+discernible.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">tab-bar-tab-highlight</code> is directly covered to make sure all
+mouse hover effects are consistent across similar interfaces.</p>
+  </li>
+  <li>
+    <p>Some faces that had specific colour values (e.g. <code class="language-plaintext highlighter-rouge">cyan-cooler</code>) are
+revised to use semantic palette mappings instead. This ensures
+thematic consistency. The most obvious beneficiaries are users of
+the deuteranopia- and tritanopia- optimised themes
+(deuteranopia-friendly themes cannot work with red and green while
+tritanopia-friendly themes must not rely on yellow and blue).</p>
+  </li>
+</ul>
+
+<h3>The <code class="language-plaintext highlighter-rouge">modus-themes-custom-auto-reload</code> is obsolete</h3>
+
+<p>Plus all our user options no longer specify a <code class="language-plaintext highlighter-rouge">:set</code> function. This
+means that the theme will never be reloaded automatically when using
+the Custom interface or <code class="language-plaintext highlighter-rouge">setopt</code> to configure one of the theme’s user
+options. Reloading the theme is what applies the new styles. The idea
+of this feature is good, but the implementation was problematic. Maybe
+I will reinstate it in the future, though I cannot let it block this
+major release.</p>
+
+<h3>Several <code class="language-plaintext highlighter-rouge">modus-themes-*</code> faces are obsolete</h3>
+
+<p>In previous versions I was defining faces that were used to apply
+uniform styles across many packages. This was the old way of doing
+things before version <code class="language-plaintext highlighter-rouge">4.0.0</code> of the themes that introduced palettes
+with semantic mappings and, optionally, user-defined overrides to
+them.</p>
+
+<p>I have deprecated all of the following and made all the necessary
+changes (i.e. several thousands of them), to make palette mappings the
+norm everywhere. In general, I encourage you not to rely on any faces
+defined by Modus: they are really intended for internal use.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-blue</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-blue-cooler</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-blue-faint</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-blue-intense</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-blue-warmer</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-cyan</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-cyan-cooler</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-cyan-faint</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-cyan-intense</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-cyan-warmer</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-green</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-green-cooler</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-green-faint</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-green-intense</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-green-warmer</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-magenta</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-magenta-cooler</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-magenta-faint</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-magenta-intense</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-magenta-warmer</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-red</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-red-cooler</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-red-faint</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-red-intense</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-red-warmer</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-yellow</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-yellow-cooler</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-yellow-faint</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-yellow-intense</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-fg-yellow-warmer</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-intense-blue</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-intense-cyan</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-intense-green</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-intense-magenta</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-intense-red</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-intense-yellow</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-key-binding</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-lang-error</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-lang-note</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-lang-warning</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-mark-alt</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-mark-del</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-mark-sel</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-nuanced-blue</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-nuanced-cyan</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-nuanced-green</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-nuanced-magenta</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-nuanced-red</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-nuanced-yellow</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-prominent-error</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-prominent-note</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-prominent-warning</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-prose-code</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-prose-macro</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-prose-verbatim</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-search-current</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-search-lazy</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-search-replace</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-search-rx-group-0</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-search-rx-group-1</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-search-rx-group-2</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-search-rx-group-3</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-search-static</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-subtle-blue</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-subtle-cyan</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-subtle-green</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-subtle-magenta</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-subtle-red</code></li>
+  <li><code class="language-plaintext highlighter-rouge">modus-themes-subtle-yellow</code></li>
+</ul>
+
+<p>Thanks to Kevin Fleming and Jimmy Yuen Ho Wong for fixing two cases of
+unbalanced/faulty parentheses caused by the aforementioned. These were
+done as pull requests 166 and 168, respectively:</p>
+
+<ul>
+  <li><a href="https://github.com/protesilaos/modus-themes/pull/166">https://github.com/protesilaos/modus-themes/pull/166</a>.</li>
+  <li><a href="https://github.com/protesilaos/modus-themes/pull/168">https://github.com/protesilaos/modus-themes/pull/168</a>.</li>
+</ul>
+
+<p>Both changes are small: no copyright assignment to the Free Software
+Foundation is needed (and I think both authors are covered, anyway).</p>
+
+<h3>All <code class="language-plaintext highlighter-rouge">:inherit</code> face attributes are reviewed and kept to a minimum</h3>
+
+<p>The themes now use the <code class="language-plaintext highlighter-rouge">:inherit</code> attribute much more cautiously than
+before. This is because of the reliance on semantic palette mappings:
+those give us more control and usually are explicit about the desired
+result.</p>
+
+<p>Face inheritance can become circular in some cases. Newer Emacs
+versions throw an error accordingly. This was discussed in Emacs bug
+79672, with participation from Eli Zaretskii, JD Smith, Manuel Giraud,
+Stephane Marks, and Steven Allen: <a href="https://debbugs.gnu.org/cgi/bugreport.cgi?bug=79672">https://debbugs.gnu.org/cgi/bugreport.cgi?bug=79672</a>.</p>
+
+<p>Thanks to everybody involved!</p>
+        
+      

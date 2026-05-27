@@ -1,0 +1,355 @@
+
+	
+<p>
+A plain text editor helps you focus on content over form. Having said this, the default Emacs experience can be harsh on the eyes. This article describes how to improve Emacs by ricing Org mode for a more pleasant writing experience.</p>
+<p>
+Ricing is a term often used by hackers as the activity to make a system look nicer. The <a href="https://www.urbandictionary.com/define.php?term=ricing">Urban Dictionary</a> defines it as: &#34;To rice, or to soup up a crappy car with the mistaken idea that […] performance yellow paint makes it go faster.&#34;</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+The source files of the book and EWS configuration are also freely available on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Org mode as a Text Processor
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>The main difference between a text editor and a Word processor is that in Emacs, the design of the text (font, colour and so on) is based on meaning and not the writer&#39;s choice. The purpose of the buffer design is to help you navigate the document. This will not be the way it looks when you export the text. The articles about <a href="https://lucidmanager.org/productivity/publishing-with-org-mode-export/">publishing articles and books</a> and the article about <a href="https://lucidmanager.org/productivity/create-websites-with-org-mode-and-hugo/">creating websites</a> show how to export buffers.</p>
+<p>
+The default design of an Org mode buffer is a bit bland, shown in the image below. This article will show you how to step-by-step improve the look-and-feel. These improvements are not  beautification for the sake of aesthetics. Removing leading stars, indentation, converting $\LaTeX$ and line spacing facilitates the writing process by giving your eyes focus on content instead of form.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/org-mode-rice-01.png" alt="Before ricing org mode" title="Before ricing Org mode" width="600"/>
+<figcaption>
+Before ricing Org mode.
+</figcaption>
+</figure>
+<p>
+All the configuration explained in this series of articles is available as an init file on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<div id="outline-container-headline-2" class="outline-3">
+<h3 id="headline-2">
+Org mode Tweaks
+</h3>
+<div id="outline-text-headline-2" class="outline-text-3">
+<p>Org mode needs some tweaks to remove clutter from the screen. We can change the etxt alignment, change the way fonts of rich text and special characters are displayed and preview images by default.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>    <span style="color:#888">;; Improve org mode looks</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#007020">setq-default</span> <span style="color:#963">org-startup-indented</span> <span style="color:#036;font-weight:bold">t</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#963">org-pretty-entities</span> <span style="color:#036;font-weight:bold">t</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#963">org-use-sub-superscripts</span> <span style="background-color:#fff0f0">&#34;{}&#34;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#963">org-hide-emphasis-markers</span> <span style="color:#036;font-weight:bold">t</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#963">org-startup-with-inline-images</span> <span style="color:#036;font-weight:bold">t</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#963">org-image-actual-width</span> <span style="color:#333">&#39;</span>(<span style="color:#00d;font-weight:bold">300</span>))</span></span></code></pre></div>
+</div>
+<div id="outline-container-headline-3" class="outline-4">
+<h4 id="headline-3">
+Indentation
+</h4>
+<div id="outline-text-headline-3" class="outline-text-4">
+<p>Org mode aligns text to the left of the buffer and all the stars of headings are visible. You can also remove leading stars and align subheadings and text below its respective heading to create a more pleasant layout. To globally turn on Org Indent mode for all files, set the variable <code class="verbatim">org-startup-indented</code> to <code class="verbatim">t</code>, which removes the leading stars for a nice clean view.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-4">
+<h4 id="headline-4">
+Rich Text and Special Characters
+</h4>
+<div id="outline-text-headline-4" class="outline-text-4">
+<p>The following three lines in the configuration instruct Org mode to display special characters and improve how we view rich text.</p>
+<p>
+Pretty entities in Org mode relate to special symbols, such as superscript and subscript (<code class="verbatim">x^{2}</code> or <code class="verbatim">x_{2}</code>) and other LaTeX special characters, such as <code class="verbatim">\pi</code>, which display as x², x<sub>2</sub> and π.</p>
+<p>
+You can toggle this behaviour with the <code class="verbatim">C-c C-x \</code> keystroke (<code class="verbatim">org-toggle-pretty-entities</code>). For more complex mathematical expressions, see below.</p>
+<p>
+By default, Org mode does not require curly braces for sub- and superscripts. But this can cause confusion if you like to write something using snake_case. This configuration limits applying sub- and superscripts to characters between curly braces by setting the <code>org-use-sub-superscripts</code> variable to <code class="verbatim">{}</code>.</p>
+<p>
+Org mode uses various markers to indicate rich text. Emacs will adapt the text display, but the markers remain visible, which adds to the clutter on your screen. You can remove these markers by setting the <code class="verbatim">org-hide-emphasis-markers</code> variable.</p>
+<p>
+The only problem with hiding emphasis markers is that rich text becomes hard to edit because it is unclear whether your cursor is on the marker or the first or last character. The <a href="https://github.com/awth13/org-appear">org-appear package</a> helps by displaying the markers while the cursor is on a rich text word.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">org-appear</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:hook</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-mode</span> <span style="color:#333">.</span> <span style="color:#963">org-appear-mode</span>))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-4">
+<h4 id="headline-5">
+Preview Images
+</h4>
+<div id="outline-text-headline-5" class="outline-text-4">
+<p>Org mode includes images as file links, but it can also preview the image itself. The penultimate line in this configuration instructs Org mode to preview all images in a buffer. You can toggle this with <code class="verbatim">C-c C-x C-v</code> (<code class="verbatim">org-toggle-inline-images</code>) for each open buffer.</p>
+<p>
+You need to restrict the size of previews because they can get unwieldy when working with high-resolution images. You can set the default width of a preview in pixels, which in this example is 300. If you like to increase the size of a specific image, then place the cursor on it and use the plus and minus keys.</p>
+<p>
+The code above shows the number of pixels in a list <code class="verbatim">&#39;(300)</code> instead of just the number. This method instructs Org mode to override this setting for individual images with the <code class="verbatim">#+attr_org: :width</code> set. In this example, the image is displayed at a width of 100 pixels.</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>  #+caption: Image caption.
+</span></span><span style="display:flex;"><span>  #+attr_org: :width 100
+</span></span><span style="display:flex;"><span>  [[<span style="color:#00c">file:path/to/image.png</span>]]</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-4">
+<h4 id="headline-6">
+Prettify Special Symbols
+</h4>
+<div id="outline-text-headline-6" class="outline-text-4">
+<p>When using Org mode or similar approaches, there a lot of characters that are not content but indicate semantics, such as the asterisks at the start of a header. These symbols are practical but look a bit rough. The previous configuration already removed the leading stars to reduce clutter. Now we will replace these symbols with some nicer looking bullets.</p>
+<p>
+Emacs can change the way a text file is displayed by either hiding or replacing characters. The <a href="https://github.com/minad/org-modern">Org-Modern package</a> implements a configurable package to rice your Org mode buffers. The package can style headline indicators, keywords, tables and source blocks. This configuration disables some of the functionality because hiding indicators is not always a good idea. </p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">org-modern</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:hook</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-mode</span> <span style="color:#333">.</span> <span style="color:#963">global-org-modern-mode</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-modern-keyword</span> <span style="color:#036;font-weight:bold">nil</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-modern-checkbox</span> <span style="color:#036;font-weight:bold">nil</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-modern-table</span> <span style="color:#036;font-weight:bold">nil</span>))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-4">
+<h4 id="headline-7">
+LaTeX previews
+</h4>
+<div id="outline-text-headline-7" class="outline-text-4">
+<p>If you have a working LaTeX installation, then Org Mode can preview LaTeX fragments, such as formulas, as images. To preview the fragment under the cursor, press <code class="verbatim">C-c C-x C-l</code> (<code>org-latex-preview</code>) to, for example, convert <code class="verbatim">$\sum_1^\infty \frac{1}{x}$</code> to $\sum_1^\infty \frac{1}{x}$. Org mode created a subdirectory named </p>
+<p>
+The <a href="https://github.com/io12/org-fragtog">org-fragtog</a> package provides some nice functionality that toggles between the source and the preview of the formulas, which means you don&#39;t have to use the <code>org-latex-preview</code> function repeatedly. The package is loaded after the Org package has loaded.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  <span style="color:#888">;; LaTeX previews</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">org-fragtog</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:after</span> <span style="color:#963">org</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-startup-with-latex-preview</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:hook</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-mode</span> <span style="color:#333">.</span> <span style="color:#963">org-fragtog-mode</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-format-latex-options</span>
+</span></span><span style="display:flex;"><span>     (<span style="color:#06b;font-weight:bold">plist-put</span> <span style="color:#963">org-format-latex-options</span> <span style="color:#007020">:scale</span> <span style="color:#00d;font-weight:bold">2</span>)
+</span></span><span style="display:flex;"><span>     (<span style="color:#06b;font-weight:bold">plist-put</span> <span style="color:#963">org-format-latex-options</span> <span style="color:#007020">:foreground</span> <span style="color:#a60;background-color:#fff0f0">&#39;auto</span>)
+</span></span><span style="display:flex;"><span>     (<span style="color:#06b;font-weight:bold">plist-put</span> <span style="color:#963">org-format-latex-options</span> <span style="color:#007020">:background</span> <span style="color:#a60;background-color:#fff0f0">&#39;auto</span>)))</span></span></code></pre></div>
+</div>
+<p>
+The <code class="verbatim">org-format-latex-options</code> variable controls the way the Emacs presents fragments. By default, the text is a bit small. This variable is a list with properties such as colours and size. The <code class="verbatim">plist-put</code> function lets you change one of these options in the list. The foreground and background are set to take the same colour as your text. If you change from dark to light mode or vice versa, you need to evaluate the <code>org-latex-preview</code> function to change the way formulas are displayed.</p>
+&nbsp;
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Line Spacing
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>When the text is a bit too compact for your liking, then change the <code class="verbatim">line-spacing</code> variable. Setting it to <code class="verbatim">nil</code> results in a cramped reading space, so best to add some whitespace between lines. Space between paragraphs is formed by adding an empty line.</p>
+<p>
+If the value is an integer, it indicates the number of pixels below each line. A decimal number is a scaling factor relative to the current window&#39;s default line height. The <code class="verbatim">setq-default</code> function sets this for all buffers. Otherwise, it only applies to the current open buffer. Try the value that best suits your preferences.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; Increase line spacing</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">setq-default</span> <span style="color:#963">line-spacing</span> <span style="color:#00d;font-weight:bold">2</span>)</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+A Clean Writing Interface
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>Writing takes total concentration to produce creative prose. Distractions are the natural enemy of concentration. While your computer is your most important writing tool, it can also be a source of distractions.</p>
+<p>
+Distraction-free writing means that your computer screen is free of clutter and, just like an old typewriter, only shows the text you are working on. In the article about <a href="https://lucidmanager.org/productivity/configure-emacs/">configuring Emacs</a>, we already removed the menu bar and other on-screen distractions.</p>
+<p>
+<a href="https://github.com/rnkn/olivetti">Olivetti</a> is a simple Emacs minor mode that facilities distraction-free writing. The name Olivetti derives from the famous typewriter brand.</p>
+<p>
+You activate Olivetti mode with <code class="verbatim">M-x olivetti-mode</code>. This minor mode reduces the width of the text to seventy characters and centres the text in the middle of the window. The width of the text is changeable with the <code class="verbatim">M-x olivetti-set-with</code> command or <code class="verbatim">C-c \</code>.</p>
+<p>
+I have written a new function that makes Olivetti mode a bit easier to use. This code stores your window configuration when you hit <code class="verbatim">F9</code> (or whatever key you prefer) and activates Olivetti mode. It also increases the text by two steps to create a nice focussed screen. Finally, typing <code class="verbatim">F9</code> again restores the previous window settings.</p>
+<p>
+This snippet of code is a simple example of the flexibility of Emacs and how relatively easy it is to change its behaviour to suit your preferences. The <code>ews-distraction-free</code> function checks whether Olivetti mode is currently active. If this is not the case, then it saves the current window configuration to a register and activates Olivetti mode with enlarged font size. If Olivetti mode is active, then the text is sized to its default and olivetti mode disabled. If the original window configuration had more than two open windows, then this is restored so you are back where you left off.</p>
+<p>
+As a side note, all functions specifically written for the <em>Emacs Writing Studio</em> start with <code>ews-</code>, which is in line with best-practice naming conventions in Emacs Lisp where all functions start with their package name.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; Distraction-free writing</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">defun</span> <span style="color:#963">ews-distraction-free</span> ()
+</span></span><span style="display:flex;"><span>    <span style="background-color:#fff0f0">&#34;Distraction-free writing environment using Olivetti package.&#34;</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#007020">interactive</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#007020">if</span> (<span style="color:#06b;font-weight:bold">equal</span> <span style="color:#963">olivetti-mode</span> <span style="color:#036;font-weight:bold">nil</span>)
+</span></span><span style="display:flex;"><span>        (<span style="color:#007020">progn</span>
+</span></span><span style="display:flex;"><span>          (<span style="color:#963">window-configuration-to-register</span> <span style="color:#00d;font-weight:bold">1</span>)
+</span></span><span style="display:flex;"><span>          (<span style="color:#963">delete-other-windows</span>)
+</span></span><span style="display:flex;"><span>          (<span style="color:#963">text-scale-set</span> <span style="color:#00d;font-weight:bold">2</span>)
+</span></span><span style="display:flex;"><span>          (<span style="color:#963">olivetti-mode</span> <span style="color:#036;font-weight:bold">t</span>))
+</span></span><span style="display:flex;"><span>      (<span style="color:#007020">progn</span>
+</span></span><span style="display:flex;"><span>        (<span style="color:#007020">if</span> (<span style="color:#06b;font-weight:bold">eq</span> (<span style="color:#06b;font-weight:bold">length</span> (<span style="color:#06b;font-weight:bold">window-list</span>)) <span style="color:#00d;font-weight:bold">1</span>)
+</span></span><span style="display:flex;"><span>            (<span style="color:#963">jump-to-register</span> <span style="color:#00d;font-weight:bold">1</span>))
+</span></span><span style="display:flex;"><span>        (<span style="color:#963">olivetti-mode</span> <span style="color:#00d;font-weight:bold">0</span>)
+</span></span><span style="display:flex;"><span>        (<span style="color:#963">text-scale-set</span> <span style="color:#00d;font-weight:bold">0</span>))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">olivetti</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:demand</span> <span style="color:#036;font-weight:bold">t</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:bind</span>
+</span></span><span style="display:flex;"><span>    ((<span style="background-color:#fff0f0">&#34;&lt;f9&gt;&#34;</span> <span style="color:#333">.</span> <span style="color:#963">ews-distraction-free</span>)))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Ricing Org Mode
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>By ricing Org mode we have moved somewhere between pure plain text and a graphical interface. There is no functional need to do so other than convenience. While it might seem that we have moved away from the <em>What You See is What You Mean</em> approach, that is not quite the case. The way the screen is presented in Emacs is different from the way it looks in your final output.</p>
+<p>
+For example, if you create a website, any Org mode text surrounded by a forward slash (<code class="verbatim">/example/</code>) is translated as <code>&lt;i&gt;example&lt;/i&gt;/</code>. For LaTeX output, it becomes <code>\emph{example}</code>. The HTML style sheet or LaTeX document class determines the way this code looks in the final output (the &#34;what you get&#34; in WYSIWYG). This example is italic by default, but it could be something different.</p>
+<p>
+The results of our efforts have made a difference, as shown by the image below. Your chosen theme will change the background and text colours.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/org-mode-rice-02.png" alt="After ricing org mode" title="After ricing Org mode" width="600"/>
+<figcaption>
+Enhanced Org mode screen.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>If you like to support my work, then please purchase the <em>Emacs Writing Studio</em> book.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+You can find the source files for the book and the latest configuration files on GitHub:</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+Emacs is a malleable system, so everybody will have their personal preferences. Any article on how to use Emacs is thus opinionated. If you have a different way of doing things, please complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email or contact me on social media through the links in the footer.</p>
+<p>
+Now that you have written a nice article or a new book, it is time to <a href="https://lucidmanager.org/productivity/publishing-with-org-mode-export/">publish your work as an ebook or a physical book</a>.</p>
+</div>
+</div>
+
+      

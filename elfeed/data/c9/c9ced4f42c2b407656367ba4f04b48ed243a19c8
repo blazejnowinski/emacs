@@ -1,0 +1,152 @@
+
+         
+         <p>My <code class="language-plaintext highlighter-rouge">institution-calendar</code> package for Emacs displays term+week
+indicators in the <code class="language-plaintext highlighter-rouge">*Calendar*</code> buffer (which, by default, is produced
+by the <code class="language-plaintext highlighter-rouge">calendar</code> command). This is useful, for example, for schools
+who organise their work by terms, such as winter, spring, and summer,
+with each having a set number of weeks. This is how the University of
+Oxford will look like:</p>
+
+<p><a href="https://protesilaos.com/assets/images/attachments/2026-01-09-oxford-calendar.png"><img alt="Oxford calendar for Emacs" src="https://protesilaos.com/assets/images/attachments/2026-01-09-oxford-calendar.png" /></a></p>
+
+<p>The package supports the universities of Oxford and Cambridge
+out-of-the-box, though users can define their own institutions. I have
+two institutions there to provide concrete examples. I am happy to add
+more, but the idea is for users to maintain their own data.</p>
+
+<p>Below I show a complete example using data for a school in Austria.</p>
+
+<h2>Write the calendar data</h2>
+
+<p>To make this work, you first need to specify the data. This has the
+same structure as <code class="language-plaintext highlighter-rouge">institution-calendar-oxford-university-dates</code> and
+thus passes the test of <code class="language-plaintext highlighter-rouge">institution-calendar-valid-data-p</code>. Look at
+the code for Oxford to get an idea. Here is a sample:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">defvar</span> <span class="nv">my-austrian-school-dates</span>
+  <span class="o">'</span><span class="p">((</span><span class="mi">2025</span> <span class="p">(</span><span class="nv">wintersemester</span> <span class="p">(</span> <span class="mi">9</span>  <span class="mi">8</span> <span class="mi">2025</span><span class="p">)</span> <span class="p">(</span> <span class="mi">2</span>  <span class="mi">6</span> <span class="mi">2026</span><span class="p">))</span>
+          <span class="p">(</span><span class="nv">sommersemester</span> <span class="p">(</span> <span class="mi">2</span> <span class="mi">16</span> <span class="mi">2026</span><span class="p">)</span> <span class="p">(</span> <span class="mi">7</span> <span class="mi">10</span> <span class="mi">2026</span><span class="p">)))))</span>
+</code></pre></div></div>
+
+<p>This is an Austrian school that has two terms for the academic year
+starting in 2025: <code class="language-plaintext highlighter-rouge">wintersemester</code> and <code class="language-plaintext highlighter-rouge">sommersemester</code>. The symbols
+for those terms can be anything. Internally, the package uses the
+first letter to form the week indicator, followed by the number of the
+week within the given term.</p>
+
+<p>Each term defines a start date and an end date as a list of integers
+of the form <code class="language-plaintext highlighter-rouge">(MONTH DAY YEAR)</code>. I picked a form that is consistent
+with the way <code class="language-plaintext highlighter-rouge">calendar.el</code> represents the date, otherwise I would have
+used a different standard.</p>
+
+<h2>Register your institution</h2>
+
+<p>The variable <code class="language-plaintext highlighter-rouge">institution-calendar-user-entities</code> contains all
+user-defined institutions and their corresponding calendar data. Each
+entry is a cons cell of the form <code class="language-plaintext highlighter-rouge">(ENTITY . CALENDAR-DATA)</code>, where
+<code class="language-plaintext highlighter-rouge">ENTITY</code> is an arbitrary symbol and <code class="language-plaintext highlighter-rouge">CALENDAR-DATA</code> is the symbol of a
+variable that holds the data, as shown in the previous section.</p>
+
+<p>Here is how we can add to this list:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'institution-calendar-user-entities</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'austrian-school</span> <span class="ss">'my-austrian-school-dates</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>In this example, I am calling the newly registered institution
+<code class="language-plaintext highlighter-rouge">austrian-school</code>, which is how I can refer to it elsewhere. I am
+associating this <code class="language-plaintext highlighter-rouge">austrian-school</code> with the calendar data of the
+variable <code class="language-plaintext highlighter-rouge">my-austrian-school-dates</code>.</p>
+
+<h2>Make the <code class="language-plaintext highlighter-rouge">institution-calendar-mode</code> work for your institution</h2>
+
+<p>With the aforementioned in place, the user option <code class="language-plaintext highlighter-rouge">institution-calendar-entity</code>
+can be set to the value of <code class="language-plaintext highlighter-rouge">austrian-school</code>:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nv">setopt</span> <span class="nv">institution-calendar-entity</span> <span class="ss">'austrian-school</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>If the <code class="language-plaintext highlighter-rouge">institution-calendar-mode</code> is enabled, then the regular
+<code class="language-plaintext highlighter-rouge">calendar</code> command will display week indicators for this school. This
+is good if you only need one calendar. But if you work with many
+institutions and thus need to switch between their calendars, then
+ignore this step and move to the next one. Or ignore it anyway if you
+prefer to keep the <code class="language-plaintext highlighter-rouge">M-x calendar</code> intact.</p>
+
+<h2>Define a custom command for your institution</h2>
+
+<p>The macro <code class="language-plaintext highlighter-rouge">institution-calendar-define-convenience-command</code> makes it
+trivial to define a command that produces a calendar buffer for the
+given institution. This is like <code class="language-plaintext highlighter-rouge">M-x calendar</code> with the minor mode
+<code class="language-plaintext highlighter-rouge">institution-calendar-mode</code> enabled, except it does not alter the
+output of the <code class="language-plaintext highlighter-rouge">calendar</code>—so you can use them both (or, anyhow, use
+as many as the institutions you care about).</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; This defines the command `institution-calendar-austrian-school'.</span>
+<span class="c1">;; Call `institution-calendar-austrian-school' with M-x or bind it to a key.</span>
+<span class="p">(</span><span class="nv">institution-calendar-define-convenience-command</span> <span class="nv">austrian-school</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Once you evaluate this macro call, you will get the command
+<code class="language-plaintext highlighter-rouge">institution-calendar-austrian-school</code>. Use that to produce a calendar
+that works with the <code class="language-plaintext highlighter-rouge">austrian-school</code> in particular. If you are
+curious, <code class="language-plaintext highlighter-rouge">M-x institution-calendar-oxford-university</code> will still do
+the right thing for the University of Oxford. Same for the command
+<code class="language-plaintext highlighter-rouge">institution-calendar-cambridge-university</code>.</p>
+
+<h2>Use an intermonth header</h2>
+
+<p>The user option <code class="language-plaintext highlighter-rouge">institution-calendar-include-intermonth-header</code> adds
+a header above the week numbers. By default, this only works with the
+universities of Oxford and Cambridge. Though you can extend the
+package to support your institution by adding to the value of the
+variable <code class="language-plaintext highlighter-rouge">institution-calendar-intermonth-headers</code>. Thus:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'institution-calendar-intermonth-headers</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'austrian-school</span> <span class="s">"AU"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>You can skip this step if you do not plan to display the intermonth
+header. Those are not shown by default.</p>
+
+<h2>Putting it all together</h2>
+
+<p>This is how your configuration of the <code class="language-plaintext highlighter-rouge">institution-calendar</code> may look like:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">use-package</span> <span class="nv">institution-calendar</span>
+  <span class="ss">:ensure</span> <span class="no">nil</span> <span class="c1">; not in a package archive</span>
+  <span class="ss">:init</span>
+  <span class="c1">;; Install it from source.</span>
+  <span class="c1">;; Then upgrade it with the command `package-vc-upgrade' or `package-vc-upgrade-all'.</span>
+  <span class="p">(</span><span class="nb">unless</span> <span class="p">(</span><span class="nv">package-installed-p</span> <span class="ss">'institution-calendar</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">package-vc-install</span> <span class="s">"https://github.com/protesilaos/institution-calendar.git"</span><span class="p">))</span>
+  <span class="ss">:config</span>
+  <span class="p">(</span><span class="nb">defvar</span> <span class="nv">my-austrian-school-dates</span>
+    <span class="o">'</span><span class="p">((</span><span class="mi">2025</span> <span class="p">(</span><span class="nv">wintersemester</span> <span class="p">(</span> <span class="mi">9</span>  <span class="mi">8</span> <span class="mi">2025</span><span class="p">)</span> <span class="p">(</span> <span class="mi">2</span>  <span class="mi">6</span> <span class="mi">2026</span><span class="p">))</span>
+            <span class="p">(</span><span class="nv">sommersemester</span> <span class="p">(</span> <span class="mi">2</span> <span class="mi">16</span> <span class="mi">2026</span><span class="p">)</span> <span class="p">(</span> <span class="mi">7</span> <span class="mi">10</span> <span class="mi">2026</span><span class="p">)))))</span>
+
+  <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'institution-calendar-user-entities</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'austrian-school</span> <span class="ss">'my-austrian-school-dates</span><span class="p">))</span>
+
+  <span class="c1">;; This defines the command `institution-calendar-austrian-school'.</span>
+  <span class="c1">;; Call `institution-calendar-austrian-school' with M-x or bind it to a key.</span>
+  <span class="p">(</span><span class="nv">institution-calendar-define-convenience-command</span> <span class="nv">austrian-school</span><span class="p">)</span>
+
+  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">institution-calendar-include-extra-week-numbers</span> <span class="no">t</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">institution-calendar-include-intermonth-header</span> <span class="no">nil</span><span class="p">)</span>
+
+  <span class="c1">;; These are optional, if you want `M-x calendar' to work for your institution.</span>
+  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">institution-calendar-entity</span> <span class="ss">'austrian-school</span><span class="p">)</span>
+
+  <span class="p">(</span><span class="nv">institution-calendar-mode</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2>Sources</h2>
+
+<ul>
+  <li>Git repository: <a href="https://github.com/protesilaos/institution-calendar">https://github.com/protesilaos/institution-calendar</a></li>
+  <li>Screenshot: <a href="https://protesilaos.com/codelog/2026-02-11-emacs-institution-calendar/">https://protesilaos.com/codelog/2026-02-11-emacs-institution-calendar/</a></li>
+  <li>Backronyms: Interestingly Nothing Serving Teachers Implement Term
+Utilities Took Inspiration from Oxford Novices… calendar;
+Institution … Cambridge Added Lent Entry Notwithstanding Dates
+Already Recorded.</li>
+</ul>
+        
+      

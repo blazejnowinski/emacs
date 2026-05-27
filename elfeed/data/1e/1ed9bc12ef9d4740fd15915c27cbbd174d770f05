@@ -1,0 +1,21 @@
+
+         
+         <p>I met with Amin Bandali to talk about Emacs, specifically Amin’s
+upcoming <code class="language-plaintext highlighter-rouge">ffs</code> package. Amin informed me about changes to <code class="language-plaintext highlighter-rouge">ffs</code> in
+light of a discussion we had during a previous session.</p>
+
+<p>Amin asked me to record the meeting and then publish it, which I
+happily agreed to. You can watch it on Amin’s website:
+<a href="https://kelar.org/~bandali/gnu/emacs/ffs-code-review-prot.html">https://kelar.org/~bandali/gnu/emacs/ffs-code-review-prot.html</a>.</p>
+
+<p>[ NOTE: I normally do not share anything about my meetings with
+  people. Not who they are nor what we talk about. ]</p>
+
+<p>Thanks to Amin for making this happen! I am looking forward to new
+developments.</p>
+
+<p>By the way, I learnt about the function <code class="language-plaintext highlighter-rouge">x-export-frames</code> from a
+mention in Amin’s <code class="language-plaintext highlighter-rouge">ffs</code> package, which led me to write
+<code class="language-plaintext highlighter-rouge">buffer-to-pdf</code>: <a href="https://github.com/protesilaos/buffer-to-pdf">https://github.com/protesilaos/buffer-to-pdf</a>.</p>
+        
+      

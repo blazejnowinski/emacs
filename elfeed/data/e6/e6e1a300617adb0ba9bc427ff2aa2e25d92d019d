@@ -1,0 +1,126 @@
+
+         
+         <p>Much of the maintenance work I do for my packages involves
+correspondence with users about potential bugs. Sometimes, a user will
+encounter a problem that I cannot reproduce on my end. I thus try to
+recreate the bug in a pristine environment and ask my correspondent to
+do the same.</p>
+
+<p>This has become easier since Emacs 29, which introduced a command-line
+flag called <code class="language-plaintext highlighter-rouge">--init-directory</code>. It is responsible for loading the
+<code class="language-plaintext highlighter-rouge">init.el</code> that is present in the given directory. For example:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># From a terminal or shell, run something like this:</span>
+emacs <span class="nt">--init-directory</span><span class="o">=</span>/tmp/test-emacs/
+</code></pre></div></div>
+
+<p>In other words, you can keep your regular configuration intact while
+launching Emacs with another set of options.</p>
+
+<h2>Create the test init.el file</h2>
+
+<p>Have a directory that is unrelated to your regular Emacs
+configuration. Then write the <code class="language-plaintext highlighter-rouge">init.el</code> inside of it.</p>
+
+<p>Because I do this frequently, I prefer to use the standard Linux path
+<code class="language-plaintext highlighter-rouge">/tmp/</code>. Its files get deleted as soon as I switch off the computer,
+which is exactly what I want in this case.</p>
+
+<p>As such, if there is a bug with, say, the <code class="language-plaintext highlighter-rouge">modus-themes</code>, I will work
+with this file path <code class="language-plaintext highlighter-rouge">/tmp/modus-themes/init.el</code>.</p>
+
+<p>But the exact location of the directory does not matter, so choose
+what makes sense to you.</p>
+
+<h2>Write the minimum necessary code</h2>
+
+<p>In that init file, include only the code that is needed to reproduce
+the bug.</p>
+
+<p>Since you want to have the package installed, it makes sense to write
+a <code class="language-plaintext highlighter-rouge">use-package</code> declaration for it. Include the <code class="language-plaintext highlighter-rouge">:ensure t</code> directive
+as it instructs the built-in package manager to install the package if
+it is not already available.</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; Contents of the init.el...</span>
+<span class="p">(</span><span class="nb">use-package</span> <span class="nv">modus-themes</span>
+  <span class="ss">:ensure</span> <span class="no">t</span>
+  <span class="ss">:config</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">modus-themes-common-palette-overrides</span>
+        <span class="o">'</span><span class="p">((</span><span class="nv">fringe</span> <span class="nv">unspecified</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">border-mode-line-active</span> <span class="nv">unspecified</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">border-mode-line-inactive</span> <span class="nv">unspecified</span><span class="p">)))</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">modus-vivendi-palette-overrides</span>
+        <span class="o">'</span><span class="p">((</span><span class="nv">bg-main</span> <span class="s">"#1e1f22"</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">fg-main</span> <span class="s">"#bcbec4"</span><span class="p">)))</span>
+  <span class="p">(</span><span class="nv">load-theme</span> <span class="ss">'modus-vivendi</span> <span class="no">t</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2>Install from source, if necessary</h2>
+
+<p>If you are using an alternative to <code class="language-plaintext highlighter-rouge">package.el</code> like <code class="language-plaintext highlighter-rouge">straight</code> or
+<code class="language-plaintext highlighter-rouge">elpaca</code>, then the aforementioned <code class="language-plaintext highlighter-rouge">:ensure t</code> will likely not suffice:
+you need to build the package from source. To this end, Emacs has the
+function <code class="language-plaintext highlighter-rouge">package-vc-install</code>. Some of my recent packages have sample
+code that relies on this approach. For instance:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">use-package</span> <span class="nv">gnome-accent-theme-switcher</span>
+  <span class="ss">:demand</span> <span class="no">t</span>
+  <span class="ss">:init</span>
+  <span class="c1">;; Then upgrade it with the command `package-vc-upgrade' or `package-vc-upgrade-all'.</span>
+  <span class="p">(</span><span class="nb">unless</span> <span class="p">(</span><span class="nv">package-installed-p</span> <span class="ss">'gnome-accent-theme-switcher</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">package-vc-install</span> <span class="s">"https://github.com/protesilaos/gnome-accent-theme-switcher.git"</span><span class="p">))</span>
+  <span class="ss">:bind</span>
+  <span class="p">((</span><span class="s">"&lt;f5&gt;"</span> <span class="o">.</span> <span class="nv">gnome-accent-theme-switcher-toggle-mode</span><span class="p">)</span>
+   <span class="p">(</span><span class="s">"C-&lt;f5&gt;"</span> <span class="o">.</span> <span class="nv">gnome-accent-theme-switcher-change-accent</span><span class="p">))</span>
+  <span class="ss">:config</span>
+  <span class="p">(</span><span class="nv">gnome-accent-theme-switcher-mode</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>In the above snippet <code class="language-plaintext highlighter-rouge">package-vc-install</code> will pull the latest commit
+from the main branch, though it can even get a specific commit. Read
+its documentation with <code class="language-plaintext highlighter-rouge">M-x describe-function</code>.</p>
+
+<p>What matters is that you fetch the version which you are running in
+your personaly configuration.</p>
+
+<h2>Launch Emacs with this configuration</h2>
+
+<p>From the command-line, run something like the following:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>emacs <span class="nt">--init-directory</span><span class="o">=</span>/tmp/test-emacs/
+</code></pre></div></div>
+
+<p>This will launch a new instance of Emacs. The <code class="language-plaintext highlighter-rouge">use-package</code> you placed
+there will do the work to install the package. After that you are
+ready to reproduce the bug in this clean setup.</p>
+
+<h2>Write down all the steps</h2>
+
+<p>To help the maintainer identify the source of the trouble, keep a
+record of all the steps you followed. Some bugs show up when the
+package is loaded, but others are triggered only after a specific
+action is performed.</p>
+
+<p>Normally, Emacs will pop up a <code class="language-plaintext highlighter-rouge">*Backtrace*</code> buffer when it encounters
+an error. Copy its contents and send them to the maintainer, together
+with the <code class="language-plaintext highlighter-rouge">init.el</code> you used, and the list of the steps you followed.</p>
+
+<h2>Sometimes you just need to re-install the package</h2>
+
+<p>It sometimes happens that you install a package and it is completely
+broken. Although this looks bad, it may not even be a bug, but an
+issue with the old bytecode you had on your system from the previous
+version of the package.</p>
+
+<p>Do <code class="language-plaintext highlighter-rouge">M-x package-delete</code>, select the package, restart Emacs, and then
+<code class="language-plaintext highlighter-rouge">M-x package-install</code> to install the package anew. If everything
+works, then the problem is gone and you do not need to tell the
+maintainer about it.</p>
+
+<h2>Make it easier for maintainers to help you</h2>
+
+<p>With this knowledge, you can provide high quality bug reports for the
+packages you rely on. Good luck!</p>
+        
+      

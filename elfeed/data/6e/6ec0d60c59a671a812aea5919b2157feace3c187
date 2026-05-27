@@ -1,0 +1,61 @@
+
+         
+         <p>I have added two new themes to my minimalist <code class="language-plaintext highlighter-rouge">doric-themes</code> package.
+The collection is growing to cover styles that range from austere to
+playful.</p>
+
+<p><code class="language-plaintext highlighter-rouge">doric-jade</code> is a light theme with an emphais on green. <code class="language-plaintext highlighter-rouge">doric-copper</code>
+is a dark theme with mostly orange accents and hints of patina. Both
+themes retain the Doric quality of using few colours while relying on
+typography to establish rhythm and structure.</p>
+
+<p>Below are their samples.</p>
+
+<p>[ Or just check all the pictures: <a href="https://protesilaos.com/emacs/doric-themes-pictures">https://protesilaos.com/emacs/doric-themes-pictures</a>. ]</p>
+
+<h2>doric-jade</h2>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-jade.png"><img alt="doric-jade theme sample" src="https://protesilaos.com/assets/images/doric/doric-jade.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-jade-org.png"><img alt="doric-jade theme sample" src="https://protesilaos.com/assets/images/doric/doric-jade-org.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-jade-message.png"><img alt="doric-jade theme sample" src="https://protesilaos.com/assets/images/doric/doric-jade-message.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-jade-magit.png"><img alt="doric-jade theme sample" src="https://protesilaos.com/assets/images/doric/doric-jade-magit.png" /></a></p>
+
+<h2>doric-copper</h2>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-copper.png"><img alt="doric-copper theme sample" src="https://protesilaos.com/assets/images/doric/doric-copper.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-copper-org.png"><img alt="doric-copper theme sample" src="https://protesilaos.com/assets/images/doric/doric-copper-org.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-copper-message.png"><img alt="doric-copper theme sample" src="https://protesilaos.com/assets/images/doric/doric-copper-message.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-copper-magit.png"><img alt="doric-copper theme sample" src="https://protesilaos.com/assets/images/doric/doric-copper-magit.png" /></a></p>
+
+<h2>Coming in <code class="language-plaintext highlighter-rouge">doric-themes</code> version 0.7.0</h2>
+
+<p>Both <code class="language-plaintext highlighter-rouge">doric-jade</code> and <code class="language-plaintext highlighter-rouge">doric-copper</code> are in-development. I have
+already worked on their finer point, but may still make some tweaks
+before publishing them as part of the next stable version of the
+<code class="language-plaintext highlighter-rouge">doric-themes</code>.</p>
+
+<h2>About the Doric themes</h2>
+
+<p>The Doric themes use few colours and will appear monochromatic in many
+contexts. They are my most minimalist themes. Styles involve the
+careful use of typographic features and subtleties in colour gradients
+to establish a consistent rhythm. Legibility is still high.</p>
+
+<p>If you want maximalist themes in terms of colour, check my <code class="language-plaintext highlighter-rouge">ef-themes</code>
+package. For something in-between, which I would consider the best
+“default theme” for a text editor, opt for my <code class="language-plaintext highlighter-rouge">modus-themes</code>.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">doric-themes</code></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/doric-themes-pictures">https://protesilaos.com/emacs/doric-themes-pictures</a></li>
+  <li>Git repository: <a href="https://github.com/protesilaos/doric-themes">https://github.com/protesilaos/doric-themes</a></li>
+  <li>Backronym: Doric Only Really Intensifies Conservatively … themes.</li>
+</ul>
+        
+      

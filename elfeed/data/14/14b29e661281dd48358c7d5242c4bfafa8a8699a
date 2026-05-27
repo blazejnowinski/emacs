@@ -1,0 +1,364 @@
+
+	
+<p>
+Emacs is the Swiss Army Chainsaw of productivity tools. This venerable software tool can help you undertake almost every task in the writing process, from idea generation to writing and publishing. Experienced users say they &#34;live inside Emacs&#34; as virtually all computing activities can be done in this software. This article describes a possible Emacs workflow for writers.</p>
+<p>
+This article is part of <a href="https://lucidmanager.org/tags/emacs/">Emacs Writing Studio</a>, a book that explains how to use Emacs to undertake research and write and publish articles, books, and websites. Emacs Writing Studio is also available as an e-book from your favourite retailer.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+The source files of the book and EWS configuration are also freely available on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+The Emacs Workflow
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>The process of writing can be chaotic as it involves many iterative cycles. But an orderly pattern emerges when we step back from our daily tasks. We read literature, develop new ideas, work on these ideas and publish the results. Even though reality is never as linear as this list suggests, it is a helpful guide to organise an Emacs configuration.</p>
+<p>
+The <em>Emacs Writing Studio</em> configuration follows a five-step workflow:</p>
+<ol>
+<li><em>Inspiration</em>: Reading, listening and watching.</li>
+<li><em>Ideation</em>: Cultivating ideas (taking notes).</li>
+<li><em>Production</em>: Writing and editing.</li>
+<li><em>Publication</em>: Export Org mode to PDF, ePub or a website.</li>
+<li><em>Administration</em>: Manage your projects.</li>
+<li><em>Communication</em>: Tell others about your work and exchange ideas.</li>
+</ol>
+<p>The basic principle of this workflow is that the author collects information from literature, the web, email and so on (<em>inspiration</em>), which they process in a note-taking system (<em>ideation</em>). These notes are the central repository of information and can be linked to a bibliography. These notes form the foundation of the writing process (<em>production</em>). When the work is finally completed, the author publishes it in its final format (<em>publication</em>). Elated with the final result, the author communicates her new work through email or social media (<em>communication</em>). At the end of a long work day, we must also do some <em>Administration</em> to keep our systems in good shape, which is the bonus step.</p>
+<p>
+The image below summarises the packages that <em>Emacs Writing Studio</em> uses to convert ideas into reality.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/emacs-workflow.png" alt="Emacs Writing Studio workflow" title="Emacs Writing Studio workflow" width="500"/>
+<figcaption>
+Emacs Writing Studio workflow.
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Inspiration
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>Ideas don&#39;t pop into your mind out of thin air. Our thoughts, plans and inspirations depend on what we read, hear or watch.</p>
+<p>
+Emacs has extensive facilities to read any plain text format imaginable. Emacs can also display PDF files, ebooks, and images out of the box. Listening to a podcast or watching a video is impossible within an Emacs frame. Still, the system does integrate with external multimedia applications.</p>
+<p>
+You can also maintain a bibliography in Emacs with BibTeX files and link these to electronic files for reading inside Emacs or with another program. The <a href="https://github.com/emacs-citar/citar">Citar package</a> by Bruce D&#39;Arcus provides a fast and efficient interface to your bibliography.</p>
+<p>
+The Emacs internet browser is called <code class="verbatim">eww</code> (Emacs Web Wowser). This is not a fully-featured browser but a tool that displays the website you like to read to a plain text file. While this approach creates readable websites without distracting crud, it cannot render more complex internet functionality.</p>
+<p>
+Elfeed is an extensible web feed reader for Emacs, supporting both Atom and RSS feeds. You can use this package to follow your favourite websites. If you like to keep up to date on Emacs articles on this website, then <a href="https://lucidmanager.org/tags/emacs/index.xml">use this feed</a>.</p>
+<p>
+Emacs can also interface with multimedia players and, as such, be configured to become a complete music and video platform.</p>
+<p>
+The following articles on this website discuss how to configure Emacs to read literature or listen to music or podcasts:</p>
+<ul>
+<li><a href="https://lucidmanager.org/productivity/reading-ebooks-with-emacs/">Reading eBooks and Websites with Emacs</a></li>
+<li><a href="https://lucidmanager.org/productivity/emacs-bibtex-mode/">Manage your literature with Emacs BibTeX Mode</a></li>
+<li><a href="https://lucidmanager.org/productivity/read-rss-feeds-with-emacs-and-elfeed/">Read RSS feeds with Emacs and Elfeed</a></li>
+<li><a href="https://lucidmanager.org/productivity/configure-emms/">Configure EMMS — Emacs Multi-Media System on GNU/Linux</a></li>
+</ul>
+<p>Ingesting so many new ideas is only worthwhile if you keep a record of your new-found inspirations. Hence, maintaining research notes is essential to facilitate the ideation process.</p>
+<figure>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/RGUvNnO7lj4?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<figcaption>
+Emacs Writing Studio: Inspiration (Read e-books, manage a bibliography, surf the web and play music).
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Ideation
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>My personal ideation process starts with a physical notebook. This might be a strange thing to admit as somebody who professes admiration for the electronic virtues of Emacs. Physical notebooks have some advantages in the creative process. Firstly, you can use it everywhere. The only exception might be the shower, which is paradoxically where we get our best ideas. Using a notebook is also a slower process than using a keyboard. Writing with a pen forces you to think a bit more deeply about what you are writing. Apparently, writing on paper triggers <a href="https://doi.org/10.3389/fnbeh.2021.634158">different neural pathways</a> than writing electronically.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/emacs-writing-studio-workflow.jpg" alt="Physical notes on the Emacs workflow" title="Physical notes on the Emacs workflow" width="400"/>
+<figcaption>
+My physical notes on the Emacs workflow.
+</figcaption>
+</figure>
+<p>
+Once ideas have germinated in my notebook, some of these will find a place in my electronic system inside Emacs. As part of my weekly action list, I review my physical notes and transfer the ideas that require archiving to my digital system.</p>
+<p>
+Emacs is an ideal tool for storing notes in plain text. Several packages are available to manage your digital brain. The <em>Emacs Writing Studio</em> revolves around the <a href="https://lucidmanager.org/productivity/taking-notes-with-emacs-denote/">Denote</a> package by Protesilaos (Prot) Stavrou.</p>
+<p>
+I don&#39;t follow any specific, such as <a href="https://zettelkasten.de/introduction/">Zettelklasten</a> or <a href="https://bulletjournal.com/">Bullet Journal</a>, to manage my notes. My collection of notes is a primordial soup of my ideas, categorised using tags and opportunistically linked. Besides extracts from my physical notebooks, Denote collects information I find online, extracts from my email inbox, social media or journal articles and books. Everything worth keeping goes to my Denote collection.</p>
+<p>
+Most note-taking systems contain five types of notes:</p>
+<ol>
+<li><em>Fleeting notes</em>: Quickly take a note while doing something else.</li>
+<li><em>Permanent notes</em>: Contains new ideas, project files and anything else worth keeping.</li>
+<li><em>Bibliographic notes</em>: Notes about a book or article linked to the bibliography.</li>
+<li><em>Journals</em>: Daily or weekly reflections.</li>
+<li><em>Attachments</em>: Read-only files, such as images, PDFs, videos and anything else that supports the content of the written notes.</li>
+</ol>
+<div id="outline-container-headline-4" class="outline-4">
+<h4 id="headline-4">
+Fleeting notes
+</h4>
+<div id="outline-text-headline-4" class="outline-text-4">
+<p>Fleeting notes are collected in the central inbox. The Org mode capture mechanism provides a distraction-free tool to collect and store random ideas for later review.</p>
+<p>
+A fleeting note can be an idea, an action item, a URL to review later or whatever else comes my way that has yet to require my attention.</p>
+<p>
+Regularly reviewing your fleeting notes will turn them into actions to do later or convert them into permanent notes.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-4">
+<h4 id="headline-5">
+Permanent notes
+</h4>
+<div id="outline-text-headline-5" class="outline-text-4">
+<p>The permanent notes form your second brain. Using the Denote package, your collection of notes is structured using a tagging system, and they link together to connect your ideas and form a network of thoughts.</p>
+<p>
+Denote can help you implement formal systems, such as Zettelkasten, or lets you use a more organic approach.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-4">
+<h4 id="headline-6">
+Bibliographic notes
+</h4>
+<div id="outline-text-headline-6" class="outline-text-4">
+<p>Literature is the lifeblood of the researchers. Every new thought finds its origin in the ideas of others. Therefore, managing a bibliography is an essential skill for a researcher. Many commercial and free tools are available to help you manage your literature. These tools store a literature list and provide access to notes and attachments. </p>
+<p>
+Bibliographic notes reference one or more bibliographic items, such as a book or an article. A bibliographic note contains a summary or interpretation of the literature you read. For that purpose, I have written the <a href="https://lucidmanager.org/productivity/bibliographic-notes-in-emacs-with-citar-denote/">Citar-Denote package</a>, which provides functionality to write bibliographic notes. This package enables a many-to-many relationship between notes and bibliographic items. This means you can add multiple notes per bibliographic item or one note for more than one piece of literature.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-4">
+<h4 id="headline-7">
+Journals
+</h4>
+<div id="outline-text-headline-7" class="outline-text-4">
+<p>A journal is your personal diary where you can reflect on the past day or week. The Denote package can help you build a journal, whether you like to document your travels or jot down personal reflections.</p>
+&nbsp;
+<figure>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/HFUAKJI0_SI?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<figcaption>
+Emacs Writing Studio: Ideation (Taking fleeting and permanent notes).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+Production
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Once you have gathered your thoughts, it is time to start writing. Emacs developers have published a lot of utilities to assist with the writing process, such as auto-completion, checking spelling and grammar, dictionaries, thesaurus and other tools indispensable to a writer.</p>
+<p>
+Emacs Org mode is ideal for writing articles and books or developing websites. Another popular plain text format for writing is Markdown, which does not have the same flexibility as Org mode. Fountain mode is another plain text format designed to write scripts for theatre, film or a YouTube video.</p>
+<p>
+The <a href="https://lucidmanager.org/productivity/writing-prose-with-emacs/">Writing proce with Emacs</a> article discusses how to write and edit text in Emacs. The <a href="https://lucidmanager.org/productivity/emacs-for-distraction-free-writing/">Distraction-Free Writing</a> article discusses how to mange writing projects with Org mode.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+Publication
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The glorious moment has arrived when you can publish the fruits of your labour. Emacs Org mode has powerful capabilities to export the text to various formats, most importantly PDF for physical books, ePub for ebooks and HTML for websites. The article on <a href="https://lucidmanager.org/productivity/publishing-with-org-mode-export/">Publishing Articles and Books with Org Mode Export</a> discusses creating ebooks in detail.</p>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+PDF format
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>Org mode exports files to PDF through the LaTeX document preparation system popular with technical authors and publishers. Emacs will export your Org files to LaTeX format, which then exports your file to a beautifully designed document. Many journals accept LaTeX submissions, so you can also export your Org mode to a <code class="verbatim">.tex</code> or <code class="verbatim">PDF</code> file to send to the editor.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+ePub format
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>Org mode has built-in capabilities to export a file to HTML. The <a href="https://github.com/ofosos/ox-epub">ox-epub package</a> by Mark Meyer leverages this functionality to produce a book in epub format.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+Word Processor
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>The Org mode export functionality has built-in capabilities to export to the standard open document format, which is compatible with all commercial word processors.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+Websites
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<p>Org mode can not only export to individual HTML files, but it can also publish them to a website. I use the <a href="https://gohugo.io/">Hugo software</a> to convert my collection or Org mode files into my websites. Hugo provides extensive capabilities to use templates for your websites, including shortcodes to dynamically insert HTML in your pages beyond the current capabilities of Org Mode.</p>
+<p>
+The article <a href="https://lucidmanager.org/productivity/create-websites-with-org-mode-and-hugo/">Create Websites with org Mode and Hugo</a> discusses how to create a website, such as the one you are reading now.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+Communication
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>Emacs can also connect you to the world to communicate with other writers and your readers. </p>
+<p>
+The software has built-in capabilities to read and write emails and several external packages, such as <a href="https://www.djcbsoftware.nl/code/mu/">mu4e</a> and <a href="https://www.cs.unb.ca/~bremner/scratch/notmuch-doc-wip/notmuch-emacs.html">notmuch</a> are available to make sense of your email. Using Emacs for email is a very efficient way to grind through your daily dose of electronic mail. Other packages let you connect to IRC, Reddit, Mastodon and other communication protocols.</p>
+<p>
+<em>Emacs Writing Studio</em> does not contain any configuration for communication packages.</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+Administration
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>Working through a writing project is a fantastic journey in creative expression, but there is also some overhead in managing your projects.</p>
+<p>
+Emacs interfaces with other GNU software to help you <a href="https://lucidmanager.org/productivity/manage-files-with-emacs/">manage your files</a> using the powerful directory editor (dired). Managing your files is a breeze with this package. You can also use Emacs to manage your photograph collection with the <a href="https://lucidmanager.org/productivity/using-emacs-image-dired/">built-in image-dired package</a>.</p>
+<p>
+Lastly, working on a big project means tracking many tasks. Org mode has a <a href="https://lucidmanager.org/productivity/getting-things-done-with-emacs/">fully functional task management system</a> to help you keep track of your projects. You can implement your personal workflow or use a Getting Things Done (GTD) approach.</p>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>If you like to support my work, then please purchase the <em>Emacs Writing Studio</em> book.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+You can find the source files for the book and the latest configuration files on GitHub:</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+Emacs is a malleable system, so everybody will have their personal preferences. Any article on how to use Emacs is thus opinionated. If you have a different way of doing things, please complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email or contact me on social media.</p>
+<p>
+The next article discusses how to use Emacs to <a href="https://lucidmanager.org/productivity/reading-ebooks-with-emacs/">read ebooks and other electronic documents</a>.</p>
+</div>
+</div>
+
+      

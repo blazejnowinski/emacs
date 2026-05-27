@@ -1,0 +1,83 @@
+
+         
+         <p>The <code class="language-plaintext highlighter-rouge">denote-sequence</code> package is an optional extension to <code class="language-plaintext highlighter-rouge">denote</code>
+that empowers users to write “sequence notes”, else “folgezettel”, in
+the style of Niklas Luhmann.</p>
+
+<p>Sequence notes are created in relation to other notes, as parent,
+child, or sibling. <code class="language-plaintext highlighter-rouge">denote-sequence</code> communicates such relationships
+by writing a “sequence” to the file name, in accordance with the
+Denote file-naming scheme (technically, it uses the optional
+<code class="language-plaintext highlighter-rouge">SIGNATURE</code> component of the file name, which is defined as a
+free-form field for users to use as they see fit—so this is just one
+application of it).</p>
+
+<h2>The package supported two schemes before</h2>
+
+<p>The exact presentation of such sequences is subject to the user option
+<code class="language-plaintext highlighter-rouge">denote-sequence-scheme</code>. The package has hitherto supported two
+schemes, the <code class="language-plaintext highlighter-rouge">numeric</code> and <code class="language-plaintext highlighter-rouge">alphanumeric</code>.</p>
+
+<p>In the numeric scheme, each level of depth is delimited by the equals
+sign. The sequence <code class="language-plaintext highlighter-rouge">1=2=3</code> thus has three levels of depth. It means
+“the third child of the second child of the first parent”.</p>
+
+<p>By contrast, the alphanumeric scheme relies on the alternation between
+numbers and letters to communicate levels of depth. The above example
+is thus expressed as <code class="language-plaintext highlighter-rouge">1b3</code>.</p>
+
+<h2>The new <code class="language-plaintext highlighter-rouge">alphanumeric-delimited</code> scheme</h2>
+
+<p>Many users have told me that the alphanumeric scheme looks cleaner.
+Though I think it is hard to read when sequences get really long, like
+<code class="language-plaintext highlighter-rouge">2a13c6d2a</code>. To this end, the new sequence scheme augments the
+alphanumeric style with delimiters that are placed after the first
+level of depth and every third level of depth thereafter. Thus:
+<code class="language-plaintext highlighter-rouge">2=a13=c6d=2a</code>.</p>
+
+<p>Users may find this easier to work with.</p>
+
+<h2>Remember the <code class="language-plaintext highlighter-rouge">denote-sequence-convert</code> command</h2>
+
+<p>This command has been part of the package since its inception. It can
+convert from one sequence scheme to the others.</p>
+
+<p><code class="language-plaintext highlighter-rouge">denote-sequence-convert</code> has a “do what I mean behaviour” with regard
+to which file or files it should operate on:</p>
+
+<ul>
+  <li>
+    <p>When called from inside a file with a Denote sequence, it operates
+on the current file.</p>
+  </li>
+  <li>
+    <p>When called from a Dired buffer, it operates on all the marked
+files.</p>
+  </li>
+  <li>
+    <p>When there are no marked files in the Dired buffer, it operates on
+the file at point.</p>
+  </li>
+</ul>
+
+<p>The target sequence scheme for the conversion is whatever is assigned
+to the user option <code class="language-plaintext highlighter-rouge">denote-sequence-scheme</code>. If, however,
+<code class="language-plaintext highlighter-rouge">denote-sequence-convert</code> is called with a prefix argument (<code class="language-plaintext highlighter-rouge">C-u</code> by
+default), then it will prompt for the target sequence scheme.</p>
+
+<h2>Coming in version 0.3.0</h2>
+
+<p>I just merged the code into trunk. Users who are building the package
+from source can try the new feature right away. Otherwise, it will be
+available in the next stable version of the package. I hope to have
+that ready some time in mid-April.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">denote-sequence</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/denote-sequence">https://protesilaos.com/emacs/denote-sequence</a></li>
+  <li>Git repository: <a href="https://github.com/protesilaos/denote-sequence">https://github.com/protesilaos/denote-sequence</a></li>
+  <li>Backronym: Denote… Sequences Efficiently Queue Unsorted Entries
+Notwithstanding Curation Efforts.</li>
+</ul>
+        
+      

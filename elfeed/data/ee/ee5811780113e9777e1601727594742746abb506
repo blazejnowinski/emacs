@@ -1,0 +1,48 @@
+
+         
+         <p><code class="language-plaintext highlighter-rouge">beframe</code> enables a frame-oriented Emacs workflow where each frame has
+access only to the list of buffers visited therein. In the interest of
+brevity, we call buffers that belong to frames “beframed”.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">beframe</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/beframe">https://protesilaos.com/emacs/beframe</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/beframe-changelog">https://protesilaos.com/emacs/beframe-changelog</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/beframe">https://github.com/protesilaos/beframe</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/beframe">https://gitlab.com/protesilaos/beframe</a></li>
+    </ul>
+  </li>
+  <li>Video demo: <a href="https://protesilaos.com/codelog/2023-02-28-emacs-beframe-demo/">https://protesilaos.com/codelog/2023-02-28-emacs-beframe-demo/</a></li>
+  <li>Backronym: Buffers Encapsulated in Frames Realise Advanced
+Management of Emacs.</li>
+</ul>
+
+<p>Below are the release notes</p>
+
+<hr />
+
+<h2>Version 1.5.0 on 2026-02-04</h2>
+
+<p>This version fixes two bugs and makes other minor tweaks.</p>
+
+<p>The first bug pertains to the performance of the command
+<code class="language-plaintext highlighter-rouge">beframe-switch-buffer</code> or the command <code class="language-plaintext highlighter-rouge">switch-to-buffer</code> when
+<code class="language-plaintext highlighter-rouge">beframe-mode</code> is enabled: they were really slow when the list of
+buffers was long. Now they are always fast. Thanks to Alexandre
+Rousseau for reporting the problem in issue 17:
+<a href="https://github.com/protesilaos/beframe/issues/17">https://github.com/protesilaos/beframe/issues/17</a>.</p>
+
+<p>The second bug is more subtle. It is about persisting the completion
+metadata <code class="language-plaintext highlighter-rouge">category</code> value in all prompts that read a buffer, when
+<code class="language-plaintext highlighter-rouge">beframe-mode</code> is enabled. This change means that users who configure
+the user option <code class="language-plaintext highlighter-rouge">completion-category-overrides</code> will not get the
+expected results in buffer prompts affected by Beframe.</p>
+
+<p>Thanks to Stefan Monnier for commenting on the initial implementation,
+specifically telling me that <code class="language-plaintext highlighter-rouge">let</code> binding the metadata can affect
+nested minibuffers, which we do not want. This was done on the
+emacs-devel mailing list: <a href="https://lists.gnu.org/archive/html/emacs-devel/2025-12/msg00264.html">https://lists.gnu.org/archive/html/emacs-devel/2025-12/msg00264.html</a>.</p>
+        
+      

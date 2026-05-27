@@ -1,0 +1,117 @@
+
+         
+         <p>This package provides a global minor mode to increase the
+spacing/padding of Emacs windows and frames.  The idea is to make
+editing and reading feel more comfortable.  Enable the mode with <code class="language-plaintext highlighter-rouge">M-x
+spacious-padding-mode</code>.  Adjust the exact spacing values by modifying
+the user option <code class="language-plaintext highlighter-rouge">spacious-padding-widths</code>.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">spacious-padding</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/spacious-padding">https://protesilaos.com/emacs/spacious-padding</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/spacious-padding">https://protesilaos.com/emacs/spacious-padding</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/spacious-padding">https://github.com/protesilaos/spacious-padding</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/spacious-padding">https://gitlab.com/protesilaos/spacious-padding</a></li>
+    </ul>
+  </li>
+  <li>Sample images:
+    <ul>
+      <li><a href="https://protesilaos.com/codelog/2023-06-03-emacs-spacious-padding/">https://protesilaos.com/codelog/2023-06-03-emacs-spacious-padding/</a></li>
+      <li><a href="https://protesilaos.com/codelog/2023-11-15-spacious-padding-extra-ui-dev/">https://protesilaos.com/codelog/2023-11-15-spacious-padding-extra-ui-dev/</a></li>
+    </ul>
+  </li>
+  <li>Backronyms: Space Perception Adjusted Consistently Impacts Overall
+Usability State … padding; Spacious … Precise Adjustments to
+Desktop Divider Internals Neatly Generated.</li>
+</ul>
+
+<hr />
+
+<p>This release introduces some nice refinements and fixes a couple of
+subtle bugs.</p>
+
+<h3>Subtle mode and header line</h3>
+
+<p>The new user option <code class="language-plaintext highlighter-rouge">spacious-padding-subtle-frame-lines</code> supersedes
+the <code class="language-plaintext highlighter-rouge">~spacious-padding-subtle-mode-line</code>. It does the same thing,
+namely, of making the mode lines use only a thin line instead of a
+background. Though it extends this feature to header lines as well.</p>
+
+<p>The documentation string of <code class="language-plaintext highlighter-rouge">spacious-padding-subtle-frame-lines</code>
+describes the technicalities and includes examples. In short, we can
+associate a keyword with either a face that has a foreground color or
+a color value directly. For the convenience of the user, the package
+also defines the faces <code class="language-plaintext highlighter-rouge">spacious-padding-line-active</code> and
+<code class="language-plaintext highlighter-rouge">spacious-padding-line-inactive</code>. Here is a sample configuration:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; Read the doc string of `spacious-padding-subtle-mode-line' as it</span>
+<span class="c1">;; is very flexible.  Here we make the mode lines be a single</span>
+<span class="c1">;; overline, while header lines have an underline.</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">spacious-padding-subtle-frame-lines</span>
+      <span class="o">'</span><span class="p">(</span> <span class="ss">:mode-line-active</span> <span class="nv">spacious-padding-line-active</span>
+         <span class="ss">:mode-line-inactive</span> <span class="nv">spacious-padding-line-inactive</span>
+         <span class="ss">:header-line-active</span> <span class="nv">spacious-padding-line-active</span>
+         <span class="ss">:header-line-inactive</span> <span class="nv">spacious-padding-line-inactive</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>In the future, we might decide that other elements can benefit from
+this style.</p>
+
+<h3>The header line underline is spaced further away from the text</h3>
+
+<p>As noted above, when <code class="language-plaintext highlighter-rouge">spacious-padding-subtle-frame-lines</code> is
+configured to cover header lines, those will be drawn with an
+underline. This will not intersect with the text of the header line.</p>
+
+<p>Normally, underlines cut through letters that descend below the
+baseline, such as the letters <code class="language-plaintext highlighter-rouge">g</code> and <code class="language-plaintext highlighter-rouge">y</code>. We choose to avoid that
+because it makes for a cleaner interface (though I personally think it
+is not a good style for paragraph text, because of the rivers of
+negative space it introduces).</p>
+
+<p>This specific design is available for Emacs version 29 or higher.
+Users of Emacs 28 must set <code class="language-plaintext highlighter-rouge">x-underline-at-descent-line</code> to a
+non-<code class="language-plaintext highlighter-rouge">nil</code> value. Though note that this has a global effect: we cannot
+limit it to a single face.</p>
+
+<p>Thanks to Steven Allen for covering this in pull request 37:
+<a href="https://github.com/protesilaos/spacious-padding/pull/37">https://github.com/protesilaos/spacious-padding/pull/37</a>. Steven has
+assigned copyright to the Free Software Foundation.</p>
+
+<h3>The <code class="language-plaintext highlighter-rouge">spacious-padding-widths</code> can affect Custom buttons</h3>
+
+<p>This is about the buttons we find in buffers of the Custom system. For
+example, we get such a buffer after we do <code class="language-plaintext highlighter-rouge">M-x customize</code>.</p>
+
+<p>The relevant keyword is <code class="language-plaintext highlighter-rouge">:custom-button-width</code>. It is set to a number
+of spaces for padding. Here is the default value and, as always, the
+documentation cover the details:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">setq</span> <span class="nv">spacious-padding-widths</span>
+      <span class="o">'</span><span class="p">(</span> <span class="ss">:internal-border-width</span> <span class="mi">15</span>
+         <span class="ss">:header-line-width</span> <span class="mi">4</span>
+         <span class="ss">:mode-line-width</span> <span class="mi">6</span>
+         <span class="ss">:custom-button-width</span> <span class="mi">3</span> <span class="c1">; the new one</span>
+         <span class="ss">:tab-width</span> <span class="mi">4</span>
+         <span class="ss">:right-divider-width</span> <span class="mi">30</span>
+         <span class="ss">:scroll-bar-width</span> <span class="mi">8</span>
+         <span class="ss">:fringe-width</span> <span class="mi">8</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h3>Fixes for the Emacs daemon</h3>
+
+<p>There were reports about incorrect face specifications that could
+happen when Emacs was started as a daemon process. I made the relevant
+changes. Also thanks to kaibagley for covering a line I had missed.
+This was done in pull request 43: <a href="https://github.com/protesilaos/spacious-padding/pull/43">https://github.com/protesilaos/spacious-padding/pull/43</a>.</p>
+
+<p>Related threads:</p>
+
+<ul>
+  <li>Issue 35, as reported by Chinmay Dalal: <a href="https://github.com/protesilaos/spacious-padding/issues/35">https://github.com/protesilaos/spacious-padding/issues/35</a>.</li>
+  <li>Issue 41, as reported by zealotrush: <a href="https://github.com/protesilaos/spacious-padding/issues/41">https://github.com/protesilaos/spacious-padding/issues/41</a>.</li>
+</ul>
+        
+      

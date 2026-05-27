@@ -1,0 +1,45 @@
+
+         
+         <p>The <code class="language-plaintext highlighter-rouge">ef-themes</code> are a collection of light and dark themes for GNU
+Emacs that provide colourful (“pretty”) yet legible options for users
+who want something with a bit more flair than the <code class="language-plaintext highlighter-rouge">modus-themes</code> (also
+designed by me).</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">ef-themes</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/ef-themes">https://protesilaos.com/emacs/ef-themes</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/ef-themes-changelog">https://protesilaos.com/emacs/ef-themes-changelog</a></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/ef-themes-pictures">https://protesilaos.com/emacs/ef-themes-pictures</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/ef-themes">https://github.com/protesilaos/ef-themes</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/ef-themes">https://gitlab.com/protesilaos/ef-themes</a></li>
+    </ul>
+  </li>
+  <li>Backronym: Eclectic Fashion in Themes Hides Exaggerated Markings,
+Embellishments, and Sparkles.</li>
+</ul>
+
+<p>Below are the release notes.</p>
+
+<hr />
+
+<h2>Version 2.1.0 on 2026-01-27</h2>
+
+<p>This version introduces two carefully designed, legible and colourful
+themes: <code class="language-plaintext highlighter-rouge">ef-orange</code> (light) and <code class="language-plaintext highlighter-rouge">ef-fig</code> (dark). Both draw inspiration
+from the fruits they are name after.</p>
+
+<p>The convenience commands <code class="language-plaintext highlighter-rouge">ef-themes-select-dark</code> and
+<code class="language-plaintext highlighter-rouge">ef-themes-select-light</code> use the minibuffer to select+load an Ef theme
+that is either dark or light, respectively. The more general command
+is <code class="language-plaintext highlighter-rouge">ef-themes-select</code>.</p>
+
+<p>All screen shots of the themes are updated to reflect their current
+status: <a href="https://protesilaos.com/emacs/ef-themes-pictures">https://protesilaos.com/emacs/ef-themes-pictures</a>.</p>
+
+<p>Remember that since version <code class="language-plaintext highlighter-rouge">2.0.0</code> the <code class="language-plaintext highlighter-rouge">ef-themes</code> are built on top
+of my <code class="language-plaintext highlighter-rouge">modus-themes</code>. This means that most of the changes happen to
+Modus and are inherited by Ef.</p>
+        
+      

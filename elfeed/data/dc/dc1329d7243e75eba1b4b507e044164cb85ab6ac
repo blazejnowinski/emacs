@@ -1,0 +1,57 @@
+
+         
+         <p>I am developing two new themes for my minimalistic <code class="language-plaintext highlighter-rouge">doric-themes</code>
+package for Emacs. These combine marine hues with some warmer accents,
+cast on a fairly prominent backdrop. <code class="language-plaintext highlighter-rouge">doric-siren</code> is a light theme,
+while <code class="language-plaintext highlighter-rouge">doric-mermaid</code> is dark. Below are some screenshots to give you
+an idea of what to expect.</p>
+
+<p>[ Or just check all the pictures: <a href="https://protesilaos.com/emacs/doric-themes-pictures">https://protesilaos.com/emacs/doric-themes-pictures</a>. ]</p>
+
+<h2>doric-siren</h2>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-siren.png"><img alt="doric-siren theme sample" src="https://protesilaos.com/assets/images/doric/doric-siren.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-siren-org.png"><img alt="doric-siren theme sample" src="https://protesilaos.com/assets/images/doric/doric-siren-org.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-siren-message.png"><img alt="doric-siren theme sample" src="https://protesilaos.com/assets/images/doric/doric-siren-message.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-siren-magit.png"><img alt="doric-siren theme sample" src="https://protesilaos.com/assets/images/doric/doric-siren-magit.png" /></a></p>
+
+<h2>doric-mermaid</h2>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-mermaid.png"><img alt="doric-mermaid theme sample" src="https://protesilaos.com/assets/images/doric/doric-mermaid.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-mermaid-org.png"><img alt="doric-mermaid theme sample" src="https://protesilaos.com/assets/images/doric/doric-mermaid-org.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-mermaid-message.png"><img alt="doric-mermaid theme sample" src="https://protesilaos.com/assets/images/doric/doric-mermaid-message.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-mermaid-magit.png"><img alt="doric-mermaid theme sample" src="https://protesilaos.com/assets/images/doric/doric-mermaid-magit.png" /></a></p>
+
+<h2>Coming in <code class="language-plaintext highlighter-rouge">doric-themes</code> version 0.5.0</h2>
+
+<p>The character of the themes is established and, in principle, I will
+not change them further. Though I am giving it a few more days of
+further testing to confirm I did not miss something. Expect these and
+other improvements to be available in the next stable version of the
+<code class="language-plaintext highlighter-rouge">doric-themes</code>, which I expect to publish before the end of November.</p>
+
+<h2>About the Doric themes</h2>
+
+<p>The Doric themes use few colours and will appear monochromatic in many
+contexts. They are my most minimalist themes. Styles involve the
+careful use of typographic features and subtleties in colour gradients
+to establish a consistent rhythm. Legibility is still high.</p>
+
+<p>If you want maximalist themes in terms of colour, check my <code class="language-plaintext highlighter-rouge">ef-themes</code>
+package. For something in-between, which I would consider the best
+“default theme” for a text editor, opt for my <code class="language-plaintext highlighter-rouge">modus-themes</code>.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">doric-themes</code></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/doric-themes-pictures">https://protesilaos.com/emacs/doric-themes-pictures</a></li>
+  <li>Git repository: <a href="https://github.com/protesilaos/doric-themes">https://github.com/protesilaos/doric-themes</a></li>
+  <li>Backronym: Doric Only Really Intensifies Conservatively … themes.</li>
+</ul>
+        
+      

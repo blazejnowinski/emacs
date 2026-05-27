@@ -1,0 +1,327 @@
+
+	
+<p>
+When I developed my first website in 1997, I wrote HTML in a plain text editor. When discovering WordPress when it was first released, I thought it was the best thing since sliced bread because it allowed me to create websites without managing individual HTML and CSS pages.</p>
+<p>
+Unfortunately, WordPress has become bloated, and the online editor is inconvenient. Last year, I bid farewell to WordPress and now use Emacs Org mode and Hugo to develop websites.</p>
+<p>
+A significant disadvantage of WordPress is that you write your text in the browser, and your content resides inside a database. You can, as such, only use WordPress to work on your website. The advantage of using Emacs and Org mode to maintain a website is that your content consists of plain text files. There are no databases or access limitations, and you get to use the incredible editing powers of Emacs.</p>
+<p>
+Another reason to ditch WordPress is that static websites are faster and safer because there is no database to hack. A static website generator creates pages in plain HTML, which render faster than a database-driven website, improving the user experience and your SEO. Static websites have at least three advantages over database-driven systems, such as WordPress:</p>
+<ul>
+<li>Faster website due to static content (no need to access a database)</li>
+<li>Writing web pages offline with your favourite editor</li>
+<li>Your content remains in plain text</li>
+<li>No dependence on third-party paid plugins</li>
+</ul>
+<p>This website is entirely created with Emacs Org mode and Hugo, and this post explains how you can do the same.</p>
+<p>
+This article is part of the <a href="https://lucidmanager.org/tags/emacs/">Emacs Writing Studio</a>, which explains how to use Emacs to undertake research and write and publish articles, books, and websites. You can find the most recent configuration files on GitHub:</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Org mode
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p><a href="https://lucidmanager.org/productivity/emacs-for-distraction-free-writing/">Org mode is a markdown language</a> in plain text. This approach helps you to focus more on your writing instead of its design because it emphasises content over formatting. Text editors are not like What-You-See-Is-What-You-Get systems. You write the article in plain text, and when you publish the website, the content is merged with a style sheet that determines the design. The image below shows this article as I write it and what it looks like in the browser.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/wysiwym.jpg" alt="The WYSIWYM approach with Emacs Org Mode and Hugo." title="The WYSIWYM approach with Emacs Org Mode and Hugo."/>
+<figcaption>
+The WYSIWYM approach: Left, an article in Emacs. Right: The exported result.
+</figcaption>
+</figure>
+<p>
+Emacs can create simple websites with the default Org mode export function. While this function has a powerful option to use CSS templates, it is not a fully-fledged static website generator. That is why I use Hugo to generate HTML files.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Hugo static website generator
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>The Hugo static website generator converts a Markdown or Org mode file collection to a website using the Go language. You can use Hugo with Emacs out-of-the-box. The <a href="https://github.com/niklasfasching/go-org">go-org</a> library by Niklas Fasching forms part of Hugo, so in principle you do not need to update your <a href="https://lucidmanager.org/productivity/configure-emacs/">init file</a>. </p>
+<p>
+You will need to install the Hugo software, create an empty site and download a theme before starting. The <a href="https://gohugo.io/getting-started/quick-start/">Quick Start guide for Hugo</a> provides detailed instructions. When you get to step four, come back to this article to find out how to use Org Mode to add some content.</p>
+<p>
+The video series by Mick Dane embedded below provides a comprehensive introduction to using Hugo.</p>
+<figure>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/qtIqKaDlqXo?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<figcaption>
+Introduction to Hugo by Mick Dane.
+</figcaption>
+</figure>
+<p>
+All you need to do now is start writing pages in Org mode or Markdown in the <code class="verbatim">content</code> folder. Emacs can also help you with Markdown, but that is outside the scope of this article.</p>
+<p>
+The theme for this website is optimised for working directly with Org mode files in Hugo. You can download the theme from GitHub. The <a href="https://themes.gohugo.io/">Hugo website</a> provides access to an extensive collection of themes. Changing the look and feel of your website is as easy as changing the theme.</p>
+<p>
+<a href = "https://github.com/pprevos/hugo-thirdhemisphere/" target="_blank"
+   title="Download hugo-thirdhemisphere from GitHub"
+   alt="Download hugo-thirdhemisphere from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">hugo-thirdhemisphere</span>
+  </button>
+</a>
+
+</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Using Org Mode and Hugo
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>The Hugo website does not provide much information about using Org mode. The Go-Org website has a <a href="https://niklasfasching.github.io/go-org/">detailed overview</a> of Org mode syntax and how Hugo renders the HTML.</p>
+<p>
+The Org mode module in Hugo perfectly parses your org files, but there are some special considerations and limitations.</p>
+&nbsp;
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Front matter
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>Each Org mode file starts with the front matter containing your blog post&#39;s title, author, date, and other metadata. You can add non-standard variables, which you can use in your Hugo shortcodes or partials, for example:</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>  #+Title:        Create Websites with Emacs: Blogging with Org mode and Hugo
+</span></span><span style="display:flex;"><span>  #+date:         [2021-05-07 Fri]
+</span></span><span style="display:flex;"><span>  #+lastmod:      [2023-09-09 Sat]
+</span></span><span style="display:flex;"><span>  #+categories[]: Productivity
+</span></span><span style="display:flex;"><span>  #+tags[]:       Emacs Hugo
+</span></span><span style="display:flex;"><span>  #+images[]:     /images/emacs/emacs-hugo.jpg
+</span></span><span style="display:flex;"><span>  #+weight:       62
+</span></span><span style="display:flex;"><span>  #+example:      Hello world!</span></span></code></pre></div>
+</div>
+<p>
+Any line that does not start with <code class="verbatim">#+</code> ends the front matter.</p>
+<p>
+Keyword values can be either strings (<code class="verbatim">#+key: value</code>), or a whitespace-separated list of strings (<code class="verbatim">#+key[]: value_1 value_2</code>). If you need to add a value with two words, you will need to use a hyphen.</p>
+<p>
+Add single keywords to your template with, for example with <code class="verbatim">{{- .Params.example =-}}</code>, which renders as &#34;Hello world!&#34;</p>
+<p>
+When working with a list, spaces act as a delimiter, so you cannot use tags with two words without a workaround, for example hyphenation (&#34;Hello-World&#34;). </p>
+<p>
+If you are handy with <a href="https://lucidmanager.org/productivity/hugo-seo/">Hugo templates</a>, then you can easily remove the hyphens. Modify your Hugo template files that call the relevant list variables to replace any hyphens with spaces:</p>
+<div class="src src-go">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>{{<span style="color:#333">-</span><span style="color:#bbb"> </span><span style="color:#080;font-weight:bold">range</span><span style="color:#bbb"> </span>.Params.tags<span style="color:#bbb"> </span>}}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span>{{<span style="color:#bbb"> </span>replace<span style="color:#bbb"> </span>.<span style="color:#bbb"> </span><span style="background-color:#fff0f0">&#34;-&#34;</span><span style="color:#bbb"> </span><span style="background-color:#fff0f0">&#34; &#34;</span><span style="color:#bbb"> </span>}}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span>{{<span style="color:#333">-</span><span style="color:#bbb"> </span>end<span style="color:#bbb"> </span>}}</span></span></code></pre></div>
+</div>
+<p>
+You can instruct Emacs to automatically add a modification timestamp by adding the following code to your init file:</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; Update Org files with last modified date when #+lastmod:</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">setq</span> <span style="color:#963">time-stamp-active</span> <span style="color:#036;font-weight:bold">t</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#963">time-stamp-start</span> <span style="background-color:#fff0f0">&#34;#\\+lastmod:[ \t]*&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#963">time-stamp-end</span> <span style="background-color:#fff0f0">&#34;$&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#963">time-stamp-format</span> <span style="background-color:#fff0f0">&#34;[%04Y-%02m-%02d %a]&#34;</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#963">add-hook</span> <span style="color:#a60;background-color:#fff0f0">&#39;before-save-hook</span> <span style="color:#a60;background-color:#fff0f0">&#39;time-stamp</span> <span style="color:#036;font-weight:bold">nil</span>)</span></span></code></pre></div>
+</div>
+<p>
+This hook will look for <code class="verbatim">#+lastmod:</code> in your file and add the current date. Hugo will recognise the <code class="verbatim">lastmod</code> variable, and if your template supports it, it will insert this date onto your page. </p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Internal Links
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Org mode includes the ability to <a href="https://orgmode.org/guide/Hyperlinks.html">link to other pages</a>. Unfortunately, you cannot use standard Org mode or Denote links in Hugo for two reasons.</p>
+<p>
+Firstly, in Hugo, the slug of a post is not necessarily the same as its relative filename. When using the <code class="verbatim">#+slug:</code> variable in the front matter, the URL will not match the filename.</p>
+<p>
+Secondly, the file&#39;s location on your drive might be in a different folder than it appears on the website.</p>
+<p>
+Hugo uses the <code class="verbatim">ref</code> shortcode to manage these issues. This shortcode inserts the URL of the post into the link. When you move a post to another folder, Hugo finds it and creates the appropriate hyperlink. Hugo will throw an error when it cannot find your file during rendering.</p>
+<p>
+You can create links between your pages using standard org mode syntax and the <code class="verbatim">ref</code> Hugo shortcode, which looks like this:</p>
+<p>
+<code class="verbatim">{{&lt; ref filename.org &gt;}}</code></p>
+<p>
+Use the <code class="verbatim">C-c C-l</code> shortcut (<code class="verbatim">org-insert-link</code>) and enter the shortcode and a description. The source code of the link will look like this:</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>[[<span style="color:#00c">{{&lt; ref filename.org &gt;}}</span>][<span style="color:#070">Description</span>]]</span></span></code></pre></div>
+</div>
+<p>
+To find the filename of the post you want to link to, open the <a href="https://lucidmanager.org/productivity/manage-files-with-emacs/">Dired file manager</a> with <code class="verbatim">C-x d</code> and find your post. Press <code class="verbatim">w</code> to copy the filename and paste it into the link.</p>
+<p>
+When the target is an index page, then you need to add the sub-folders starting with a forward slash and remove the <code class="verbatim">_index.org</code> filename. Please note that paths with a non-alphanumeric symbol, such as a directory separator <code class="verbatim">/</code>, need to be quoted.</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>[[<span style="color:#00c">{{&lt; ref &#34;/tags/emacs&#34; &gt;}}</span>][<span style="color:#070">Index Page</span>]]</span></span></code></pre></div>
+</div>
+<p>
+Org mode has flexible options to create special types of links. We can leverage this functionality to simplify creating internal Hugo links. Creating a new Org mode link type with some Lisp makes life slightly easier. Add the code below to your <a href="https://lucidmanager.org/productivity/configure-emacs/">Emacs configuration</a>. </p>
+<p>
+This capability consists of three bespoke functions. The <code>ews-get-hugo-directory</code> and <code>ews-hugo-list-content</code> functions check whether the current open buffer is part of a Hugo project by locating the configuration file. If this is the case, then it presents a list of all articles and pages in your website. The <code>ews-hugo-link-complete</code> function lets you select a page or post of your website to link to. This function also manages the specific requirements for index pages. </p>
+<p>
+Press <code class="verbatim">C-l</code> to create a link, and type <code class="verbatim">hugo:</code> and enter. Pick a file, hit enter, provide a label and hit enter again.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  <span style="color:#888">;; Create Hugo links</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">defun</span> <span style="color:#963">ews-get-hugo-directory</span> ()
+</span></span><span style="display:flex;"><span>    <span style="background-color:#fff0f0">&#34;Lists the directory of the current Hugo website or nil.&#34;</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#007020">when</span> (<span style="color:#06b;font-weight:bold">string-match</span> <span style="background-color:#fff0f0">&#34;\\(.*\\)content&#34;</span> <span style="color:#963">default-directory</span>)
+</span></span><span style="display:flex;"><span>      (<span style="color:#963">match-string</span> <span style="color:#00d;font-weight:bold">1</span> <span style="color:#963">default-directory</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">defun</span> <span style="color:#963">ews-hugo-list-content</span> ()
+</span></span><span style="display:flex;"><span>    <span style="background-color:#fff0f0">&#34;List the content of the Hugo website of the current buffer.
+</span></span></span><span style="display:flex;"><span><span style="background-color:#fff0f0">  Return an error message when not in an apparent Hugo directory.&#34;</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">if-let*</span> ((<span style="color:#963">hugo-dir</span> (<span style="color:#963">ews-get-hugo-directory</span>))
+</span></span><span style="display:flex;"><span>              (<span style="color:#963">hugo-p</span> (<span style="color:#06b;font-weight:bold">directory-files</span> <span style="color:#963">hugo-dir</span> <span style="color:#036;font-weight:bold">nil</span> <span style="background-color:#fff0f0">&#34;^config\\..*&#34;</span>))
+</span></span><span style="display:flex;"><span>              (<span style="color:#963">content-dir</span> (<span style="color:#06b;font-weight:bold">concat</span> <span style="color:#963">hugo-dir</span> <span style="background-color:#fff0f0">&#34;content/&#34;</span>)))
+</span></span><span style="display:flex;"><span>        (<span style="color:#007020">let</span> ((<span style="color:#963">org-files</span> (<span style="color:#963">directory-files-recursively</span> <span style="color:#963">content-dir</span> <span style="background-color:#fff0f0">&#34;\\.org\\&#39;&#34;</span>))
+</span></span><span style="display:flex;"><span>              (<span style="color:#963">md-files</span> (<span style="color:#963">directory-files-recursively</span> <span style="color:#963">content-dir</span> <span style="background-color:#fff0f0">&#34;\\.md\\&#39;&#34;</span>)))
+</span></span><span style="display:flex;"><span>          (<span style="color:#06b;font-weight:bold">append</span> <span style="color:#963">org-files</span> <span style="color:#963">md-files</span>))
+</span></span><span style="display:flex;"><span>      (<span style="color:#f00;font-weight:bold">user-error</span> <span style="background-color:#fff0f0">&#34;Not in a Hugo buffer&#34;</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">defun</span> <span style="color:#963">ews-hugo-link-complete</span> ()
+</span></span><span style="display:flex;"><span>    <span style="background-color:#fff0f0">&#34;Complete a Hugo weblink through the </span><span style="color:#a60;background-color:#fff0f0">`org-insert-link&#39;</span><span style="background-color:#fff0f0"> and hugo: hyperlink type.&#34;</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#007020">let*</span> ((<span style="color:#963">posts</span> (<span style="color:#963">ews-hugo-list-content</span>))
+</span></span><span style="display:flex;"><span>           (<span style="color:#963">titles</span> (<span style="color:#06b;font-weight:bold">mapcar</span> (<span style="color:#007020">lambda</span> (<span style="color:#963">post</span>)
+</span></span><span style="display:flex;"><span>                             (<span style="color:#963">string-remove-prefix</span>
+</span></span><span style="display:flex;"><span>                              (<span style="color:#06b;font-weight:bold">concat</span> (<span style="color:#963">ews-get-hugo-directory</span>)
+</span></span><span style="display:flex;"><span>                                      <span style="background-color:#fff0f0">&#34;content/&#34;</span>) <span style="color:#963">post</span>)) <span style="color:#963">posts</span>))
+</span></span><span style="display:flex;"><span>           (<span style="color:#963">selection</span> (<span style="color:#06b;font-weight:bold">completing-read</span> <span style="background-color:#fff0f0">&#34;Choose page:&#34;</span> <span style="color:#963">titles</span>))
+</span></span><span style="display:flex;"><span>           (<span style="color:#963">target</span> (<span style="color:#06b;font-weight:bold">concat</span> <span style="background-color:#fff0f0">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span>                           (<span style="color:#963">replace-regexp-in-string</span>
+</span></span><span style="display:flex;"><span>                            <span style="background-color:#fff0f0">&#34;_index.*&#34;</span> <span style="background-color:#fff0f0">&#34;&#34;</span> <span style="color:#963">selection</span>))))
+</span></span><span style="display:flex;"><span>      (<span style="color:#007020">when</span> <span style="color:#963">titles</span>
+</span></span><span style="display:flex;"><span>        (<span style="color:#06b;font-weight:bold">concat</span> <span style="background-color:#fff0f0">&#34;{{&lt; ref \&#34;&#34;</span> <span style="color:#963">target</span> <span style="background-color:#fff0f0">&#34;\&#34; &gt;}}&#34;</span>))))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#888">;; New link type for Org-Hugo internal links</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#963">org-link-set-parameters</span>
+</span></span><span style="display:flex;"><span>   <span style="background-color:#fff0f0">&#34;hugo&#34;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#007020">:complete</span> <span style="color:#06b;font-weight:bold">#&#39;</span><span style="color:#963">ews-hugo-link-complete</span>)</span></span></code></pre></div>
+</div>
+<p>
+This configuration only defines how to create a link. Unfortunately, this approach does not allow you to follow these links as Org mode can only recognise links that start with a string and a colon. e.g. <code class="verbatim">hugo:</code>, while Hugo links start with curly braces. </p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Images
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>The standard image syntax in Org mode works fine, but you must link the image to its published destination, not the current one. Hugo keeps images in the <code class="verbatim">static</code> folder, so all your image paths assume this folder as the root. Hugo will convert these links to the full URL.</p>
+<p>
+Unfortunately, you cannot preview images in Org mode because you are linking to the website folder, not the Org mode folder. An image stored in <code class="verbatim">&lt;hugo-directory&gt;/static/images/picture.emacs.png</code> will be listed as <code class="verbatim">/images/picture.emacs.png</code>.</p>
+<p>
+Hugo will parse the usual metadata, such as captions, alternative text, title and width. The example below shows how to style an image with <code class="verbatim">alt</code> and <code class="verbatim">title</code> tags and set its width.</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>  #+attr_html: alt: Alternative text title: Image Title :width 800
+</span></span><span style="display:flex;"><span>  #+caption: Caption text.
+</span></span><span style="display:flex;"><span>  [[<span style="color:#00c">/images/file-path.png</span>]]</span></span></code></pre></div>
+</div>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Items and drawers
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>When writing in Org mode it can be useful to <a href="https://lucidmanager.org/productivity/emacs-for-distraction-free-writing/">track progress and add notes inside drawers</a>. The standard Org mode export function can be configured to ignore <code class="verbatim">TODO</code> tags and drawers in the export. Because working with Hugo bypasses the Org Mode export functionality, <code class="verbatim">TODO</code> tags will appear in your HTML files. Hugo ignores property drawers but includes the content of any other types of drawers.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Limitations
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Using Hugo directly with Org mode has some limitations, mentioned above. The main limitation is that it bypasses the Org mode export engine which means that some functionality is unavailable. Org mode macros cannot be used, but you can <a href="https://gohugo.io/content-management/shortcodes/">Hugo shortcodes</a> to insert parametrised bits of text or HTML in your website. For example: <code>{{&lt; youtube w7Ft2ymGmfc &gt;}}</code> embeds a YouTube video with the relevant ID in your page.</p>
+<p>
+Bypassing the export engine also means that any Org mode export variables are ignored, for example to exclude <code class="verbatim">TODO</code> tags or drawers from your website.</p>
+<p>
+To insert images you either use the <a href="https://gohugo.io/content-management/shortcodes/#figure">figure shortcode</a> or the method shown above. Unfortunately you cannot preview these images as you need to enter the image location on your website and not on your computer.</p>
+<p>
+Lastly, links need to use the internal linking shortcode. The configuration shown above helps you insert links, but you cannot follow them. </p>
+<p>
+These limitations have not stopped me to use Hugo and Org mode as described in this article to develop this and other websites.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Using ox-hugo
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>The <a href="https://ox-hugo.scripter.co/">ox-hugo</a> package in Emacs can act as an intermediary between Org mode and Hugo. This package converts the Org files in your content folder into Markdown files, which Hugo will render.</p>
+<p>
+This package has some advantages over using the plain Org mode method because it relies on the standard Org mode export functionality.</p>
+<p>
+However, I don’t use ox-hugo because I like the flexibility of the plain Org Mode approach. The minor limitations of the native Org mode rendering in Hugo have not prevented me from maintaining my websites. But Emacs is a matter of choice, so feel free to use <code class="verbatim">ox-hugo</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+Deploying your website
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>After adding some content, you can continue following the Hugo Quick Start Guide instructions to run the internal webserver or generate the entire website.</p>
+<p>
+You don’t need to leave Emacs to run these console commands. When you execute the <code class="verbatim">shell</code> function (<code class="verbatim">M-x shell &lt;enter&gt;</code>), you can run Hugo from within Emacs. You will need to execute these files from within the folder that contains your website.</p>
+<div class="src src-bash">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo server -D <span style="color:#888"># Run internal web server, showing draft pages</span></span></span></code></pre></div>
+</div>
+<p>
+All buffers in the <code class="verbatim">content</code> folder must be saved to disk; otherwise, Hugo will throw an error.</p>
+<p>
+When using the <code class="verbatim">server</code> option in the Hugo command line, the website is available in your local browser under <code class="verbatim">https://localhost:1313</code>.</p>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Exporting your WordPress website to Org mode
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>Moving a WordPress website to Hugo can be an enormous task that can be semi-automated. You can export the content from WordPress to a CSV file to convert the content to either Org mode or Markdown. I have written some scripts to <a href="https://lucidmanager.org/data-science/export-wordpress-to-hugo/">export my former WordPress websites</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p><a href="https://lucidmanager.org/tags/emacs/">Emacs Writing Studio</a> consists of a series articles and a configuration to help you publish articles, books, movie and theatre scripts and websites. You can find the most recent configuration files on GitHub:</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+Emacs is a malleable system, so everybody will have their personal preferences of how to undertake a task. Any article on how to be productive with Emacs is thus opinionated. If you have a different way of doing things, please share your views and leave a comment below, or complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email.</p>
+<p>
+The next article in this series discusses how to manage your projects and <a href="https://lucidmanager.org/productivity/getting-things-done-with-emacs/">get things done with Org mode</a>.</p>
+</div>
+</div>
+
+      

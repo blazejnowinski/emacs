@@ -1,0 +1,389 @@
+
+	
+<p>
+The market for productivity applications is saturated with apps and other complex systems to manage your actions. While these systems provide great functionality, the main problem is that you have to use them the way the designer intended instead of how you like to work. This article shows how to use Org mode to get things done with Emacs and configure a bespoke productivity system.</p>
+<p>
+The approach in the article roughly follows the concepts of David Allen&#39;s <a href="https://en.wikipedia.org/wiki/Getting_Things_Done">Getting Things Done</a> (GTD) system. This is, however, not the only method to manage your affairs. Whatever your preferred workflow looks like, you can <a href="https://lucidmanager.org/productivity/configure-emacs/">configure Emacs</a> to help you with that.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+The source files of the book and EWS configuration are also freely available on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+The productivity quest
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>The quest to become more productive has become a popular past time. Millions of people around the world struggle with the demands of life in the twenty-first century and they constantly look for ways to cram more activities into their day. Self-proclaimed productivity gurus have published piles of popular books about methods to get more done in your limited available time.</p>
+<p>
+All these methods boil down to three basic phases: set a goal, define the actions to achieve that goal and undertake these actions. These principles might sound simplistic, but it is the basic truth. The plethora of methods merely discuss different ways on how to manage these three steps effectively and efficiently. A central theme of these methods are means to process the enormous amount of information that people are exposed to every day.</p>
+<p>
+In the slipstream of the productivity gurus, software developers have released many apps to manage the information stream of our daily lives. The internet contains many stories about people who moved from one application to the next, in search of the perfect way to manage their projects and tasks. I was one of those people, until I started using Emacs.</p>
+<p>
+Org mode is an ideal system to help you getting things done. The Org mode package not only allows you to <a href="https://lucidmanager.org/productivity/emacs-for-distraction-free-writing/">write prose</a>, it is also helps you to manage actions and projects. As with any other Emacs package, it provides virtually unlimited freedom to implement your favourite method to get stuff done.</p>
+<p>
+This chapter shows how to use Org Mode to manage your projects and tasks, loosely based on David Allen&#39;s <em>Getting Things Done</em> (GTD) method. David Allen describes iterative five steps to become more productive:</p>
+<ol>
+<li><em>Capture</em>: Empty your mind</li>
+<li><em>Clarify</em>: Describe what it all means</li>
+<li><em>Organise</em> Place it where it belongs</li>
+<li><em>Reflect</em>: Reflect on your progress</li>
+<li><em>Engage</em>: Take action</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Capture: empty your head
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>One of the reasons we are often not as productive as we like is because our minds are filled with issues. When our brain is full of thoughts about what we should be doing, we start to worry about how busy we are instead of doing the thing we need to do. David Allen says that &#34;Our minds are for having ideas, not for holding them&#34;.</p>
+<p>
+The first step to getting things done is to <a href="https://lucidmanager.org/productivity/clear-your-head/">empty your mind</a>. This is not a Buddhism-inspired quest for enlightenment, but a simple technique to help you focus. A brain only has a limited capacity as we can only have one thought at a time. When your brain is full of thoughts about what you should be doing, creative and productive thoughts are suppressed.</p>
+<p>
+The other problem with keeping ideas in your head is the risk that they will disappear in the fog of your brain. I am sure you all recognise the experience of having the most wonderful idea when enjoying your morning shower, but half an hour later you are unable to recall your gem.</p>
+<p>
+Open a new Org Mode file with the <code>find-file</code> command (<code class="verbatim">C-x c-f</code>). You can call it something like <code class="verbatim">inbox.org</code>, or whatever you fancy. For the next fifteen minutes, write down everything that is floating around in your head. Dump the contents of your brain into this virgin Org Mode file. Try not to <a href="https://lucidmanager.org/management/myth-of-multitasking/">multitask</a> when you empty your mind, but fully focus your attention on the list.</p>
+<p>
+Start every new idea with an asterisk so that they become headlines. Your list will contain a jumble of random things. From minor household tasks to big future projects you want to do one day. Don&#39;t filter your thoughts. Just write them down. </p>
+<p>
+For the next twenty-five minutes, focus only on this task and write down everything that is in your head. Don&#39;t multitask and give this activity your undivided attention. <a href="https://lucidmanager.org/management/myth-of-multitasking/">Multitasking is the enemy of productivity</a> because our brains can only focus on one intellectual activity at a time. The fact that magicians can so easily fool people illustrates why multitasking is a fool&#39;s errand. Perhaps <a href="https://lucidmanager.org/productivity/configure-emms/">listen to some music</a> with the Emacs EMMS package to keep you focused.</p>
+<p>
+Don&#39;t spend any time thinking about these tasks. Don&#39;t worry about when you&#39;ll need to do it or in what order they need to be done just yet. Ensure that your mind is empty by the time you complete your list. If the list only has about a dozen items, then your list is not complete. For most people, fifty actionable items, projects and fuzzy goals are not unusual. If you are overwhelmed by the list then don&#39;t shoot the messenger as it merely reflects your life. If it takes you longer than twenty five minutes to empty your mind, then take a five minute break and start again.</p>
+<p>
+You now have a long list of all the stuff you need to get done. But that is only the starting point. Org mode also has functions that can capture tasks as they come up in random moments of the day.</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">*</span><span style="font-weight:bold"> Mow the lawn</span>
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">*</span><span style="font-weight:bold"> Clean up the backyard</span>
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">*</span><span style="font-weight:bold"> Improve my job skills</span>
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">*</span><span style="font-weight:bold"> Learn how to use Emacs</span>
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">*</span><span style="font-weight:bold"> Write an ebook about ... (fill in your speciality)</span>
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">*</span><span style="font-weight:bold"> Empty your e-mail inbox</span>
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">*</span><span style="font-weight:bold"> Prepare presentation for the quarterly meeting next week</span>
+</span></span><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">*</span><span style="font-weight:bold"> And so on, and so on ...</span></span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Clarify: Describe what it all means
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Did you notice that most things on the list above, apart from items 6 and 7, are more work than just one action?</p>
+<p>
+In GTD-speak, they are projects, which are desired outcomes that take more than one action to complete.</p>
+<p>
+Your list will be a mess of tasks, projects, goals and vague ideas. Your next task is to organise them. Firstly you can add some order and hierarchy to the list with the <code class="verbatim">ALT</code> and arrow keys. <code class="verbatim">M-up</code> and <code class="verbatim">M-down</code> will move a heading up or down, while <code class="verbatim">M-right</code> and <code class="verbatim">M-left</code> will promote or demote your entry.</p>
+<p>
+With these four keystrokes, you can organise your list so that projects and tasks go together and create some order in the chaos that came from your mind. So the garden becomes a project with two tasks:</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span><span style="color:#000080;font-weight:bold">*</span><span style="font-weight:bold"> Gardening</span>
+</span></span><span style="display:flex;"><span><span style="color:#800080;font-weight:bold">**</span> Clean up the backyard
+</span></span><span style="display:flex;"><span><span style="color:#800080;font-weight:bold">**</span> Mow the lawn</span></span></code></pre></div>
+</div>
+<p>
+If you like a bit more clarity on your list, you can collapse a heading with the <code class="verbatim">TAB</code> key. Using <code class="verbatim">S-TAB</code> will collapse the whole document to only the first-level headlines. Repeatedly using <code class="verbatim">S-TAB</code> will cycle through the full content, only the first headlines and all headlines.</p>
+<p>
+You can also add notes or link images below any heading to provide some context to the task by hitting enter at the end of the headline and typing.</p>
+<p>
+Your list is starting to take shape now. The following steps will add more context to your tasks. If you like do some more finessing, then read my article on <a href="https://lucidmanager.org/productivity/emacs-for-distraction-free-writing/">writing prose with Org mode</a>.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Organise: Place it where it belongs
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>After a week or so, your inbox will start filling with stuff. Your inbox is not just one location, but a collection of places where you gather information. <em>Emacs Writing Studio</em> uses the Org mode capture mechanism as an inbox, but it can also be a physical inbox to collect papers. A digital notebook on your phone or a physical diary to collect notes are also viable options.</p>
+<p>
+My personal inbox consists of my Org mode inbox file, my email inbox, a cloud-based notes application in my phone a physical inbox and my physical diary. As part of my weekly review I promise myself to empty these locations and process them into my system using this flowchart, which is based on the classic GTD model.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/todo-workflow.png" alt="Example of a productivity workflow using Org mode" title="Example of a productivity workflow using Org mode" width="500"/>
+<figcaption>
+Example of a productivity workflow using Org mode.
+</figcaption>
+</figure>
+<p>
+During your regular review, you assess each bit of information you collected. If it is not actionable, the you either ditch it, otherwise capture it in  <a href="https://lucidmanager.org/productivity/taking-notes-with-emacs-denote/">Denote</a> as a permanent note.</p>
+<p>
+If the new item is actionable and it only takes a few minutes to do, then just go ahead and do it; don&#39;t waste your time formally registering the action.</p>
+<p>
+Lastly, if the inbox item is actionable, bur requires some time, you can add it as an action to your agenda file. The status of each action depends on external circumstances. </p>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Action Status
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>The problem with most todo-lists is that you get overwhelmed by the amount of stuff to be done. But in reality, most actions don&#39;t need or can&#39;t be progressed. You can be more precise in your records and mark items as the next action to be undertaken, or mark the ones where you are waiting for somebody else.</p>
+<ul>
+<li><em>Next</em>: The next action to be taken.</li>
+<li><em>Todo</em>: Something to be done in the future (either scheduled or as yet undetermined)</li>
+<li><em>Waiting</em>: If you are waiting for somebody to do something, then mark it as such.</li>
+</ul>
+<p>Org mode can associate each headline in a document with a workflow state. By default, there are only two states, <code class="verbatim">TODO</code> or <code class="verbatim">DONE</code>. You can change the state of a heading with the shift and arrow keys. Org mode will cycle between the two states. The keywords are commonly written in all caps, but that is not necessary.</p>
+<p>
+You can define workflow states any way you like. Adding the following Lisp lines to your init file will set your workflow states. The states after the vertical bar will be marked as completed, usually coloured green.</p>
+<p>
+If you have many states, cycling through them can be tedious. The <code class="verbatim">C-c C-t</code> command provides a popup menu to quickly select your option. You add the menu letter between parentheses after the keyword like this:</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#963">setq-defualt</span> <span style="color:#963">org-todo-keywords</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#333">&#39;</span>((<span style="color:#963">sequence</span> <span style="background-color:#fff0f0">&#34;TODO(t)&#34;</span> <span style="background-color:#fff0f0">&#34;NEXT(n)&#34;</span> <span style="background-color:#fff0f0">&#34;WAITING(w)&#34;</span> <span style="background-color:#fff0f0">&#34;|&#34;</span> <span style="background-color:#fff0f0">&#34;DONE(d)&#34;</span> <span style="background-color:#fff0f0">&#34;CANCELLED(c)&#34;</span>)))</span></span></code></pre></div>
+</div>
+<p>
+<em>Emacs Writing Studio</em> roughly follows the GTD approach and have a status for next actions, waiting for others or future actions. When an action is completed, it is either done or cancelled. There are, in principle, no limitations to how you use this functionality.</p>
+<p>
+The basic principle of the GTD approach is not to have massive lists of items that you like to do one day but that you define the next action that needs to be done to achieve your goal, or schedule activities in your diary. This method ensures that only a subset of activities is in your consciousness and  you don&#39;t get overwhelmed by your inactivity as action lists tend to be long list of promises to our future selves.</p>
+<p>
+You can set different keywords can for each Org file. When, for example, you are writing a book, you could set specific keywords for each heading with the following line in your header:</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span><span style="color:#c00;font-weight:bold">#+TODO</span><span style="color:#888">: TODO(t) DRAFT(d) | DONE(c) EDITED(e)</span></span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Adding dates and deadlines
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Now that your list is nicely organised in the stuff you need to do, add dates to some of the tasks. Scheduling a task to a specific date is to commit your recalcitrant future self to the action.</p>
+<p>
+You can add the date that the task is scheduled or a deadline by which is should be completed. A scheduled date indicates the date or period you plan to work on the task. A deadline is the time the task needs to be completed.</p>
+<p>
+To add a scheduled date, use <code class="verbatim">C-c C-s</code> when on a headline. Emacs will pop up a calendar that you can use to select a date. The shift and arrow buttons move the timestamp by day or week. The <code class="verbatim">&lt;</code> and <code class="verbatim">&gt;</code> symbols move you a month in time. Press enter when done, and the date appears below the headline. You can add a deadline in a similar way but with the <code class="verbatim">C-c C-a</code> keystroke.</p>
+<p>
+Timestamps use the ISO 8601 format: year, month, day. This format avoids any confusion between American formats and the rest of the world. Editing a timestamp is easy. Place your cursor on either the year, month or date and use the arrow keys to move it up or down.</p>
+<p>
+Scheduled dates can also set a regular schedule. For example, suppose you add, for instance, <code class="verbatim">+7d</code> at the end of the date. In that case, Org mode recalculates the date every time you complete the task and resets the status to <code class="verbatim">TODO</code>. You can also use the letters <code class="verbatim">w</code>, <code class="verbatim">m</code> and <code class="verbatim">y</code> for scheduling a job weekly, monthly or yearly. Some actions have to be undertaken weekly on the same day, but in some instances it is better to restart the clock every time it is completed.</p>
+<p>
+In the example below, I have planned to complete the Org mode article on 8 May. My tax return has a deadline of 30 September and appears annually on that date. It is a deadline instead of a schedule because the date is enforced on me externally. The last action is my weekly review of the inboxes. In this case, the seven days are recalculated every time I complete the action. So if I complete the review on 13 May instead of 11 May, the new date will become 20 May.</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">* </span>TODO Complete Org-Mode article
+</span></span><span style="display:flex;"><span><span style="color:#888">  SCHEDULED: </span><span style="color:#c00;font-weight:bold">&lt;2021-05-08 Sat&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">* </span>TODO Submit tax return
+</span></span><span style="display:flex;"><span><span style="color:#888">  DEADLINE: </span><span style="color:#c00;font-weight:bold">&lt;2021-09-30 Mon +1y&gt;</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">* </span>TODO Weekly review
+</span></span><span style="display:flex;"><span><span style="color:#888">  SCHEDULED: </span><span style="color:#c00;font-weight:bold">&lt;2021-05-11 Sun ++7d&gt;</span></span></span></code></pre></div>
+</div>
+<p>
+Only add a scheduled date if this is the time that you plan to do the action. Try not to add too many self-imposed schedules because you will over commit your day. A deadline is only helpful if there is an external expectation that you need to complete something by a specific day, for example, get travel insurance before your flight leaves.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Checklists
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Not every action needs to be a headline todo item. Org mode allows you to add checkbox items anywhere in your document by adding <code class="verbatim">[ ]</code> after the list indicator. Using <code class="verbatim">M-S enter</code> after a tick box item will create a new box. You could use this functionality as a checklist for a larger action.</p>
+<p>
+The snippet below is an example of a todo item with a deadline, some notes and a checklist.</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">* </span>TODO Submit tax return
+</span></span><span style="display:flex;"><span><span style="color:#888">  DEADLINE: </span><span style="color:#c00;font-weight:bold">&lt;2021-09-30 Mon +1y&gt;</span>
+</span></span><span style="display:flex;"><span>  Tax accountant: 0407 555 283
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">- [X]</span> Collect records
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">- [ ]</span> Prepare overview
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">- [ ]</span> Set appointment with accountant</span></span></code></pre></div>
+</div>
+<p>
+Ticking and unticking any items is as simple as hitting <code class="verbatim">C-c C-c</code>.  You can convert a plain list item to a todo item, or vice versa, with <code class="verbatim">C-u C-c c</code>.</p>
+<p>
+You can also convert list items to headings and back again. The <code>org-ctrl-c-star</code> function (<code class="verbatim">C-c C-*</code>) converts a paragraph to a heading. If the line contains a tick box, it becomes a TODO item. Using <code class="verbatim">C-c C--</code> (<code>org-ctrl-c-minus</code>) converts a paragraph to a list item.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+Reflect: Review your progress
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>The key of any productivity workflow is to regularly review your list of actions, your priorities and goals. The central tool in Org mode to look at your list of registered actions is the agenda.</p>
+<p>
+The agenda provides a summary of all your headings with an action status.  Firstly, it is common practice to bind <code class="verbatim">C-c a</code> to the agenda menu. You can assign one or more Org mode files that contain your actions. Org mode will read these files and present the todo items as an agenda.</p>
+<p>
+The Org files used to construct the agenda are stored in <code>org-agenda-files</code>. You can figure this variable with some keystrokes.To add a file with actions to the agenda use <code>org-agenda-file-to-front</code> (<code class="verbatim">C-c [</code>) and remove it with <code class="verbatim">C-c ]</code> (<code>org-remove-file</code>).</p>
+<p>
+When you evaluate the <code>org-agenda</code> function with <code class="verbatim">C-c a</code>, Org mode reads all agenda files and constructs an agenda, listing actions by date.</p>
+<p>
+You can change the status of items from within the agenda or jump to the file that contains the action, so you can ready any context or maintain checklist items.</p>
+<p>
+The agenda starts with a self-explanatory menu screen which you can explore. Org mode has extensive capabilities to configure how the agenda is presented, which are outside the scope of this article (See <a href="https://orgmode.org/manual/Agenda-Views.html">chapter 11 of the Org mode manual</a>).</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+Engage: Take action
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Unfortunately, Emacs cannot help you with mowing the lawn, go shopping or other physical tasks on your lists. Emacs can help you with any task that involves creating written content, but it can&#39;t mow the lawn for you.</p>
+<p>
+In the end, there is no productivity system in the world that does the tasks for you, no matter what the gurus promise. However, bringing order into your tasks keeps you focussed on your goals.</p>
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+Org mode configuration
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>This code snippet provides a basic configuration for managing actions and projects in Org mode. You can of course modify the sequence of your action statuses to whatever you please.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">org</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-todo-keywords</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#333">&#39;</span>((<span style="color:#963">sequence</span> <span style="background-color:#fff0f0">&#34;TODO(t)&#34;</span> <span style="background-color:#fff0f0">&#34;NEXT(n)&#34;</span> <span style="background-color:#fff0f0">&#34;WAITING(w)&#34;</span> <span style="background-color:#fff0f0">&#34;|&#34;</span> <span style="background-color:#fff0f0">&#34;DONE(d)&#34;</span> <span style="background-color:#fff0f0">&#34;CANCELLED(c)&#34;</span>)))
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:bind</span>
+</span></span><span style="display:flex;"><span>    ((<span style="background-color:#fff0f0">&#34;C-c a&#34;</span> <span style="color:#333">.</span> <span style="color:#963">org-agenda</span>)))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-2">
+<h2 id="headline-11">
+Learning More
+</h2>
+<div id="outline-text-headline-11" class="outline-text-2">
+<p>Getting Things Done is just one of many methods to manage your busy life. This article shows how to implement the principles of David Allan&#39;s method with Org mode. The beauty of Emacs is that you have the freedom to implement whatever method you prefer.</p>
+<p>
+You can find the <a href="https://orgmode.org/manual/TODO-Items.html">Org manual on TODO items</a> with <code class="verbatim">C-h R org RET g todo RET</code>.</p>
+<p>
+Bavarian Org mode guru Rainer König has developed a comprehensive series of YouTube videos that explain using Org for managing actions and projects in great detail. I also recommend following his <a href="https://www.udemy.com/course/getting-yourself-organized-with-org-mode/">Getting Yourself Organized with Org mode</a> course on Udemy.</p>
+<figure>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/sQS06Qjnkcc?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<figcaption>
+Org mode Tutorial by Rainer König.
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>If you like to support my work, then please purchase the <em>Emacs Writing Studio</em> book.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+You can find the source files for the book and the latest configuration files on GitHub:</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+Emacs is a malleable system, so everybody will have their personal preferences. Any article on how to use Emacs is thus opinionated. If you have a different way of doing things, please complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email or contact me on social media.</p>
+<p>
+The next article discusses how to <a href="https://lucidmanager.org/productivity/manage-files-with-emacs/">manage your files with Emacs dired</a>.</p>
+</div>
+</div>
+
+      

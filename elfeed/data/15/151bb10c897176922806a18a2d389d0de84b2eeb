@@ -1,0 +1,66 @@
+
+         
+         <p>I just added two new themes to my <code class="language-plaintext highlighter-rouge">ef-themes</code> package. <code class="language-plaintext highlighter-rouge">ef-orange</code> is
+a light theme with a noticeably tinted background that combines
+orange, yellow, and green hues. <code class="language-plaintext highlighter-rouge">ef-fig</code> is a dark theme with a dark
+purple background that relies on green, yellow, and pink hues.</p>
+
+<p>Sample pictures are available below. Check all the items here:
+<a href="https://protesilaos.com/emacs/ef-themes-pictures">https://protesilaos.com/emacs/ef-themes-pictures</a>. Always <strong>click to
+enlarge the image</strong> for best results.</p>
+
+<h3>ef-orange</h3>
+
+<p><a href="https://protesilaos.com/assets/images/ef/ef-orange.png"><img alt="ef-orange theme sample" src="https://protesilaos.com/assets/images/ef/ef-orange.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/ef/ef-orange-git.png"><img alt="ef-orange theme git sample" src="https://protesilaos.com/assets/images/ef/ef-orange-git.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/ef/ef-orange-mail.png"><img alt="ef-orange theme mail sample" src="https://protesilaos.com/assets/images/ef/ef-orange-mail.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/ef/ef-orange-org.png"><img alt="ef-orange theme org sample" src="https://protesilaos.com/assets/images/ef/ef-orange-org.png" /></a></p>
+
+<h3>ef-fig</h3>
+
+<p><a href="https://protesilaos.com/assets/images/ef/ef-fig.png"><img alt="ef-fig theme sample" src="https://protesilaos.com/assets/images/ef/ef-fig.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/ef/ef-fig-git.png"><img alt="ef-fig theme git sample" src="https://protesilaos.com/assets/images/ef/ef-fig-git.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/ef/ef-fig-mail.png"><img alt="ef-fig theme mail sample" src="https://protesilaos.com/assets/images/ef/ef-fig-mail.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/ef/ef-fig-org.png"><img alt="ef-fig theme org sample" src="https://protesilaos.com/assets/images/ef/ef-fig-org.png" /></a></p>
+
+<h2>Coming in version 2.1.0 (next stable release)</h2>
+
+<p>Both themes are done. Though there may still be some minor
+refinements. They will be widely available as part of the next stable
+version of the <code class="language-plaintext highlighter-rouge">ef-themes</code> package (maybe end of January 2026).</p>
+
+<p>Remember that since version <code class="language-plaintext highlighter-rouge">2.0.0</code>, the <code class="language-plaintext highlighter-rouge">ef-themes</code> are built on top
+of my <code class="language-plaintext highlighter-rouge">modus-themes</code>. This means that they are highly customisable and
+support a wide range of packages and face groups.</p>
+
+<p>Enjoy!</p>
+
+<hr />
+
+<p>The <code class="language-plaintext highlighter-rouge">ef-themes</code> are a collection of light and dark themes for GNU
+Emacs that provide colourful (“pretty”) yet legible options for users
+who want something with a bit more flair than the <code class="language-plaintext highlighter-rouge">modus-themes</code> (also
+designed by me).</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">ef-themes</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/ef-themes">https://protesilaos.com/emacs/ef-themes</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/ef-themes-changelog">https://protesilaos.com/emacs/ef-themes-changelog</a></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/ef-themes-pictures">https://protesilaos.com/emacs/ef-themes-pictures</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/ef-themes">https://github.com/protesilaos/ef-themes</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/ef-themes">https://gitlab.com/protesilaos/ef-themes</a></li>
+    </ul>
+  </li>
+  <li>Backronym: Eclectic Fashion in Themes Hides Exaggerated Markings,
+Embellishments, and Sparkles.</li>
+</ul>
+        
+      

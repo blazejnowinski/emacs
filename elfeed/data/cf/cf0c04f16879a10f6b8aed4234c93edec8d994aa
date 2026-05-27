@@ -1,0 +1,54 @@
+
+         
+         <p>These are my minimalist themes. They use few colours and will appear
+mostly monochromatic in many contexts. Styles involve the careful use
+of typography, such as italics and bold italics.</p>
+
+<p>If you want maximalist themes in terms of colour, check my <code class="language-plaintext highlighter-rouge">ef-themes</code>
+package. For something in-between, which I would consider the best
+“default theme” for a text editor, opt for my <code class="language-plaintext highlighter-rouge">modus-themes</code>.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">doric-themes</code></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/doric-themes-pictures">https://protesilaos.com/emacs/doric-themes-pictures</a></li>
+  <li>Git repository: <a href="https://github.com/protesilaos/doric-themes">https://github.com/protesilaos/doric-themes</a></li>
+  <li>Backronym: Doric Only Really Intensifies Conservatively … themes.</li>
+</ul>
+
+<p>Below are the release notes.</p>
+
+<hr />
+
+<h2>Version 1.1.0 on 2026-03-23</h2>
+
+<p>This version introduces minor refinements to the underlying code as
+well as four new themes.</p>
+
+<p>The new themes are as follows:</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">doric-almond</code>: A light theme that combines green and magenta
+colours. It evokes a feeling of early springtime, as the almond tree
+is among the first to bloom.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">doric-coral</code>: A light theme with a warmer feel that combines red,
+orange, and cyan colours against a sandy backdrop.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">doric-magma</code>: A dark theme with a dominant red and orange style.
+The combination of those intense hues with lighter greys creates the
+necessary balance.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">doric-walnut</code>: A dark theme with an overall green style, drawing
+inspiration from the broad leaves of the walnut tree. The green
+colours are combined with shades of brown and grey to make for a
+pleasant presentation.</p>
+  </li>
+</ul>
+
+<p>Enjoy!</p>
+        
+      

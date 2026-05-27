@@ -1,0 +1,49 @@
+
+         
+         <p>The <code class="language-plaintext highlighter-rouge">denote-merge</code> package is an optional extension to <code class="language-plaintext highlighter-rouge">denote</code>. I am
+providing it in response to requests for functionality that
+streamlines the work of merging contents from one file into another.
+Thanks to Sia Piperea for reminding me about it, making a suggestion
+for region-related functions, and for testing my prototype:</p>
+
+<ul>
+  <li><a href="https://github.com/protesilaos/denote-org/issues/16">https://github.com/protesilaos/denote-org/issues/16</a>.</li>
+  <li><a href="https://github.com/protesilaos/denote/issues/649">https://github.com/protesilaos/denote/issues/649</a>.</li>
+  <li><a href="https://github.com/protesilaos/denote-merge/issues/1">https://github.com/protesilaos/denote-merge/issues/1</a>.</li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">denote-merge</code> package is a more refined implementation of those
+ideas, plus more. As of now, the package provides support for two
+broad kinds of “merging”:</p>
+
+<ul>
+  <li>Merge one file into another.</li>
+  <li>Merge a region into a file.</li>
+</ul>
+
+<p>For merging a region, in particular, there are options and concomitant
+convenience commands to format the region in a certain way, such as an
+Org source block, a Markdown blockquote, a plain indented region, and
+the like.</p>
+
+<p>The official manual describes the technicalities. In short, I have
+taken care to make the relevant commands do the right thing, including
+to update backlinks, annotate the contents, and establish links, where
+relevant.</p>
+
+<p>Note that the GNU ELPA package is not available yet. I have prepared
+the relevant patch and am expecting everything to be done in the near
+future.</p>
+
+<p>Please stay tuned.</p>
+
+<h2>Sources</h2>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">denote-merge</code> (Coming soon!!!)</li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/denote-merge">https://protesilaos.com/emacs/denote-merge</a></li>
+  <li>Git repository: <a href="https://github.com/protesilaos/denote-merge">https://github.com/protesilaos/denote-merge</a></li>
+  <li>Backronym: Denote… Merging Eventually Reformats the Given Entries.</li>
+</ul>
+        
+      

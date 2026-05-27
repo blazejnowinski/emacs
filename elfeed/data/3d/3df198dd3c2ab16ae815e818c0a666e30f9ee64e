@@ -1,0 +1,87 @@
+
+         
+         <p>Lin is a stylistic enhancement for Emacs’ built-in <code class="language-plaintext highlighter-rouge">hl-line-mode</code>.  It
+remaps the <code class="language-plaintext highlighter-rouge">hl-line</code> face (or equivalent) buffer-locally to a style that
+is optimal for major modes where line selection is the primary mode of
+interaction.</p>
+
+<p>The idea is that <code class="language-plaintext highlighter-rouge">hl-line-mode</code> cannot work equally well for contexts
+with competing priorities: (i) line selection, or (ii) simple line
+highlight.  In the former case, the current line needs to be made
+prominent because it carries a specific meaning of some significance in
+the given context: the user has to select a line.  Whereas in the latter
+case, the primary mode of interaction does not revolve around the line
+highlight itself: it may be because the focus is on editing text or
+reading through the buffer’s contents, so the current line highlight is
+more of a reminder of the point’s location on the vertical axis.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">lin</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/lin">https://protesilaos.com/emacs/lin</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/lin-changelog">https://protesilaos.com/emacs/lin-changelog</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/lin">https://github.com/protesilaos/lin</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/lin">https://gitlab.com/protesilaos/lin</a></li>
+    </ul>
+  </li>
+  <li>Backronym: LIN Is Noticeable.</li>
+</ul>
+
+<p>Below are the release notes</p>
+
+<hr />
+
+<h2>Version 2.0.0 on 2026-02-12</h2>
+
+<p>This is the first tagged release since 2024-08-05. The package is in a
+stable state: it does everything it is meant to. This version makes
+some small refinements, mostly in how parts of the code are written.
+Though there also are some nice user-facing changes:</p>
+
+<ul>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">lin-gnome-accent-color-mode</code> synchronises the accent colour of
+the GNOME desktop environment with Lin’ own <code class="language-plaintext highlighter-rouge">lin-face</code>. This happens
+live, so any buffers that are already using the <code class="language-plaintext highlighter-rouge">lin-mode</code> (directly
+or via <code class="language-plaintext highlighter-rouge">lin-global-mode</code>) will get the updated colour.</p>
+  </li>
+  <li>
+    <p>The user option <code class="language-plaintext highlighter-rouge">lin-gnome-accent-color-override-foreground</code>
+controls whether the faces that correspond to GNOME accent colours
+should override the underlying text colour or not. This is useful
+for improved colour contrast. The default is to not override the
+foreground. Setting <code class="language-plaintext highlighter-rouge">lin-gnome-accent-color-override-foreground</code> to
+non-<code class="language-plaintext highlighter-rouge">nil</code> changes that so, for example, the <code class="language-plaintext highlighter-rouge">lin-face</code> will be set
+to <code class="language-plaintext highlighter-rouge">lin-red-override-fg</code> instead of <code class="language-plaintext highlighter-rouge">lin-red</code> (of course, faces can
+be modified by users/themes to override the foreground anyway, so
+this is about the default behaviour).</p>
+  </li>
+  <li>
+    <p>New faces to style the current line when <code class="language-plaintext highlighter-rouge">lin-mode</code> is enabled
+include <code class="language-plaintext highlighter-rouge">lin-purple</code>, <code class="language-plaintext highlighter-rouge">lin-orange</code>, and <code class="language-plaintext highlighter-rouge">lin-slate</code>. Those do not
+override the underlying foreground colours by default. Whereas
+<code class="language-plaintext highlighter-rouge">lin-purple-override-fg</code>, <code class="language-plaintext highlighter-rouge">lin-orange-override-fg</code>, and
+<code class="language-plaintext highlighter-rouge">lin-slate-override-fg</code> apply their background while also setting
+the foreground (remember that you always control which face to use
+by changing the user option <code class="language-plaintext highlighter-rouge">lin-face</code>).</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">lin-global-mode</code> skips all private buffers. These are buffers
+that users normally do not interact with directly. Their names are
+prefixed with a space and, by default, are hidden from the view of
+<code class="language-plaintext highlighter-rouge">switch-to-buffer</code> and related commands.</p>
+  </li>
+  <li>
+    <p>The default value of the user option <code class="language-plaintext highlighter-rouge">lin-mode-hooks</code> now includes
+the <code class="language-plaintext highlighter-rouge">world-clock-mode-hook</code> and <code class="language-plaintext highlighter-rouge">xref--xref-buffer-mode-hook</code>. The
+former relates to the command <code class="language-plaintext highlighter-rouge">world-clock</code>, while the latter is
+used by any command that produces Grep-like results via the built-in
+Xref infrastructure (for example, my Denote package does that for a
+few of its commands). The <code class="language-plaintext highlighter-rouge">lin-mode-hooks</code> is a list of hooks for
+major modes that should use the Lin style for the selection line
+highlight.</p>
+  </li>
+</ul>
+        
+      

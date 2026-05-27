@@ -1,0 +1,509 @@
+
+	
+<p>
+The <a href="https://protesilaos.com/emacs/denote">Denote package</a> by Protesilaos (Prot) Stavrou provides extensive functionality to create, retrieve, manage and link files in plain text, Markdown and Org Mode. The most redeeming qualities of this package are its filename convention and modular simplicity. You can also use the package to access other file types, such as PDFs or multimedia files (attachments). This way, Denote becomes a fully-featured file-management system. You can read more about Denote in the context of <em>Emacs Writing Studio</em> in <a href="https://lucidmanager.org/productivity/taking-notes-with-emacs-denote/">another article</a>.</p>
+<p>
+The Denote-Explore package came into existence as my collection of Denote files grew. I created some auxiliary functions to manage and explore my burgeoning collection of Denote files, which I eventually packaged together. The package provides four types of commands:</p>
+<ol>
+<li><em>Summary statistics</em>: Count notes, attachments and keywords.</li>
+<li><em>Random walks</em>: Generate new ideas using serendipity.</li>
+<li><em>Janitor</em>: Maintain your denote collection.</li>
+<li><em>Visualisations</em>: Visualise your Denote files as a network.</li>
+</ol>
+<p>This article is part of <a href="https://lucidmanager.org/tags/emacs/">Emacs Writing Studio</a>, a book that explains how to use Emacs to undertake research and write and publish articles, books, and websites. Emacs Writing Studio is also available as an e-book from your favourite retailer.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+The source files of the book and EWS configuration are also freely available on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+The Denote-Explore package is available on MELPA and GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/denote-explore/" target="_blank"
+   title="Download denote-explore from GitHub"
+   alt="Download denote-explore from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">denote-explore</span>
+  </button>
+</a>
+
+</p>
+<figure>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/UylZOHIwnBw?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<figcaption>
+Emacs Writing Studio (Exploring your Denote digital knowledge garden).
+</figcaption>
+</figure>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Summary Statistics
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>This Denote-Explore package distinguishes between Denote files (notes) and attachments. Denote files are either Org Mode, Markdown, or Plain Text. All other files, such as photographs, PDFs, media files, LaTeX, and HTML, are attachments.</p>
+<p>
+After a day of working hard on your digital knowledge garden, you might like to count the notes and attachments in your collection. Two functions provide some basic statistics of your Denote files:</p>
+<ol>
+<li><code>denote-explore-count-notes</code>: Count the number of notes and attachments. </li>
+<li><code>denote-explore-count-keywords</code>: Count the number of distinct Denote keywords. </li>
+</ol>
+<p>These functions are informative, but a graph says more than a thousand numbers. The built-in <code class="verbatim">chart.el</code> package by Eric M. Ludlam is a quaint tool for creating bar charts in a plain text buffer. Two commands are available in Denote-Explore to visualise basic statistics:</p>
+<ol>
+<li><code>denote-explore-keywords-barchart</code>: Visualise the top <em>n</em> keywords.</li>
+<li><code>denote-explore-extensions-barchart</code>: Visualise used file extensions.</li>
+</ol>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/denote-keywords-barchart.png" alt="Example of a bar chart of top-keywords" title="Example of a bar chart of top-keywords" width="600"/>
+<figcaption>
+Example of a bar chart of top-twenty keywords.
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Random Walks
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>Creativity springs from a medley of experiences, emotions, subconscious musings, and connecting random ideas. Introducing random elements into the creative process generates avenues of thought you might not have travelled otherwise. Random walks through your notes can be beneficial when you&#39;re stuck in a rut or just like to walk through your files randomly.</p>
+<p>
+A random walk is an arbitrary sequence of events without a defined relationship between the steps. You take a random walk by jumping to a random note, either connected or unconnected to the current buffer.</p>
+<p>
+The Denote-Explore package provides four commands to inject some randomness into your explorations:</p>
+<ol>
+<li><code>denote-explore-random-note</code>: Jump to a random note or attachment.</li>
+<li><code>denote-explore-random-link</code>: Jump to a random linked note (either forward or backwards) or attachments (forward only).</li>
+<li><code>denote-explore-random-keyword</code>: Jump to a random note or attachment with the same selected keyword(s).</li>
+<li><code>denote-explore-random-regex</code>: Jump to a random note that matches a regular expression.</li>
+</ol>
+<p>The default state is that these three functions jump to any Denote text file (plain text, Markdown or Org-mode). Adding the universal argument (<code class="verbatim">C-u</code>) includes attachments as candidates for a random jump.</p>
+<p>
+Jumping to a randomly linked file only works when the current buffer is a Denote file. A warning appears when the current buffer is an isolated note (no links or backlinks available).</p>
+<p>
+When jumping to a random file with selected keywords, you can choose between one or more keywords from the current buffer, or you can override the completion options with free text. When the current buffer only has one keyword, the section process is skipped. When the current buffer is not a Denote file, you can choose any available keyword(s) in your Denote collection. The asterisk symbol <code class="verbatim">*</code> selects all keywords in the completion list. Please note that jumping to a random note with multiple keywords only works when the <code>denote-sort-keywords</code> is enabled or when the selected keywords are in the same order as in the target file. The following section explains how you can alphabetise your keywords using the Janitor.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Denote-Explore Janitor
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>After using Denote for a while, you might need a janitor to keep your collection organised. A janitor is a member of the maintenance and cleaning staff for buildings. Their primary responsibility is to ensure cleanliness, orderliness, and sanitation, so this role is also perfect to apply to your Denote files. The Denote-Explore package provides a series of commands to assist with cleaning, ordering and sanitising your files.</p>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Duplicate notes
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>The Denote identifier is a unique string constructed of the note&#39;s creation date and time in ISO 8601 format (e.g., <code class="verbatim">2024035T203312</code>). Denote either uses the current date and time when generating a new note or the date and time the file was created on the file system. The Denote package prevents duplicate identifiers when creating a new note.</p>
+<p>
+Besides my Denote-generated notes, I have historical attachments in my collection and manually add identifiers. My &#39;oldest&#39; Denote file is a mortgage document from 23 June 1370. The creation date and time of the file are irrelevant, as I like to keep my files sorted in historical order, so I manually add identifiers (for example <code class="verbatim">13700623T120000</code>). I used the same approach when renaming scanned photographs in Denote format. Adding the Denote identifier manually introduces a risk of duplication. Duplicates can also arise when exporting Denote Org mode files, as the exported files have the same file name but a different extension.</p>
+<p>
+The <code>denote-explore-identify-duplicate-notes</code> command lists all duplicate identifiers in a popup buffer. Be careful when changing the identifier of a Denote file, as it can destroy the integrity of your links, so please ensure that the file you rename does not have any links pointing to it. You can use the <code>denote-find-link</code> and <code>denote-find-backlink</code> commands to check a file for links.</p>
+<p>
+Using this command with the universal argument (<code class="verbatim">C-u</code>), looks for duplicated filenames instead of identifiers. This option thus ignores any duplicated identifiers created when exporting Denote Org mode files.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Isolated notes
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Denote implements a linking mechanism that connects notes (either Org mode, Markdown, or plain text) to other notes or attachments. This mechanism allows the user to visualise all notes as a network, as explained below. However, some notes don&#39;t have any links or backlinks. Depending on your note-taking strategy, you might want all your notes linked to another note.</p>
+<p>
+The <code>denote-explore-isolated-notes</code> function provides a list in the minibuffer of all notes without links or backlinks for you to peruse. You can select any note and add any links. Calling this function with the universal argument <code class="verbatim">C-u</code> includes attachments in the list of lonely files.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Managing Keywords
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Denote keywords connect notes with similar content. Keywords should not exist in solitude because a category with only one member is not informative. Single keywords can arise because topics need to be fully developed or due to a typo. The <code>denote-explore-single-keywords</code> command provides a list of file tags that are only used once. The list of single keywords is presented in the minibuffer, from where you can open the relevant note or attachment.</p>
+<p>
+You can also find any notes or attachments that don&#39;t have any keywords at all with the <code>denote-explore-zero-keywords</code>. This command presents all notes and attachments without keywords in the minibuffer, so you can open them and consider adding a keyword or leaving them as is.</p>
+<p>
+You can remove or rename keywords with <code>denote-explore-rename-keyword</code>. Select one or more existing keywords from the completion list and enter the new name of the keyword(s). This function renames all chosen keywords to their new version or removes the original keyword from all existing notes when you enter an empty string as the new keyword. This function cycles through all notes and attachments containing one or more of the selected keywords and asks for confirmation before making any changes. The new keyword list is stored alphabetically, and the front matter is synchronised with the file name.</p>
+<p>
+Denote sorts keywords alphabetically when the <code>denote-sort-keywords</code> variable is enabled. Ordering keywords alphabetically makes searching for files more predictable. If you rename files manually, the keywords might not always be in the correct order. The <code>denote-explore-sort-keywords</code> function checks all notes and notifies the user if there are any notes where keywords are not alphabetised. The function warns the user before renaming any files. This function also synchronises the front matter with the file name.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Synchronising Meta Data
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Denote stores the metadata for each note in the filename using its ingenious format. Some of this metadata is copied to the front matter of a note, which can lead to differences between the two metadata sources.</p>
+<p>
+The <code>denote-explore-sync-metadata</code> function checks all notes and asks the user to rename any file where these two data sets are mismatched. The front matter data is the source of truth. This function also enforces the alphabetisation of keywords, which assists with finding notes.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+Visualise Denote
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>Emacs is a text processor with limited graphical capabilities. Committing your ideas to text requires a linear way of thinking, as you can only process one word at a time. In my paper journal, I often use diagrams, such as a mind map, rather than a narrative to relate my thoughts. Visual thinking is another way to approach your ideas, and one of the most common methods to visualise interlinked documents is in a network diagram.</p>
+<p>
+Viewing your notes as a network can help discover hitherto unseen connections between your thoughts. Visualising your Denote digital garden can be helpful in your creative process.</p>
+<p>
+Denote Explore does not provide a live environment to view the structure of your Denote collection. The purpose of network visualisation is to analyse the structure of your notes, not to act as an alternative user interface. Live previews of note networks are dopamine traps. While seeing the network of your thoughts develop in front of your eyes is satisfying, it can also become a distraction. The Denote-Explore visualisation tools provide a surgical tool to analyse and restructure your notes.</p>
+<p>
+A network diagram has nodes (vertices) and edges. Each node represents a file in your Denote system, indicated with a circle. Each edge is a link between notes. Denote-Explore provides three types of network diagrams to explore the relationships between your thoughts. The package exports and displays each of these in one of three formats, with SVG files viewed in the browser as the default.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/denote-explore-example.png" alt="Visualising Denote files as a network" title="Visualising Denote files as a network" width="250"/>
+<figcaption>
+Visualising Denote files as a network.
+</figcaption>
+</figure>
+<p>
+You create a network with the <code>denote-explore-network</code> command. This command will ask the user to select the type of network to create. Each network type requires additional inputs to zoom in to a defined part of your Denote files.</p>
+<div id="outline-container-headline-9" class="outline-4">
+<h4 id="headline-9">
+Community of Notes
+</h4>
+<div id="outline-text-headline-9" class="outline-text-4">
+<p>A community consists of notes that share part of an ID, name, signature or keyword. The software asks to enter a search term or regular expression. For example, all notes with Emacs as their keyword (<code class="verbatim">_emacs</code>), or all notes with a certain part of a signature, e.g. <code>==ews01</code>.</p>
+<p>
+The regular expression <code>==ews01.*_emacs</code> selects all notes with <code class="verbatim">ews01</code> in their signature and <code class="verbatim">emacs</code> and a keyword. The <code class="verbatim">.*</code> in the middle of the regular expression indicates that any character (<code class="verbatim">.</code>) can appear multiple times (<code class="verbatim">*</code>). In other words, this regular expression searches for all notes that contain <code class="verbatim">ews01</code>, then some random characters, followed by <code class="verbatim">_emacs</code>. The <code class="verbatim">.*</code> expression effectively acts as an AND statement. The only restriction is that the two elements have to appear in this order. Using <code>=ews01\|_journal</code> searches for notes that contain <code>_ews01</code> OR <code class="verbatim">_journal</code>. Regular expressions are a powerful tool for searching but a detailed discussion is outside the scope of <em>Emacs Writing Studio</em>.</p>
+<p>
+A community graph displays all notes matching the search term and their connections. The algorithm prunes any links to non-matching notes (dotted line in the example).</p>
+<p>
+The <code>denote-explore-network-regex-ignore</code> variable lets you define a regular expression of notes to ignore in your visualisations. Lets assume you create meta notes with long lists of dynamic links and they have the <code class="verbatim">_meta</code> keyword, then you could exclude this set of nodes by setting this variable to &#34;<code class="verbatim">_meta</code>&#34;.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/denote-explore-community.png" alt="Community of Denote files with Emacs keyword" title="Community of Denote files with Emacs keyword" width="300"/>
+<figcaption>
+Community of Denote files with Emacs keyword.
+</figcaption>
+</figure>
+<p>
+To generate a community graph, use <code>denote-explore-network</code>, choose community and enter a search string or regular expression.</p>
+<p>
+The <code>denote-explore-network-regenerate</code> command recreates the current graph with the same parameters, which is useful when changing the structure of your notes and you like to see the result visualised.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-4">
+<h4 id="headline-10">
+Note Neighbourhood
+</h4>
+<div id="outline-text-headline-10" class="outline-text-4">
+<p>The neighbourhood of a note consists of all files linked to it at one or more steps deep. The algorithm selects members of the graph from linked and backlinked notes. This visualisation effectively creates the possible paths you can follow with the <code>denote-explore-random-link</code> function discussed in the Random Walks session above.</p>
+<p>
+The <code>denote-explore-network-regex-ignore</code> variable lets you define a regular expression of notes to ignore in your visualisations. Lets assume you create meta notes with long lists of dynamic links and they have the <code class="verbatim">_meta</code> keyword, then you could exclude this set of nodes by setting this variable to &#34;<code class="verbatim">_meta</code>&#34;.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/denote-explore-neighbourhood.png" alt="Denote neighbourhood of files" title="Denote neighbourhood of files" width="250"/>
+<figcaption>
+Denote neighbourhood of files (depth = 2).
+</figcaption>
+</figure>
+<p>
+To generate a neighbourhood graph from the current Denote note buffer, use <code>denote-explore-network</code> and enter the graph&#39;s depth. The user enters the required depth, and the software searches all notes linked to the current buffer at that depth. When building this graph from a buffer that is not a Denote note, the system also asks to select a source file (A in the diagram). The system issues a warning when you select a note without links or backlinks. You can identify your Denote files without any links with the <code>denote-explore-isolated-notes</code> function.</p>
+<p>
+The <code>denote-explore-network-regenerate</code> command recreates the current graph with the same parameters, which is useful when you want to change the structure of your notes after viewing the first version of the graph.</p>
+<p>
+The complete set of your Denote files is most likely a disconnected Graph, meaning that there is no one path that connects all nodes. Firstly, there will be isolated notes. There will also exist isolated neighbourhoods of notes that connect to each other but not to other files.</p>
+<p>
+A depth of more than three links is usually not informative because the network can become very large and hard to read, or you hit the edges of your island of connected notes.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-4">
+<h4 id="headline-11">
+Keyword Network
+</h4>
+<div id="outline-text-headline-11" class="outline-text-4">
+<p>The last available method to visualise your Denote collection is to develop a network of keywords. Two keywords are connected when used in the same note. All keywords in a note create a complete network. The union of all complete networks from all files in your Denote collection defines the keywords network. The relationship between two keywords can exist in multiple notes, so the links between keywords are weighted. The line thickness between two keywords indicates the frequency (weight) of their relationship.</p>
+<p>
+When generating this graph, you will need to enter a minimum edge weight for the graph. The graph then will only show those keywords that are at least <em>n</em> times associated with each other. The default is one, which can generate a rather large graph.</p>
+<p>
+While the first two graph types are directed (arrows indicate the direction of links), the keyword network is undirected as these are bidirectional associations between keywords. The diagram below shows a situation with two nodes and three possible keywords and how they combine into a keyword network. </p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/denote-explore-keywords.png" alt="Denote network of keywords example" title="Denote network of keywords example" width="600"/>
+<figcaption>
+Denote network of keywords example.
+</figcaption>
+</figure>
+<p>
+Some keywords should be excluded from this graph because they skew the results. For example, when using the <a href="https://lucidmanager.org/productivity/bibliographic-notes-in-emacs-with-citar-denote/">Citar Denote</a> package, you might like to exclude the <code class="verbatim">bib</code> keyword from the diagram because it is only used to minimise the search space for bibliographic notes and has no further semantic value. The <code>denote-explore-network-keywords-ignore</code> variable lists keywords ignored in this visualisation.</p>
+<p>
+The <code>denote-explore-network-regenerate</code> command recreates the current graph with the same parameters, which is useful when you are changing your notes&#39; structure.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-4">
+<h4 id="headline-12">
+Network Layout and Presentation
+</h4>
+<div id="outline-text-headline-12" class="outline-text-4">
+<p>Emacs cannot independently generate graphics and thus relies on external software. This package can use three external mechanisms to create graphs (configurable with <code>denote-explore-network-format</code>), set to GraphViz SVG output by default.</p>
+<p>
+The Denote-Explore network algorithm consists of four steps:</p>
+<ol>
+<li>Use the <code>denote-explore-network</code> function to enter the network type and pass on to another function to enter the required parameters.</li>
+<li>
+<p>The code generates a nested association list that holds all relevant metadata for the selected graph:</p>
+<ul>
+<li>Metadata e.g.: <code class="verbatim">(meta (directed . t) (type . &#34;Neighbourhood &#39;20210104T194405&#39; (depth: 2)&#34;))</code></li>
+<li>Association list of nodes and their degrees, e.g., <code class="verbatim">(((id . &#34;20210104T194405&#34;) (name . &#34;Platonic Solids&#34;) (keywords &#34;geometry&#34; &#34;esotericism&#34;) (type . &#34;org&#34;) (degree . 4)) ...)</code>. In the context of Denote, the degree of a network node is the unweighted sum of links and backlinks in a note. </li>
+<li>Association list of edges and their weights, e.g., <code class="verbatim">(((source . &#34;20220529T190246&#34;) (target . &#34;20201229T143000&#34;) (weight . 1)) ...)</code>. The weight of an edge indicates the number of times it occurs, which is the number of time two files are linked or the number of times two keywords appear in the same note.</li>
+</ul>
+</li>
+<li>The package encodes the association list to a GraphViz DOT file, JSON file, or GEXF file. The location and name of this file is configurable with the  <code>denote-explore-network-directory</code> and <code>denote-explore-network-filename</code> variables.</li>
+<li>Relevant external software is called upon to display the result.</li>
+</ol>
+<p>The <code>denote-explore-network-graph-formats</code> variable defines the file extension and the relevant functions for encoding and visualisation for each graph format.</p>
+<div id="outline-container-headline-13" class="outline-5">
+<h5 id="headline-13">
+GraphViz
+</h5>
+<div id="outline-text-headline-13" class="outline-text-5">
+<p><a href="https://graphviz.org/">GraphViz</a> is an open-source graph visualisation software toolkit, ideal for this task. The Denote-Explore software saves the graph in the DOT language as a <code class="verbatim">.gv</code> file. The GraphViz software converts the DOT code to an <code class="verbatim">SVG</code> file.</p>
+<p>
+You will need to install the GraphViz software to enable this functionality. Denote-Explore will raise an error when trying to create a GraphViz graph without the required external software available.</p>
+<p>
+The configurable <code>denote-explore-network-graphviz-header</code> variable defines the basic settings for GraphViz graphs, such as the layout method and default node and edge settings.</p>
+<p>
+The <code>denote-explore-network-graphviz-filetype</code> variable defines the <a href="https://graphviz.org/docs/outputs/">GraphViz output format</a>. SVG (the default) or PDF provide the best results. The SVG format should be viewed in a web browser to view tooltips of nodes to show their name and other meta data, and to follow hyperlinks. Emacs can display SVG files, but is unable to follow links or show tootltips.</p>
+<p>
+Hovering the mouse cursor over a node provides its name and other meta data. You can open the relevant file by clicking on the node, which works best when using <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html">Emacs as a server</a>, if you configure your browser to open Org mode, Markdown and text files with the Emacs client. Links only work in neighbourhood and community graphs. These interactive functions are only available when viewing SVG files in a web browser.</p>
+<p>
+The diameter $D$ of nodes are sized relative to their degree $d$: $D = \sqrt{d + 1}$. Thus, the most referenced note in your system will be the most visible. For nodes with a degree greater than two, the name is displayed outside the node (top left). When generating a neighbourhood, the source node is marked in a contrasting colour. In keyword graphs, the thickness of the edges indicates the number of times two keywords are associated with each other.</p>
+<p>
+The layout of the graph uses the <a href="https://graphviz.org/docs/layouts/neato/">Neato spring model</a> in GraphViz. </p>
+<p>
+This method is ideal for viewing small parts of your network. The network will be hard to read when the number of notes becomes too large. I have not yet figured out how to better scale the output based on the number of nodes in a graph.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/denote-explore-neighbourhood-graphviz.png" alt="Example GraphViz visualisation:title Example GraphViz visualisation" title="/images/emacs/denote-explore-neighbourhood-graphviz.png" width="600"/>
+<figcaption>
+Example GraphViz visualisation.
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-5">
+<h5 id="headline-14">
+D3.js
+</h5>
+<div id="outline-text-headline-14" class="outline-text-5">
+<p><a href="https://d3js.org/">D3.js</a> is a JavaScript library for data visualisation. This method provides an aesthetically pleasing and interactive view of your note collection. The Denote-Explore package stores the desired network as a JSON file.</p>
+<p>
+The JavaScript file is generated with the R language as I have not yet mastered JavaScript to write it myself from scratch. R saves the network as an <code class="verbatim">HTML</code> file in the designated folder with the <a href="https://christophergandrud.github.io/networkD3/">networkD3 R package</a>. Hover over any node to reveal its name.</p>
+<p>
+The colours indicate a statistical grouping based on the connections between nodes. This grouping is calculated with the <em>Walktrap</em> community detection algorithm, which finds communities of nodes by assessing which ones are more connected to each other than to nodes outside the community. </p>
+<p>
+To enable this view, you must install the R language on your system. R will install some required libraries when you run this code for the first time. Any JavaScript developers interested in writing a better solution are cordially invited to submit improvements.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/denote-explore-d3js.png" alt="Example D3.js visualisation" title="Example D3.js visualisation" width="600"/>
+<figcaption>
+Example D3.js visualisation.
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-5">
+<h5 id="headline-15">
+Graph Exchange XML Format
+</h5>
+<div id="outline-text-headline-15" class="outline-text-5">
+<p>The first two formats provide some analysis of your knowledge network, but there is a lot more you can do with this type of information. While GraphViz and D3 are suitable for analysing parts of your network, this third option is ideal for storing the complete Denote network for further analysis. To do this, use the Community option and enter an empty search string to include all files.</p>
+<p>
+Graph Exchange XML Format ( <a href="https://gexf.net/">GEXF</a>) is a language for describing complex network structures. This option saves the network as a <code class="verbatim">GEXF</code> file without opening it in external software. </p>
+<p>
+You can analyse the exported file with <a href="https://gephi.org/gephi-lite/">Gephi Lite</a>, a free online network analysis tool. The <code class="verbatim">GEXF</code> file only contains the IDs, names and degree of the nodes, and the edges and their weights. </p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/gephi-lite-export.png" alt="Example Gephi Lite visualisation:title Example Gephi Lite visualisation" title="/images/emacs/gephi-lite-export.png" width="800"/>
+<figcaption>
+Example Gephi Lite visualisation.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-4">
+<h4 id="headline-16">
+Analysing the Denote Network
+</h4>
+<div id="outline-text-headline-16" class="outline-text-4">
+<p>A well-trodden trope in network analysis is that all people are linked within <a href="https://en.wikipedia.org/wiki/Six_degrees_of_separation">six degrees of separation</a>. This may also be the case for your notes, but digging more than three layers deep is not very informative as the network can become large and difficult to review.</p>
+<p>
+It might seem that adding more connections between your notes improves them, but this is not necessarily the case. The extreme case is a complete network where every file links to every other file. This situation lacks any interesting structure and wouldn&#39;t be very useful for analyses. So, be mindful of your approach to linking notes and attachments.</p>
+<p>
+Your Denote network is unlikely to be a fully connected graph. In a connected graph, there is a path from any point to any other point. Within the context of Denote, this means that all files have at least one link or backlink. Your network will most likely have isolated nodes (files without any (back) links) and islands of connected notes. The previously discussed <code>denote-explore-isolated-notes</code> function lists all files without any links and backlinks to and from the note in the minibuffer.</p>
+<p>
+The number of links and backlinks in a file (in mathematical terms, edges connected to a node) is the degree of a node. The <a href="https://en.wikipedia.org/wiki/Degree_distribution">degree distribution</a> of a network is the probability distribution of these degrees over the whole network. The <code>denote-explore-degree-barchart</code> function uses the built-in chart package to display a simple bar chart of the frequency of degrees. This function might take a few seconds to run, depending on the number of notes in your system. Evaluating this function with the universal argument <code class="verbatim">C-u</code> excludes attachments from the analysis.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-2">
+<h2 id="headline-17">
+Installation and Package Configuration
+</h2>
+<div id="outline-text-headline-17" class="outline-text-2">
+<p>This package is available through MELPA. The configuration below customises all available variables and binds the interactive functions using the <em>Emacs Writing Studio</em> <code class="verbatim">C-c w</code> prefix key and <code class="verbatim">e</code> for Denote-Explore. You should modify this configuration to suit your needs, as one person&#39;s sensible defaults are another person&#39;s nightmare.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">denote-explore</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:bind</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#888">;; Statistics</span>
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x c&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-count-notes</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x C&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-count-keywords</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x b&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-barchart-keywords</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x e&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-barchart-filetypes</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#888">;; Random walks</span>
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x r&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-random-note</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x l&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-random-link</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x k&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-random-keyword</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x x&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-random-regex</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#888">;; Denote Janitor</span>
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x d&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-identify-duplicate-notes</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x z&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-zero-keywords</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x s&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-single-keywords</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x o&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-sort-keywords</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x w&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-rename-keyword</span>)
+</span></span><span style="display:flex;"><span>     <span style="color:#888">;; Visualise denote</span>
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x n&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-network</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x v&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-network-regenerate</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w x D&#34;</span> <span style="color:#333">.</span> <span style="color:#963">denote-explore-degree-barchart</span>)))</span></span></code></pre></div>
+</div>
+<p>
+The most recent manual is available in Emacs which you can access with <code class="verbatim">C-h R denote-explore</code> or by evaluating <code>(info &#34;denote-explore&#34;)</code>.</p>
+</div>
+</div>
+<div id="outline-container-headline-18" class="outline-2">
+<h2 id="headline-18">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-18" class="outline-text-2">
+<p>If you like to support my work, then please purchase the <em>Emacs Writing Studio</em> book.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+You can find the source files for the book and the latest configuration files on GitHub:</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+Emacs is a malleable system, and everybody has personal preferences on how to undertake a task and configure Emacs. Any article on how to use Emacs is thus opinionated. If you have a different way of doing things, please complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email or contact me on social media.</p>
+<p>
+The next article discusses how to <a href="https://lucidmanager.org/productivity/emacs-bibtex-mode/">manage literature with BibTeX mode</a>.</p>
+</div>
+</div>
+
+      

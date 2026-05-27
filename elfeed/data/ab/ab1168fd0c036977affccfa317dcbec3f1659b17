@@ -1,0 +1,82 @@
+
+         
+         <p>I am developing four new themes for my <code class="language-plaintext highlighter-rouge">doric-themes</code> package:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">doric-almond</code> (light)</li>
+  <li><code class="language-plaintext highlighter-rouge">doric-coral</code> (light)</li>
+  <li><code class="language-plaintext highlighter-rouge">doric-magma</code> (dark)</li>
+  <li><code class="language-plaintext highlighter-rouge">doric-walnut</code> (dark)</li>
+</ul>
+
+<p>Each of them has its own character, while they all retain the
+minimalist Doric style. Below are some screenshots. Remember that
+these themes use few colours, relying on typography to establish a
+visual rhythm.</p>
+
+<h2>doric-almond</h2>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-almond.png"><img alt="doric-almond theme sample" src="https://protesilaos.com/assets/images/doric/doric-almond.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-almond-org.png"><img alt="doric-almond theme sample" src="https://protesilaos.com/assets/images/doric/doric-almond-org.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-almond-message.png"><img alt="doric-almond theme sample" src="https://protesilaos.com/assets/images/doric/doric-almond-message.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-almond-magit.png"><img alt="doric-almond theme sample" src="https://protesilaos.com/assets/images/doric/doric-almond-magit.png" /></a></p>
+
+<h2>doric-coral</h2>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-coral.png"><img alt="doric-coral theme sample" src="https://protesilaos.com/assets/images/doric/doric-coral.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-coral-org.png"><img alt="doric-coral theme sample" src="https://protesilaos.com/assets/images/doric/doric-coral-org.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-coral-message.png"><img alt="doric-coral theme sample" src="https://protesilaos.com/assets/images/doric/doric-coral-message.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-coral-magit.png"><img alt="doric-coral theme sample" src="https://protesilaos.com/assets/images/doric/doric-coral-magit.png" /></a></p>
+
+<h2>doric-magma</h2>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-magma.png"><img alt="doric-magma theme sample" src="https://protesilaos.com/assets/images/doric/doric-magma.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-magma-org.png"><img alt="doric-magma theme sample" src="https://protesilaos.com/assets/images/doric/doric-magma-org.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-magma-message.png"><img alt="doric-magma theme sample" src="https://protesilaos.com/assets/images/doric/doric-magma-message.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-magma-magit.png"><img alt="doric-magma theme sample" src="https://protesilaos.com/assets/images/doric/doric-magma-magit.png" /></a></p>
+
+<h2>doric-walnut</h2>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-walnut.png"><img alt="doric-walnut theme sample" src="https://protesilaos.com/assets/images/doric/doric-walnut.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-walnut-org.png"><img alt="doric-walnut theme sample" src="https://protesilaos.com/assets/images/doric/doric-walnut-org.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-walnut-message.png"><img alt="doric-walnut theme sample" src="https://protesilaos.com/assets/images/doric/doric-walnut-message.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/doric/doric-walnut-magit.png"><img alt="doric-walnut theme sample" src="https://protesilaos.com/assets/images/doric/doric-walnut-magit.png" /></a></p>
+
+<h2>Coming in version 1.1.0</h2>
+
+<p>All four themes are in development. I may still make some minor
+refinements to them, though I have already defined their overall
+appearance. If you like the minimalism of the <code class="language-plaintext highlighter-rouge">doric-themes</code>, I think
+you will appreciate these new additions.</p>
+
+<h2>Sources</h2>
+
+<p>The Doric themes use few colours and will appear monochromatic in many
+contexts. They are my most minimalist themes. Styles involve the
+careful use of typographic features and subtleties in colour gradients
+to establish a consistent rhythm.</p>
+
+<p>If you want maximalist themes in terms of colour, check my <code class="language-plaintext highlighter-rouge">ef-themes</code>
+package. For something in-between, which I would consider the best
+“default theme” for a text editor, opt for my <code class="language-plaintext highlighter-rouge">modus-themes</code>.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">doric-themes</code></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/doric-themes-pictures">https://protesilaos.com/emacs/doric-themes-pictures</a></li>
+  <li>Git repository: <a href="https://github.com/protesilaos/doric-themes">https://github.com/protesilaos/doric-themes</a></li>
+  <li>Backronym: Doric Only Really Intensifies Conservatively … themes.</li>
+</ul>
+        
+      

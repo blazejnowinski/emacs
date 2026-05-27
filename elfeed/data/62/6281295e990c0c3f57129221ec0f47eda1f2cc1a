@@ -1,0 +1,117 @@
+
+         
+         <p>These are my minimalist themes. They use few colours and will appear
+mostly monochromatic in many contexts. Styles involve the careful use
+of typography, such as italics and bold italics.</p>
+
+<p>If you want maximalist themes in terms of colour, check my <code class="language-plaintext highlighter-rouge">ef-themes</code>
+package. For something in-between, which I would consider the best
+“default theme” for a text editor, opt for my <code class="language-plaintext highlighter-rouge">modus-themes</code>.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">doric-themes</code></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/doric-themes-pictures">https://protesilaos.com/emacs/doric-themes-pictures</a></li>
+  <li>Git repository: <a href="https://github.com/protesilaos/doric-themes">https://github.com/protesilaos/doric-themes</a></li>
+  <li>Backronym: Doric Only Really Intensifies Conservatively … themes.</li>
+</ul>
+
+<p>Below are the release notes.</p>
+
+<hr />
+
+<h2>Update to doric-themes 0.5.0</h2>
+
+<h3>Enjoy the two new members of the collection</h3>
+
+<p>These are <code class="language-plaintext highlighter-rouge">doric-siren</code> and <code class="language-plaintext highlighter-rouge">doric-mermaid</code>. The former is a light
+theme while the latter is dark. Both themes offer a marine vibe
+combined with warm hues. Check the updated screenshots of all the
+Doric themes: <a href="https://protesilaos.com/emacs/doric-themes-pictures">https://protesilaos.com/emacs/doric-themes-pictures</a>.</p>
+
+<h3>Support for transient.el semantic faces</h3>
+
+<p>Those are used when the user option <code class="language-plaintext highlighter-rouge">transient-semantic-coloring</code> is
+set to a non-<code class="language-plaintext highlighter-rouge">nil</code> value (the default). They are designed to indicate
+different types of key, such as those that keep the transient in place
+as opposed to exiting it.</p>
+
+<p>The old style of making all key bindings look the same is still
+available if <code class="language-plaintext highlighter-rouge">transient-semantic-coloring</code> is set to <code class="language-plaintext highlighter-rouge">nil</code>.</p>
+
+<h3>Semantic Emacs Lisp faces</h3>
+
+<p>This is a new feature coming in Emacs 31. Users can opt in to it by
+setting the user option <code class="language-plaintext highlighter-rouge">elisp-fontify-semantically</code> to a non-<code class="language-plaintext highlighter-rouge">nil</code>
+value. When active, Emacs Lisp buffers will apply highlights to more
+elements of the syntax. Those will still conform with the minimalist
+style of the Doric themes, but users at least get the benefits of
+<code class="language-plaintext highlighter-rouge">elisp-add-help-echo</code>.</p>
+
+<h3>Font-lock faces for function calls and use of variables</h3>
+
+<p>Those are typically applied by major modes that are power by
+tree-sitter. Again, the styles are minimalist.</p>
+
+<h3>More faces or face groups are covered</h3>
+
+<p>These include:</p>
+
+<ul>
+  <li>ibuffer’s Emacs 31 faces (patched by me in emacs.git)</li>
+  <li>flymake’s Emacs 31 faces (again, my patch in core)</li>
+  <li>diff-hl package</li>
+  <li>git-gutter package</li>
+  <li>org-habit</li>
+  <li>minibuffer-nonselected for Emacs 31</li>
+  <li>eglot-highlight-symbol-face</li>
+  <li><code class="language-plaintext highlighter-rouge">ert-test-result-unexpected</code> and <code class="language-plaintext highlighter-rouge">ert-test-result-expected</code>,
+courtesy of Rudolf Adamkovič in pull request 19:
+<a href="https://github.com/protesilaos/doric-themes/pull/19">https://github.com/protesilaos/doric-themes/pull/19</a>.</li>
+</ul>
+
+<h3>Refinements to already supported faces</h3>
+
+<ul>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">calendar-today</code> and <code class="language-plaintext highlighter-rouge">org-date-selected</code> are similar but
+different enough to stand apart. I initially made them look identical
+because I thought they would never appear in the same context. Thanks
+to Rudolf Adamkovič for telling me they could actually be collocated,
+hence their disambiguation. This was done in issue 20:
+<a href="https://github.com/protesilaos/doric-themes/issues/20">https://github.com/protesilaos/doric-themes/issues/20</a>.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">transient-argument</code> and <code class="language-plaintext highlighter-rouge">transient-value</code> have a background to
+make them easier to spot. This is because they convey information
+about the state of the transient interface, which typically is important.</p>
+  </li>
+  <li>
+    <p>Transient’s mismatching keys are dimmed out instead of being
+underlined, because this looks better in context.</p>
+  </li>
+  <li>
+    <p>Similarly, <code class="language-plaintext highlighter-rouge">org-agenda-clocking</code> has a more pronounced background.</p>
+  </li>
+  <li>
+    <p>Idem for <code class="language-plaintext highlighter-rouge">eldoc-highlight-function-argument</code> and its counterparts in
+<code class="language-plaintext highlighter-rouge">lsp-mode</code> and <code class="language-plaintext highlighter-rouge">geiser</code>.</p>
+  </li>
+  <li>
+    <p>The Org check boxes are rendered with a bold weight, while quote
+blocks are in italics. Thanks to Rudolf Adamkovič for the patch in
+pull request 18: <a href="https://github.com/protesilaos/doric-themes/pull/18">https://github.com/protesilaos/doric-themes/pull/18</a>.</p>
+  </li>
+  <li>
+    <p>All Notmuch cryptography-related faces have more refined styles to
+both stand out better while avoiding exaggerations.</p>
+  </li>
+  <li>
+    <p>The Custom user interface buttons inherit from <code class="language-plaintext highlighter-rouge">variable-pitch</code>.</p>
+  </li>
+  <li>
+    <p>The current line number in <code class="language-plaintext highlighter-rouge">display-line-numbers-mode</code> uses just a
+bold weight to avoid exaggerations.</p>
+  </li>
+</ul>
+        
+      

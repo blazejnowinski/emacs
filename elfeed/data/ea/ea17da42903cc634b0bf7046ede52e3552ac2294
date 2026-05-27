@@ -1,0 +1,556 @@
+
+	
+<p>
+Emacs is known as an extensible text editor, but this is a confusing description to authors. Computer programmers refer to writing code as editing, while for an author, the term editing refers to the last stage in the writing process. A text editor is a tool to write text for computers to read. However, Emacs can be a tool for editing code and writing for humans.</p>
+<p>
+This article explains the basics of how to write prose using Emacs as an advanced typewriter. This article is part of <a href="https://lucidmanager.org/tags/emacs/">Emacs Writing Studio</a>, which explains how to use Emacs to undertake research and write and publish articles, books, and websites. </p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+The source files of the book and EWS configuration are also freely available on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Writing modes
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>Emacs is like a Swiss Army knife in that it can undertake several different functions through so-called major modes.</p>
+<p>
+An Emacs major mode controls how a buffer (the currently open file) behaves. A text file could be a movie script, a to-do list, the next great novel, computer code, or however you express your creativity. In commercial software, each file could be a different file type that you can only read in specialised software. Emacs automatically recognises the type of file you open and modifies its behaviour accordingly.</p>
+<p>
+In Emacs, text mode is for simple text files. <a href="https://fountain-mode.org/">Fountain mode</a> helps you write movie or theatre scripts. <a href="https://orgmode.org/">Org mode</a> excels at managing your to-do lists and creative writing. Many other modes with specialised functions are available in the package repositories.</p>
+<p>
+Each buffer can only have one major mode operating at a time, but it can have several minor modes. A minor mode provides optional extras, such as Flyspell, for on-the-fly spell checking.</p>
+<p>
+Org mode is arguably the most versatile major mode in Emacs. A large portion of these articles describe how to use this package.</p>
+<p>
+The remainder of this article focuses on the principles that apply to all text modes.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Basic principles
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>The foundational <a href="https://lucidmanager.org/productivity/getting-started-with-emacs/">major mode</a> for writing prose is <code>text-mode</code>. Emacs documentation describes it as the mode for writing text for humans to read, in contrast to <code>prog-mode</code>, which is for writing code that computers read. Text mode forms the foundation for all other prose formats. This means that all these modes use the same basic functionality for writing.</p>
+<p>
+The basic principle of writing in Emacs is easy: you just start. However, some differences exist between standard word processors and the Emacs way. Once you get used to the convenience of writing in Emacs, you never want to use other software again, as you will miss the extensive editing functionality to jump around your text with ease.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Moving around in a buffer
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>You can move the cursor with arrow keys and other standard navigation keys. Emacs documentation sometimes refers to the cursor as a point; technically, the cursor is the character displayed on the screen (a line or a box), and a point indicates where the next typed character will appear. In most situations, the terms cursor and point are used interchangeably.</p>
+<p>
+In addition to the standard methods to move around a buffer, Emacs provides additional functionality to help you navigate your project. For example, <code class="verbatim">C-p</code> (<code>previous-line</code>) does the same as the up key (see table below). Some people prefer these keys so their hands can stay in the default position for fast touch-typing. However, writing is more about thinking than maximising keystrokes per minute, but feel free to try them out.</p>
+<figure>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Function</th>
+<th>Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Left</td>
+<td><code>left-char</code></td>
+<td><code class="verbatim">C-b</code>, <code class="verbatim">&lt;left&gt;</code></td>
+</tr>
+<tr>
+<td>Right</td>
+<td><code>right-char</code></td>
+<td><code class="verbatim">C-f</code>, <code class="verbatim">&lt;right&gt;</code></td>
+</tr>
+<tr>
+<td>Up</td>
+<td><code>previous-line</code></td>
+<td><code class="verbatim">C-p</code>, <code class="verbatim">&lt;up&gt;</code></td>
+</tr>
+<tr>
+<td>Down</td>
+<td><code>next-line</code></td>
+<td><code class="verbatim">C-n</code>, <code class="verbatim">&lt;down&gt;</code></td>
+</tr>
+<tr>
+<td>Previous word</td>
+<td><code>backwar-word</code></td>
+<td><code class="verbatim">M-b</code>, <code class="verbatim">C-&lt;left&gt;</code></td>
+</tr>
+<tr>
+<td>Next word</td>
+<td><code>forward-word</code></td>
+<td><code class="verbatim">M-f</code>, <code class="verbatim">C-&lt;right&gt;</code></td>
+</tr>
+<tr>
+<td>Scroll down</td>
+<td><code>scroll-down-command</code></td>
+<td><code class="verbatim">C-v</code>, <code class="verbatim">&lt;PageDown</code></td>
+</tr>
+<tr>
+<td>Scroll up</td>
+<td><code>scroll-up-command</code></td>
+<td><code class="verbatim">M-v</code>, <code class="verbatim">&lt;PageUp&gt;</code></td>
+</tr>
+<tr>
+<td>Start of line</td>
+<td><code>move-beginning-of-line</code></td>
+<td><code class="verbatim">C-a</code>, <code class="verbatim">&lt;home&gt;</code></td>
+</tr>
+<tr>
+<td>End of line</td>
+<td><code>move-end-of-line</code></td>
+<td><code class="verbatim">C-e</code>, <code class="verbatim">&lt;end&gt;</code></td>
+</tr>
+<tr>
+<td>Start of buffer</td>
+<td><code>beginning-of-buffer</code></td>
+<td><code class="verbatim">M-&lt;</code>, <code class="verbatim">C-&lt;home&gt;</code></td>
+</tr>
+<tr>
+<td>End of buffer</td>
+<td><code>end-of-buffer</code></td>
+<td><code class="verbatim">M-&gt;</code>, <code class="verbatim">C-&lt;end&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<figcaption>
+Moving around a buffer in Emacs.
+</figcaption>
+</figure>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Making a mark
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>You will undoubtedly have the experience of moving from one part of a document to another and then like to jump back but lose your place, so you search through the document to get back to where you left off.</p>
+<p>
+In Emacs, you can save the cursor&#39;s current position with <code class="verbatim">C-space</code>, which marks the current location of the point. You can now move to another part of your document, edit or read what you need, and jump back with <code class="verbatim">C-u C-space</code>. </p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Focusing
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Getting lost in a sea of words on your screen is easy. Some simple keystrokes can help you to focus your eyes quickly. Keying <code class="verbatim">C-l</code> (<code class="verbatim">recenter-top-bottom</code>) moves the line that your cursor is on to the centre of the screen.</p>
+<p>
+If you repeat this keystroke, the cursor will move to the top of the screen. If you do this three times in a row, the cursor moves to the bottom of the screen.</p>
+&nbsp;
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Copying and pasting text the Emacs way
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The most apparent difference between Emacs and typical word processors is that it does not use the standard <a href="https://en.wikipedia.org/wiki/IBM_Common_User_Access">Common User Access</a> (CUA) keys standard for selecting, copying, cutting and pasting text used in modern applications. But the trade-off for the minor inconvenience of learning a new method to edit text is that the Emacs way is much more versatile than other software.</p>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Selecting text
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>With the shift and arrow keys, you can select text in almost all major modes. Because the shift and arrow keys in Org mode are reserved for editing lists, you must use a more advanced way to select a text block. You first set a mark with <code class="verbatim">C-space</code> and then move to the end of the section to select your text, which is highlighted.</p>
+<p>
+To select a complete paragraph, use the <code class="verbatim">M-h</code> key. Repeatedly pressing <code class="verbatim">M-h</code> will select subsequent sections. Using <code class="verbatim">C-x h</code> will select all text in the buffer.</p>
+<p>
+Once the text is marked, you can act on this block by deleting, copying or moving it.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Copy and paste text
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>In modern computing language, copying and pasting are handicraft analogues for moving text from one place to another. Emacs terminology is more evocative. Copying a text is the same as saving it to the &#39;kill-ring&#39; and yanking a text retrieves it from that seemingly bleak location.</p>
+<p>
+While the clipboard in most systems only retains the last entry, the kill ring provides access to a  history of killing actions. In other words, Emacs stores a history of all text you copy and cut from a buffer to the kill ring. The length of this history is stored in <code>kill-ring-max</code>, which is 60 entries by default. Once the kill ring is full, the oldest item vanishes. Emacs erases the content of the kill ring when you exit the program. Use the following keyboard shortcuts to copy and move the text to and from the kill ring:</p>
+<figure>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="verbatim">M-w</code></td>
+<td><code>kill-ring-save</code></td>
+<td>Copy a selection to the kill ring</td>
+</tr>
+<tr>
+<td><code class="verbatim">C-W</code></td>
+<td><code>kill-region</code></td>
+<td>Move a selection to the kill ring</td>
+</tr>
+<tr>
+<td><code class="verbatim">C-y</code></td>
+<td><code>yank</code></td>
+<td>Paste the most recent entry in the kill ring to the buffer</td>
+</tr>
+<tr>
+<td><code class="verbatim">M-y</code></td>
+<td><code>yank-pop</code></td>
+<td>Replace the previously yanked text with the next kill ring entry</td>
+</tr>
+</tbody>
+</table>
+<figcaption>
+Copying and pasting in Emacs.
+</figcaption>
+</figure>
+<p>
+The <code>kill*</code> commands copy or move text to the kill ring and the system clipboard. The <code>yank*</code> commands copy an entry from the kill ring to the current buffer. The <code>yank-pop</code> (<code class="verbatim">M-y</code>) command cycles through the contents of the kill ring so you can access the history. When you use advanced <a href="https://lucidmanager.org/productivity/emacs-completion-system/">completion systems</a>, you see a list of all available previous selections in the minibuffer. Use the arrow keys or search to pick what you like to yank into the active buffer. </p>
+<p>
+If you prefer using the familiar keyboard shortcuts, enable <code>cua-mode</code> for convenience. With this mode, you can use <code class="verbatim">C-z</code>, <code class="verbatim">C-x</code>, <code class="verbatim">C-c</code>, and <code class="verbatim">C-v</code> to undo, cut, copy, and paste in addition to the standard Emacs bindings. The <code class="verbatim">C-x</code> and <code class="verbatim">C-c</code> keys only activate when you mark a region. You can enable this mode by adding <code>(cua-mode t)</code> to your init file. This mode is not enabled in the <em>Emacs Writing Studio</em> configuration.</p>
+&nbsp;
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+Search and replace
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>The most common search method in Emacs is incremental. An incremental search (<code class="verbatim">C-s</code>) begins searching as soon as you type the first character of the search string. As you type in the search term, Emacs shows you where the term is found. When you have typed enough characters to identify the place you want, you can terminate the search explicitly with <code class="verbatim">ENTER</code> or <code class="verbatim">C-g</code>. </p>
+<p>
+The <code class="verbatim">C-s</code> shortcut searches incrementally from the cursor. You cycle through the search results by repeatedly pressing <code class="verbatim">C-s</code>. Using <code class="verbatim">C-r</code> searches the text before the cursor.</p>
+<p>
+Emacs saves search terms in the search ring. Typing <code class="verbatim">C-s C-s</code> will show the previous search term. Using <code class="verbatim">C-p</code> and <code class="verbatim">C-n</code> lets you scroll through previous search terms.</p>
+<p>
+To search and replace text in a buffer, use <code class="verbatim">M %</code> and follow the prompts in the mini buffer.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-10" class="outline-2">
+<h2 id="headline-10">
+Correcting mistakes
+</h2>
+<div id="outline-text-headline-10" class="outline-text-2">
+<p>The most convenient aspect of writing on an electric screen is that it is easy to change your mind or correct a mistake without having to resort to correction fluids or other archaic methods. The following basic editing commands are available to modify text. Please note that commands that start with <code class="verbatim">kill</code> store the deleted text on the kill ring. </p>
+<figure>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Function</th>
+<th>Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Delete character after point</td>
+<td><code>delete-char</code></td>
+<td><code class="verbatim">C-d</code>, <code class="verbatim">&lt;delete&gt;</code></td>
+</tr>
+<tr>
+<td>Delete character before point</td>
+<td><code>delete-backward-char</code></td>
+<td><code class="verbatim">&lt;backspace&gt;</code></td>
+</tr>
+<tr>
+<td>Delete the next word</td>
+<td><code>kill-word</code></td>
+<td><code class="verbatim">M-d</code>, <code class="verbatim">C-&lt;delete&gt;</code></td>
+</tr>
+<tr>
+<td>Delete to the end of the line</td>
+<td><code>kill-line</code></td>
+<td><code class="verbatim">C-k</code></td>
+</tr>
+</tbody>
+</table>
+<figcaption>
+Emacs deletion commands.
+</figcaption>
+</figure>
+<p>
+Besides removing unwanted characters, you can also swap them with a series of transposing commands. When you accidentally reverse two letters in a word, you can switch their order with the <code>transpose-char</code> command with the cursor between them (<code class="verbatim">C-t</code>). Swapping words is quickly done with the <code>transpose-words</code> (<code class="verbatim">M-t</code>) command.</p>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Undo the Emacs way
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>The Emacs <code>undo</code> command is mapped to <code class="verbatim">C-/</code>. If you need to undo the step, use <code class="verbatim">C-?</code> (<code>undo-redo</code>). Each consecutive command will undo earlier changes. Any command other than an undo command breaks the sequence. </p>
+<p>
+Although each editing command usually makes a separate entry in the undo records, simple commands (single key press) may be grouped together.</p>
+<p>
+The Emacs undo system recovers any past text version. In contrast, the standard undo/redo system can lose past edits as soon as you redo. Getting lost in a sequence of undo and redo commands is easy. The <a href="https://www.dr-qubit.org/undo-tree.html">Undo Tree</a> package by Toby Cubitt helps you keep track of your changes by visualising them as a tree. Use the ~ undo-tree-visualise ~ (<code class="verbatim">C-x u</code>) command to walk through previous versions of your text.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/undo-tree.png" alt="Example of an undo tree" title="Example of an undo tree" width="300"/>
+<figcaption>
+Example of an undo tree.
+</figcaption>
+</figure>
+<p>
+The current buffer will change as you work your way through its history with the arrow keys where <code class="verbatim">x</code> marks the spot of the selected step. Use <code class="verbatim">q</code> to select the chosen edit and continue writing. The <code class="verbatim">C-q</code> chord jumps out of the undo tree without making changes.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">undo-tree</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:config</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">global-undo-tree-mode</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">undo-tree-auto-save-history</span> <span style="color:#036;font-weight:bold">nil</span>))</span></span></code></pre></div>
+</div>
+<p>
+There is also a nuclear option. You can discard all the changes since the buffer was last visited or saved with <code>M-x revert-buffer</code>, which reloads the file from the disk.</p>
+&nbsp;
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-2">
+<h2 id="headline-12">
+Configure text modes
+</h2>
+<div id="outline-text-headline-12" class="outline-text-2">
+<p>The original purpose of Emacs is to edit computer code, so by default, the editor does not wrap lines at the end of the screen. While this behaviour is great for developing software, it isn&#39;t very pleasant for writing prose. The <code class="verbatim">visual-line-mode</code> minor mode enables line-wrapping, which is common in word processors. You can run the function separately for each buffer, but ideally, you link (hook) it to all text modes.</p>
+<p>
+The second change is that when you select (mark) a section of text and start typing, Emacs will not replace the selected text by default. To enable Emacs to overwrite selected text, you set the <code class="verbatim">delete-selection-mode</code> variable, as below.</p>
+<p>
+Another sensible default for authors is to ensure that Emacs lets you use the <code class="verbatim">page-up</code> and <code class="verbatim">page-down</code> buttons to go all the way to the first and last line in the buffer.</p>
+<p>
+The last line better integrates the system clipboard with the Emacs kill ring.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; Sensible line-breaking</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#963">add-hook</span> <span style="color:#a60;background-color:#fff0f0">&#39;text-mode-hook</span> <span style="color:#a60;background-color:#fff0f0">&#39;visual-line-mode</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#888">;; Overwrite selected text</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#963">delete-selection-mode</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#888">;; Scroll to the first and last line of the buffer</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">setq-default</span> <span style="color:#963">scroll-error-top-bottom</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#888">;; Copy the system clipboard to the kill ring</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">setq</span> <span style="color:#963">save-interprogram-paste-before-kill</span> <span style="color:#036;font-weight:bold">t</span>)</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-2">
+<h2 id="headline-13">
+Checking spelling
+</h2>
+<div id="outline-text-headline-13" class="outline-text-2">
+<p>The Emacs minor mode Flyspell provides an interface to the <a href="https://hunspell.github.io/">Hunspell spell-checking software</a>. To enable spell-checking, you thus first need to ensure that Hunspell is available on your computer. Hunspell is easy to install on Linux computers but is also available for <a href="https://lucidmanager.org/productivity/emacs-windows/">Windows</a> and <a href="https://lucidmanager.org/productivity/emacs-chromebook/">Chromebook</a>.</p>
+<p>
+The configuration below enables Flyspell for all text modes and sets Hunspell as the default checking program. The <code class="verbatim">M-F7</code> key checks the spelling for all words in the buffer, and <code class="verbatim">F7</code> checks the word on which the cursor is standing.</p>
+<p>
+A more productive method is to use the <code>flyspell-auto-correct-previous-word</code> (<code class="verbatim">C-;</code>) function. This function provides the most likely correction of the first spelling error before the cursor. Emacs will show the list of possible corrections in the mini buffer. Repeatedly pressing <code class="verbatim">C-;</code> will cycle through the options until you return to the original. This function prevents you from having to jump to your spelling mistakes.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; Spell-checking</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#888">;; Requires Hunspell</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">flyspell</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">ispell-program-name</span> <span style="background-color:#fff0f0">&#34;hunspell&#34;</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">ispell-default-dictionary</span> <span style="background-color:#fff0f0">&#34;en_AU&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:hook</span> (<span style="color:#963">text-mode</span> <span style="color:#333">.</span> <span style="color:#963">flyspell-mode</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:bind</span> ((<span style="background-color:#fff0f0">&#34;M-&lt;f7&gt;&#34;</span> <span style="color:#333">.</span> <span style="color:#963">flyspell-buffer</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">flyspell-correct</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:after</span> (<span style="color:#963">flyspell</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:bind</span> ((<span style="background-color:#fff0f0">&#34;C-;&#34;</span> <span style="color:#333">.</span> <span style="color:#963">flyspell-auto-correct-previous-word</span>)
+</span></span><span style="display:flex;"><span>           (<span style="background-color:#fff0f0">&#34;&lt;f7&gt;&#34;</span> <span style="color:#333">.</span> <span style="color:#963">flyspell-correct-wrapper</span>)))</span></span></code></pre></div>
+</div>
+<p>
+You must modify the configuration to set your preferred dictionary as the default. The available English dictionaries in Hunspell are:</p>
+<ul>
+<li><code class="verbatim">en_US</code> (American)</li>
+<li><code class="verbatim">en_CA</code> (Canadian)</li>
+<li><code class="verbatim">en_GB</code> (British)</li>
+<li><code class="verbatim">en_AU</code> (Australian)</li>
+</ul>
+<p>Hunspell supports a lot of other dictionaries, so you can install and choose your own when English is not your preferred language. </p>
+<p>
+If you are multilingual, you can set a different language for each buffer by adding a file variable to the relevant buffer. Ass the text below as the last lines in your Org mode file, where you replace <code class="verbatim">nederlands</code> (Dutch) with your preferred language:</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>,# Local Variables:
+</span></span><span style="display:flex;"><span>,# ispell-local-dictionary: nederlands
+</span></span><span style="display:flex;"><span>,# End:</span></span></code></pre></div>
+</div>
+<p>
+Emacs evaluates this line and activates the dictionary when you run <code class="verbatim">M-x normal-mode</code> and the next time you open the file. This dictionary only applies to the relevant file; all other buffers remain in the default language.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+Counting words
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>To count the words in a buffer, or part thereof, use the <code class="verbatim">count-word-region-function</code>, which is bound to <code>M-=</code>.</p>
+<p>
+The result appears in the minibuffer. When you select a portion of text, this function will count only the selection. Adding the <code class="verbatim">C-u</code>, prefix counts the words for the hole buffer (<code class="verbatim">C-u M-=</code>).</p>
+<p>
+For Org mode buffers, the <code>ews-org-count-words</code> command counts the words in each section and adds the word count as a property. Refer to <a href="https://lucidmanager.org/productivity/emacs-for-distraction-free-writing/">Distration-Free Writing with Org mode</a> for details.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+Text size
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>To temporarily increase the height of the text in the current buffer, type <code class="verbatim">C-x C-+</code>. To decrease it, type <code class="verbatim">C-x C--</code>.</p>
+<p>
+To restore the default (global) face height, type <code class="verbatim">C-x C-0</code>. These keys are all bound to the <code>text-scale-adjust</code> function, which looks at the last key typed to determine which action to take.</p>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+Text Completion
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>Emacs developers have also written many completion systems to help you write text. These packages fall into two categories: <a href="https://lucidmanager.org/productivity/emacs-completion-system/">minibuffer completion</a> and expansion systems for prose and code.</p>
+<p>
+Expanding text in human languages comes in two forms. You either start typing a word, and Emacs predicts what should go next, or you write a predefined abbreviation that expands into a word, a paragraph, a table or whatever else you define it as.</p>
+<p>
+Predictive text is one of these technologies that can be both a blessing and a curse. Use it cautiously because it can hinder your writing when used too eagerly.</p>
+<p>
+Company mode is a versatile package that can help you with completing long words. Its primary purpose is to assist developers with writing code, but it can also help you complete words.</p>
+<p>
+Company mode provides suggested completions in a dropdown menu whenever you type a defined number of characters. It derives these options from all open text buffers. Use the arrow keys and enter to select your option, or ignore the menu and keep typing.</p>
+<p>
+This configuration only activates when entering at least four characters and only shows words of eight or more letters. The wraparound option lets you cycle through the completions menu with the down and up arrow keys.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; Auto completion</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">company</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">company-minimum-prefix-length</span> <span style="color:#00d;font-weight:bold">4</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">company-dabbrev-minimum-length</span> <span style="color:#00d;font-weight:bold">8</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">company-selection-wrap-around</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:init</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">global-company-mode</span>))</span></span></code></pre></div>
+</div>
+<p>
+When using variable pitch fonts, the dropdown menu for text completion gets distorted because the letters are not all the same size. The <a href="https://github.com/tumashu/company-posframe">company-posframe package</a> by Tumashu solves this problem. A post frame is a floating child frame that can pop up anywhere on the screen, usually to show additional information.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; Required for variable pitch</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">company-posframe</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:config</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">company-posframe-mode</span> <span style="color:#00d;font-weight:bold">1</span>))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-2">
+<h2 id="headline-17">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-17" class="outline-text-2">
+<p>If you like to support my work, then please purchase the <em>Emacs Writing Studio</em> book.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+Emacs is a malleable system, and everybody has personal preferences on how to undertake a task and configure Emacs. Any article on how to use Emacs is thus opinionated. If you have a different way of doing things, please complete the contact form to send me an email or contact me on social media.</p>
+<p>
+Emacs is a malleable system, so everybody will have their personal preferences. Any article on how to use Emacs is thus opinionated. If you have a different way of doing things, please complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email or contact me on social media.</p>
+<p>
+The next article dives into getting productive with Emacs by explaining how to <a href="https://lucidmanager.org/productivity/improving-the-emacs-user-interface/">improve the Emacs user interface</a>.</p>
+</div>
+</div>
+
+      

@@ -1,0 +1,35 @@
+
+         
+         <p><strong>UPDATE 2026-02-11 23:08 +0200:</strong> This package is discontinued and
+superseded by my <code class="language-plaintext highlighter-rouge">institution-calendar</code>:
+<a href="https://protesilaos.com/codelog/2026-02-11-emacs-institution-calendar/">https://protesilaos.com/codelog/2026-02-11-emacs-institution-calendar/</a>.</p>
+
+<hr />
+
+<p>The <code class="language-plaintext highlighter-rouge">oxford-calendar</code> is a small package that is of interest to
+students, academics, and staff of the University of Oxford. It
+augments the <code class="language-plaintext highlighter-rouge">M-x calendar</code> buffer with indicators that show the
+applicable term (Michaelmas, Hilary, Trinity) and week number.</p>
+
+<p><a href="https://protesilaos.com/assets/images/attachments/2026-01-09-oxford-calendar.png"><img alt="Oxford calendar for Emacs" src="https://protesilaos.com/assets/images/attachments/2026-01-09-oxford-calendar.png" /></a></p>
+
+<p>To show the indicators, enable the <code class="language-plaintext highlighter-rouge">oxford-calendar-mode</code>. By default,
+it includes the extra weeks 0 and 9 at the boundaries of each term.
+The idea is to make things easier for planning purposes. Remove those
+extra weeks by setting <code class="language-plaintext highlighter-rouge">oxford-calendar-include-extra-week-numbers</code> to
+<code class="language-plaintext highlighter-rouge">nil</code>.</p>
+
+<p>To include a heading above the term indicators, set the user option
+<code class="language-plaintext highlighter-rouge">oxford-calendar-include-intermonth-header</code> to a non-<code class="language-plaintext highlighter-rouge">nil</code> value.</p>
+
+<p>I will now do the work to include the package on the GNU ELPA archive.</p>
+
+<h2>Sources</h2>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">oxford-calendar</code> (!!! COMING SOON)</li>
+  <li>Git repository: <a href="https://github.com/protesilaos/oxford-calendar">https://github.com/protesilaos/oxford-calendar</a></li>
+  <li>Backronym: Overtly Xenial Feature Orders Relevant Dates … Calendar.</li>
+</ul>
+        
+      

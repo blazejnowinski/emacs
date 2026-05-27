@@ -1,0 +1,78 @@
+
+         
+         <p>Substitute is a set of commands that perform text replacement (i)
+throughout the buffer, (ii) limited to the current definition (per
+<code class="language-plaintext highlighter-rouge">narrow-to-defun</code>), (iii) from point to the end of the buffer, and
+(iv) from point to the beginning of the buffer. Variations of these
+scopes are also available.</p>
+
+<p>These substitutions are meant to be as quick as possible and, as such,
+differ from the standard <code class="language-plaintext highlighter-rouge">query-replace</code> (which I still use when
+necessary). The provided commands prompt for substitute text and
+perform the substitution outright, without moving the point. The
+target is the symbol/word at point or the text corresponding to the
+currently marked region. All matches in the given scope are
+highlighted by default.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">substitute</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/substitute">https://protesilaos.com/emacs/substitute</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/substitute">https://github.com/protesilaos/substitute</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/substitute">https://gitlab.com/protesilaos/substitute</a></li>
+    </ul>
+  </li>
+  <li>Video demo: <a href="https://protesilaos.com/codelog/2023-01-16-emacs-substitute-package-demo/">https://protesilaos.com/codelog/2023-01-16-emacs-substitute-package-demo/</a></li>
+  <li>Backronym: Substitutions Uniformly Beget Standardisation for Text Invariably Transfigured Unto This Entry.</li>
+</ul>
+
+<p>Below are the release notes.</p>
+
+<hr />
+
+<h2>Version 0.4.0 on 2025-11-29</h2>
+
+<p>This version iterates on an already stable package. It introduces a
+few new commands while making minor internal refinements.</p>
+
+<p>The new commands work exactly like those already on offer, except for
+their scope of application. Remember that Substitute targets either
+the symbol/word at point or any occurrences of the currently marked
+characters/text within the given scope and replaces them with the
+user’s input. The scope is something like “current function
+definition”, “current paragraph”, “from here to the end of the
+buffer”, et cetera. The substitution does not move the cursor.</p>
+
+<p>The new commands:</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">substitute-target-in-outline</code>: Substitute the target across the
+current outline level. The outline is determined by the buffer-local
+value of the variable <code class="language-plaintext highlighter-rouge">outline-regexp</code>. For example, in Org mode the
+current outline level includes the heading and any text below it but
+not any subheadings.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">substitute-target-in-page</code>: Like the above for the boundaries of
+the current page. A page is determined by the buffer-local value of
+the variable <code class="language-plaintext highlighter-rouge">page-delimiter</code>.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">substitute-target-in-paragraph</code>: As above for the current
+paragraph. Note that in programming modes a “paragraph” is not
+necessarily the same as with prose (where, in their simplest form,
+paragraphs are delimited by empty lines). Substitute highlights all
+matches by default, so users should notice the difference right
+away.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">substitute-target-in-defun-and-below</code>: This works in the scope of
+the current definition (per <code class="language-plaintext highlighter-rouge">narrow-to-defun</code>) but only from point
+onwards. It is the counterpart to the commands we always had in
+<code class="language-plaintext highlighter-rouge">substitute-target-in-defun</code>.</p>
+  </li>
+</ul>
+        
+      

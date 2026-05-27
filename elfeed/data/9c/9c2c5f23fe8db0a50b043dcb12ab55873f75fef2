@@ -1,0 +1,485 @@
+
+	
+<p>
+Emacs Org mode is an <a href="https://lucidmanager.org/productivity/emacs-for-distraction-free-writing/">ideal tool for writing without distractions</a> because working with plain text allows you to focus on content instead of design. While writing articles and books in plain text is pleasant and productive, it is not ideal for sharing your work. The Org mode exports your work to PDF leveraging LaTeX, to a website, to a word processor document, an ebook and many more formats. This article explains how to export your work as a journal article, a print-ready book PDF, or an ebook.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+The source files of the book and EWS configuration are also freely available on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Org mode export principles
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>The basic principle of exporting Org mode files to the desired format is that the system converts the text to the relevant format and then connects it to a document class, CSS style sheet or other type of template. Your text file can also link to a <a href="https://lucidmanager.org/productivity/emacs-bibtex-mode/">local or global bibliography</a> to manage citations. Org mode has built-in export facilities for LaTeX (PDF), HTML and ODT (LibreOffice) and some other formats. Using external packages you can also export to other formats, such as ePub.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/org-mode-export.png" alt="Org mode explort principles" title="Org mode explort principles" width="300"/>
+<figcaption>
+Org mode explort principles
+</figcaption>
+</figure>
+<p>
+In principle you don&#39;t need to know HTML or LaTeX, but it will certainly help with fine tuning the output.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+The Org mode export function
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>Org mode includes a powerful export module to convert your files to various formats. Start the export module with the <code>org-export-dispatch</code> function, which you can run with the default <code class="verbatim">C-c C-e</code> keyboard shortcut. The dispatch provides a range of options. The first letter you type determines the export format, and subsequent letters the specific options. Using <code class="verbatim">q</code> exists the export dispatcher.</p>
+<p>
+The <a href="https://orgmode.org/manual/Exporting.html">Org mode manual</a> describes a myriad of configuration options to fine-tune the look and feel of the exported file. This article describes the basics of the export functionality for PDF files, word processor formats and ebooks.</p>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+Export filename
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>By default, Org mode saves the result of the export process in the same folder as the source document. The exported file has the same name as the source file but with a different extension.</p>
+<p>
+Exporting <a href="https://lucidmanager.org/productivity/taking-notes-with-emacs-denote/">Denote</a> Org mode files can create a filename conflict because you are effectively creating two files with the same identifier, so ideally you should change the name of the exported file. </p>
+<p>
+You can change this behaviour by adding <code>#+export_file_name: &lt;filename&gt;</code> to the header. The filename can be any string without file extension. You can save the exported file in another folder, but this might cause errors for certain formats.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Basic settings
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>Before delving into the specific export formats, some housekeeping sets the defaults on how a document is exported. There are <a href="https://orgmode.org/manual/Export-Settings.html#FOOT123">various settings to control how Org mode exports your document</a>, which you add to the front matter of your file, or set them as global variable for all exports. Some generic export variables are:</p>
+<ul>
+<li><code class="verbatim">#+title:</code> Document title.</li>
+<li><code class="verbatim">#+author:</code> Author name (defaults to <code>user-full-name</code>).</li>
+<li><code class="verbatim">#+date:</code> Date of publication (You can set the format of the export with the <code>org-export-date-timestamp-format</code> variable).</li>
+</ul>
+<p>The snippet below ignores drawers (<a href="https://lucidmanager.org/productivity/emacs-for-distraction-free-writing/">which can be used for writing notes and other functions</a>) and <a href="https://lucidmanager.org/productivity/getting-things-done-with-emacs/">todo keywords</a> in the export. This configuration also ignores broken links, does not produce a table of contents and turns straight quotation marks into more aesthetic curly ones.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  <span style="color:#888">;; Org Export Settings</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">org</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-export-with-drawers</span> <span style="color:#036;font-weight:bold">nil</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-export-with-todo-keywords</span> <span style="color:#036;font-weight:bold">nil</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-export-with-broken-links</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-export-with-toc</span> <span style="color:#036;font-weight:bold">nil</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-export-with-smart-quotes</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-export-date-timestamp-format</span> <span style="background-color:#fff0f0">&#34;%d %B %Y&#34;</span>))</span></span></code></pre></div>
+</div>
+<p>
+You can override these settings for specific documents with header arguments, as shown below. The <code class="verbatim">d</code> is for drawers and the mystical looking <code>\\=&#39;</code> for smart quotes. The line below shows drawers and todo markers in the export. This configuration marks broken links, shows two levels of the table of contents and quotation marks are not converted. </p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>  #+options: d:t todo:t broken-links:mark toc:2 \\=&#39;:nil</span></span></code></pre></div>
+</div>
+<p>
+Section 13.2 of the <a href="https://orgmode.org/manual/Export-Settings.html">Org mode manual</a> explains the various export settings in more detail. Each option can be set as a variable in your configuration or as a line in your Org mode header to fine tune export settings for individual files.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Excluding content from export
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Not everything you write should be exported, as suggested in the export defaults in the previous section. The article on <a href="https://lucidmanager.org/productivity/emacs-for-distraction-free-writing/">writing with Org mode</a> explains how to add comments and notes drawers into your file. Comments with <code class="verbatim">#</code> and are not exported by default. The <code>ews-org-insert-notes-drawer</code> command inserts or appends a drawer in the current document section. The <em>Emacs Writing Studio</em> configuration does not export drawers, so your notes remain private. </p>
+<p>
+Furthermore, can also exclude a section of your writing from export by adding the <code class="verbatim">:noexport:</code> tag. You add a tag to a heading by keying <code class="verbatim">C-c C-q</code> when the cursor is on or inside the heading. You enter the tag in the minibuffer and you can use completion to find existing tags. The tag appears on the right side of the heading name between colon markers.</p>
+<p>
+Tags in Org mode provide flexible functionality to manage large files or categorise action lists. Org mode has extensive capabilities to use tags, which are not further used in <em>Emacs Writing Studio</em>.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Bibliographic references
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>Org mode has a built-in citation manager that can use BibTeX / BibLaTeX or CSL files to reference bibliographic items such as articles and books.</p>
+<p>
+The article on <a href="https://lucidmanager.org/productivity/emacs-bibtex-mode/">managing BibTeX files</a> explains how to create a bibliography. You can create a default bibliography, that is accessible to all Org mode files and specify specific bibliography files for each Org mode file.</p>
+<p>
+When exporting to LaTeX, citations are managed by  the external software. When exporting to any other format you need to specify how Org mode manages citations. The default settings in Org mode provide basic citation support.</p>
+<p>
+This website by Tecosaur provides an in-depth description of how to <a href="https://blog.tecosaur.com/tmio/2021-07-31-citations.html">manage citations in Org mode</a>, much better than I can explain it.</p>
+<figure>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/NwDOKkwtJ34?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<figcaption>
+Introducing Org mode exports.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+Word Processor Export
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>The export function in Org Mode can export to the ODT format, which is compatible with MS Word, out of the box. The ODT export back-end relies on the <code class="verbatim">zip</code> program to create the final output</p>
+<p>
+If you have LibreOffice installed, you can also create a <code class="verbatim">docx</code> file to make it easier for MS Word users to share in the joy of reading your writing. When you set this option, the export process will result in both an <code class="verbatim">odt</code> and a <code class="verbatim">docx</code> file. This behaviour is not the default in <em>Emacs Writing Studio</em>, so you must add this yourself if you prefer exporting in the Microsoft format. Alternatively, you can also use this variable to export to PDF.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; Not included in EWS</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#888">;; Export ODT to MS-Word</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">setq-default</span> <span style="color:#963">org-odt-preferred-output-format</span> <span style="background-color:#fff0f0">&#34;docx&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#888">;; Export ODT to PDF</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">setq-default</span> <span style="color:#963">org-odt-preferred-output-format</span> <span style="background-color:#fff0f0">&#34;pdf&#34;</span>)</span></span></code></pre></div>
+</div>
+<p>
+It is possible to set this option specific to the file you are exporting by adding these three lines somewhere in your Org mode file:</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>  # local variables:
+</span></span><span style="display:flex;"><span>  # org-odt-preferred-output-format: &#34;pdf&#34;
+</span></span><span style="display:flex;"><span>  # end:</span></span></code></pre></div>
+</div>
+<p>
+When Org mode exports the file, these lines are evaluated but not exported as they are treated as comments.</p>
+<p>
+You can use specific export settings in the front matter:</p>
+<ul>
+<li><code class="verbatim">#+subtitle:</code> The document subtitle.</li>
+<li><code class="verbatim">#+description:</code> and <code class="verbatim">#+keywords</code> are added to the exported file(s) metadata.</li>
+<li><code class="verbatim">#+odt_styles_file:</code> Add the path to an LibreOffice style file (<code class="verbatim">ott</code> format)</li>
+</ul>
+<p>Creating a LibreOffice style file is straightforward:</p>
+<ol>
+<li>Create a LibreOffice file to your liking using the Styles menu (press <code class="verbatim">F11</code>),</li>
+<li>Modify each style to your liking.</li>
+<li>Test the document.</li>
+<li>Save as <code class="verbatim">ott</code> file.</li>
+</ol>
+<p>A LibreOffice file is essentially a <code class="verbatim">zip</code> file with an embedded set of <code class="verbatim">xml</code> files. Org mode extracts the <code class="verbatim">styles.xml</code> file embedded in your template file. You cannot use this method for templates (pre-configured content).</p>
+<p>
+You can fine-tune how Org exports to OpenOffice to a great extent. For a detailed discussion on <code class="verbatim">odt</code> Export, read the online <a href="https://orgmode.org/manual/OpenDocument-Text-Export.html">Org mode manual</a>.</p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+LaTeX export
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>LaTeX is a powerful typesetting system (pronounced “LAY-tek” or “LAH-tek”), especially for writing scientific and technical documents. LaTeX can convert your text into a beautifully designed PDF file for publishing an article, ebook or physical book. Many publishers of technical literature have LaTeX templates to comply with their style guide. </p>
+<p>
+You don’t necessarily need any knowledge of LaTeX to export to PDF. Still, it will certainly help if you like to fine-tune the design of your document. The basic syntax of LaTeX is easy to explain. Let&#39;s assume you have a straightforward Org mode file that looks like this:</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>  #+title:  Example document
+</span></span><span style="display:flex;"><span>  #+author: Peter Prevos
+</span></span><span style="display:flex;"><span>  #+latex_class: book
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Minimum example for a LaTeX document.</span></span></code></pre></div>
+</div>
+<p>
+The Latex equivalent of this example is:</p>
+<div class="src src-latex">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">\documentclass</span><span style="color:#007020">{</span>article<span style="color:#007020">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">\title</span><span style="color:#007020">{</span>Example document<span style="color:#007020">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">\author</span><span style="color:#007020">{</span>Peter Prevos<span style="color:#007020">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">\begin</span><span style="color:#007020">{</span>document<span style="color:#007020">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">\maketitle</span>
+</span></span><span style="display:flex;"><span>  Minimum example for a LaTeX document.
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">\end</span><span style="color:#007020">{</span>document<span style="color:#007020">}</span></span></span></code></pre></div>
+</div>
+<p>
+The LaTeX software can convert this document to a wonderfully formatted article due to the document class, which defines the typography and layout.</p>
+<p>
+Writing documents directly in LaTeX can be confusing because you need to know its markup language, and your text is littered with backslashes, curly braces, and other syntactical distractions. Being productive as a writer requires focusing on the text’s content instead of how it looks. Org mode is the perfect LaTeX editor because it frees you from distractions and integrates perfectly with LaTeX.</p>
+<p>
+To enable exporting Org mode files to PDF, you need to have LaTeX installed on your system. How to install LaTeX depends on your operating system, and your favourite search engine will point you in the right direction.</p>
+<p>
+Keying <code class="verbatim">C-c C-e</code> to open the export dispatch, then <code class="verbatim">l p</code> creates and opens a PDF file. Other options are available to export the buffer to LaTeX or to save a PDF file without opening it.</p>
+<p>
+To make the magic work, Org Mode converts your file to a <code class="verbatim">tex</code> file, after which the LaTeX software converts it to PDF. The system works out of the box without any configuration. With some configuration you can produce PDF files that are perfect for producing printed books.</p>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Text elements
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>Org mode converts headers to relevant LaTeX headers, and text becomes a paragraph. The relationship between the heading level in your Org file and LaTeX depends on the configuration, explained below. </p>
+<div id="outline-container-headline-10" class="outline-4">
+<h4 id="headline-10">
+Tables and images
+</h4>
+<div id="outline-text-headline-10" class="outline-text-4">
+<p>Org mode converts images and tables to LaTeX floats. You can add specific attributes to these floats by using <code class="verbatim">#+attr_latex:</code>, as shown in the image example below:</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>  #+caption: This is an example image caption.
+</span></span><span style="display:flex;"><span>  #+attr_latex: :width 5cm :options angle=90 :placement h
+</span></span><span style="display:flex;"><span>  [[<span style="color:#00c">directory/filename.png</span>]]</span></span></code></pre></div>
+</div>
+<p>
+Various parameters are available to determine how your table or image looks in the final output. The Org mode manual provides a detailed overview in <a href="https://orgmode.org/manual/LaTeX-Export.html">section 3.10</a>.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-4">
+<h4 id="headline-11">
+LaTeX snippets
+</h4>
+<div id="outline-text-headline-11" class="outline-text-4">
+<p>You can write simple LaTeX commands directly into your org file. For example, <code class="verbatim">\newpage</code> will add a page break. You can also place equations using dollar signs, for instance <code class="verbatim">$e^{i\pi} + 1 = 0$</code> results in $e^{i\pi} + 1 = 0$.</p>
+<p>
+The <code class="verbatim">org-latex-preview</code> function (<code class="verbatim">C-c C-x C-l</code>) shows a preview of any LaTeX equations within the open buffer. The chapter on <a href="https://lucidmanager.org/productivity/ricing-org-mode/">Ricing Org mode</a> introduces the <code class="verbatim">org-fragtog</code> package to automatically toggle between the plain text and the preview.</p>
+<p>
+To create front and back matter, use the <code>\frontmatter</code> and <code>\backmatter</code> LaTeX commands in your Org file at the appropriate locations.</p>
+<p>
+For more complex snippets, you need to use a structure template. Press <code class="verbatim">C-c C-, l</code> to insert a LaTeX source block. This LaTeX example creates an image using the picture environment. </p>
+<div class="src src-latex">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span>  ,#+begin<span style="color:#007020">_</span>export latex
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">\setlength</span><span style="color:#007020">{</span><span style="color:#080;font-weight:bold">\unitlength</span><span style="color:#007020">}{</span>1cm<span style="color:#007020">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">\begin</span><span style="color:#007020">{</span>picture<span style="color:#007020">}</span>(10,10)(-5,5)
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">\linethickness</span><span style="color:#007020">{</span>1pt<span style="color:#007020">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">\put</span>(-2.5,0)<span style="color:#007020">{</span><span style="color:#080;font-weight:bold">\vector</span>(1,0)<span style="color:#007020">{</span>5<span style="color:#007020">}}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">\put</span>(0,-2.5)<span style="color:#007020">{</span><span style="color:#080;font-weight:bold">\vector</span>(0,1)<span style="color:#007020">{</span>5<span style="color:#007020">}}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">\put</span>(0,0)<span style="color:#007020">{</span><span style="color:#080;font-weight:bold">\circle</span><span style="color:#007020">{</span>3<span style="color:#007020">}}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-weight:bold">\end</span><span style="color:#007020">{</span>picture<span style="color:#007020">}</span>
+</span></span><span style="display:flex;"><span>  ,#+end<span style="color:#007020">_</span>export</span></span></code></pre></div>
+</div>
+<p>
+The image will not appear in Org mode as it is generated by LaTeX and will only appear when exporting.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/picture-environment-example-latex-.png" alt="/images/emacs/picture-environment-example-latex-.png" title="/images/emacs/picture-environment-example-latex-.png" width="100"/>
+<figcaption>
+Example of LaTeX picture environment result.
+</figcaption>
+</figure>
+&nbsp;
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+LaTeX Packages and Classes
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>By default, Org mode uses the article class and a set of default packages to export documents. Org mode provides three mechanisms to use LaTeX packages in your export:</p>
+<ol>
+<li>In the header, using <code>#+latex_header:</code></li>
+<li>Configuring the <code>org-latex-packages-alist</code> variable.</li>
+<li>Configure the <code>org-latex-classes</code> variable.</li>
+</ol>
+<p>The Org mode header can do a lot of the work. The example below specifies the book document class with A4 paper size. This example also specifies the Times fonts package. The last line tells Org mode to omit the table of contents from the export.</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>  #+latex_class: book
+</span></span><span style="display:flex;"><span>  #+latex_class_options: [a4paper]
+</span></span><span style="display:flex;"><span>  #+latex_header: \usepackage{times}
+</span></span><span style="display:flex;"><span>  #+options: toc:nil</span></span></code></pre></div>
+</div>
+<p>
+The <code>org-latex-packages-alist</code> variable defines the default packages that are used for every LaTeX export.</p>
+<p>
+You can define more complex header configurations by changing the <code class="verbatim">org-latex-classes</code> association list. </p>
+<p>
+The example below adds the template for the American Psychological Association (APA) journals. This list&#39;s documentation provides all the details you need to configure packages and classes for your exports. The <code>with-eval-after-load</code> function ensures that this variable is only set once the LaTeX export function is loaded by Emacs. Note the double backslash instead of the single one in regular LaTeX syntax for compatibility with Emacs Lisp. </p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">with-eval-after-load</span> <span style="color:#a60;background-color:#fff0f0">&#39;ox-latex</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">add-to-list</span> <span style="color:#a60;background-color:#fff0f0">&#39;org-latex-classes</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#333">&#39;</span>(<span style="background-color:#fff0f0">&#34;apa6&#34;</span>
+</span></span><span style="display:flex;"><span>                   <span style="background-color:#fff0f0">&#34;\\documentclass[a4paper, jou, 11pt]{apa6}
+</span></span></span><span style="display:flex;"><span><span style="background-color:#fff0f0">                    \\usepackage[nodoi]{apacite}
+</span></span></span><span style="display:flex;"><span><span style="background-color:#fff0f0">                    \\usepackage{graphicx}
+</span></span></span><span style="display:flex;"><span><span style="background-color:#fff0f0">                    \\usepackage[T1]{fontenc}
+</span></span></span><span style="display:flex;"><span><span style="background-color:#fff0f0">                    \\usepackage{times}&#34;</span>
+</span></span><span style="display:flex;"><span>                   (<span style="background-color:#fff0f0">&#34;\\section{%s}&#34;</span> <span style="color:#333">.</span> <span style="background-color:#fff0f0">&#34;\\section*{%s}&#34;</span>)
+</span></span><span style="display:flex;"><span>                   (<span style="background-color:#fff0f0">&#34;\\subsection{%s}&#34;</span> <span style="color:#333">.</span> <span style="background-color:#fff0f0">&#34;\\subsection*{%s}&#34;</span>))))</span></span></code></pre></div>
+</div>
+<p>
+The last part of this association list specifies the mapping between Org mode and LaTeX headers. In this case, the highest level is associated with the section header, the second level with a subsection, and so on.</p>
+<p>
+You can call this particular class by adding <code class="verbatim">#+latex_class: apa6</code> to your file header. This mechanism empowers you to define bespoke LaTeX classes to create a library of export options.</p>
+<p>
+These three mechanisms allow fine-grained control over how your Org mode document is exported to LaTeX and PDF. The <em>Emacs Writing Studio</em> configuration only uses the default settings for these variables because the possible use cases are too numerous to define a sensible default other than what is already available.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+PDF export configuration
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<p>The <em>Emacs Writing Studio</em> configuration for PDF export defines the export process to ensure that bibliographies work appropriately. This configuration also cleans all temporary files that LaTeX creates so that only the exported file remains.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  <span style="color:#888">;; LaTeX PDF Export settings</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">ox-latex</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:ensure</span> <span style="color:#036;font-weight:bold">nil</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:demand</span> <span style="color:#036;font-weight:bold">t</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#888">;; Multiple LaTeX passes for bibliographies</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-latex-pdf-process</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#333">&#39;</span>(<span style="background-color:#fff0f0">&#34;pdflatex -interaction nonstopmode -output-directory %o %f&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="background-color:#fff0f0">&#34;bibtex %b&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="background-color:#fff0f0">&#34;pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="background-color:#fff0f0">&#34;pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f&#34;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#888">;; Clean temporary files after export</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">org-latex-logfiles-extensions</span>
+</span></span><span style="display:flex;"><span>     (<span style="color:#007020">quote</span> (<span style="background-color:#fff0f0">&#34;lof&#34;</span> <span style="background-color:#fff0f0">&#34;lot&#34;</span> <span style="background-color:#fff0f0">&#34;tex~&#34;</span> <span style="background-color:#fff0f0">&#34;aux&#34;</span> <span style="background-color:#fff0f0">&#34;idx&#34;</span> <span style="background-color:#fff0f0">&#34;log&#34;</span> <span style="background-color:#fff0f0">&#34;out&#34;</span>
+</span></span><span style="display:flex;"><span>             <span style="background-color:#fff0f0">&#34;toc&#34;</span> <span style="background-color:#fff0f0">&#34;nav&#34;</span> <span style="background-color:#fff0f0">&#34;snm&#34;</span> <span style="background-color:#fff0f0">&#34;vrb&#34;</span> <span style="background-color:#fff0f0">&#34;dvi&#34;</span> <span style="background-color:#fff0f0">&#34;fdb_latexmk&#34;</span>
+</span></span><span style="display:flex;"><span>             <span style="background-color:#fff0f0">&#34;blg&#34;</span> <span style="background-color:#fff0f0">&#34;brf&#34;</span> <span style="background-color:#fff0f0">&#34;fls&#34;</span> <span style="background-color:#fff0f0">&#34;entoc&#34;</span> <span style="background-color:#fff0f0">&#34;ps&#34;</span> <span style="background-color:#fff0f0">&#34;spl&#34;</span> <span style="background-color:#fff0f0">&#34;bbl&#34;</span>
+</span></span><span style="display:flex;"><span>             <span style="background-color:#fff0f0">&#34;tex&#34;</span> <span style="background-color:#fff0f0">&#34;bcf&#34;</span>))))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-2">
+<h2 id="headline-14">
+Publishing Ebooks
+</h2>
+<div id="outline-text-headline-14" class="outline-text-2">
+<p>Most ebook publishers use the ePub format for distribution. This file type is a ZIP file with your book stored as a website optimised for an e-reader. The <code class="verbatim">ox-epub</code> package adds this functionality to the Org export dispatcher. This package uses the built-in Org to HTML export to create the ebook, so you can use any of its features to fine-tune the output.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  <span style="color:#888">;; epub export</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">ox-epub</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:demand</span> <span style="color:#036;font-weight:bold">t</span>)</span></span></code></pre></div>
+</div>
+<p>
+There are some <a href="https://github.com/ofosos/ox-epub">required export options</a> that need to be set in your header:</p>
+<ul>
+<li><code class="verbatim">#+title:</code> the document title.</li>
+<li><code class="verbatim">#+uid:</code> a unique ID of the document, otherwise known as URI, could be a website or ISBN number.</li>
+<li><code class="verbatim">#+date</code>: the date of the document.</li>
+<li><code class="verbatim">#+author:</code> the document author or editor, the creator in the EPUB spec</li>
+</ul>
+<p>The default settings will add a postamble to the bottom of the last page with a timestamp, author and a HTML validation service. Adding <code class="verbatim">#+options: html-postamble:nil</code> toepub the Org file header removes these from your ebook.</p>
+<p>
+Any LaTeX fragments are ignored in the export, which means it is not possible to export the same source file to both PDF and ePub wit the same output.</p>
+<p>
+However, LaTeX math formulas are possible with the <code class="verbatim">tex:dvipng</code> option added to the Org header. This option converts any LaTeX formula to a PNG image, which is not ideal but readable.</p>
+<p>
+The <code class="verbatim">ox-epub</code> package does not convert Org mode timestamps to a date format that complies with the ePub standard. You can correct this by removing the square brackets and the day and time from the timestamp.</p>
+<p>
+Lastly, please note to only use open image formats such as <code class="verbatim">.png</code> as some ebook readers cannot display JPG files and other proprietary formats. The ebook will look alright on your computer but might not pass any checks by a publisher.</p>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>If you like to support my work, then please purchase the <em>Emacs Writing Studio</em> book.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+You can find the source files for the book and the latest configuration files on GitHub:</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+Emacs is a malleable system, so everybody will have their personal preferences to undertake a task. Any article on how to use Emacs is thus opinionated. If you have a different way of doing things, please complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email or contact me on social media through the links in the footer.</p>
+<p>
+The next article dives into using <a href="https://lucidmanager.org/productivity/create-websites-with-org-mode-and-hugo/">Org mode and Hugo to create websites</a>.</p>
+</div>
+</div>
+
+      

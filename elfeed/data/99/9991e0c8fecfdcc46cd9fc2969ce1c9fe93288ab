@@ -1,0 +1,26 @@
+
+         
+         <p>Raw link: <a href="https://www.youtube.com/watch?v=Vunpn7ovEOc">https://www.youtube.com/watch?v=Vunpn7ovEOc</a></p>
+         
+         <p>[ The stream will be recorded. You can watch it later. ]</p>
+
+<p>Tonight I will work on my <code class="language-plaintext highlighter-rouge">denote</code> package. There is a feature branch
+I implemented this morning and am now ready to continue refining the
+code. The immediate goals:</p>
+
+<ul>
+  <li>Update unit tests that are still calling deprecated functions.</li>
+  <li>Write new tests, starting with the <code class="language-plaintext highlighter-rouge">denote-dired</code> command and all
+its ancillary functions.</li>
+  <li>Review all the commands that filter the query buffers (which are
+produced by commands such as <code class="language-plaintext highlighter-rouge">denote-grep</code>, <code class="language-plaintext highlighter-rouge">denote-backlinks</code>,
+<code class="language-plaintext highlighter-rouge">denote-query-contents-link</code>).</li>
+  <li>Edit the manual accordingly.</li>
+</ul>
+
+<p>I expect the stream to go on for 2-3 hours, but we will see.</p>
+
+<p>I will keep the chat open in case there are any comments. I am happy
+to respond to them.</p>
+        
+      

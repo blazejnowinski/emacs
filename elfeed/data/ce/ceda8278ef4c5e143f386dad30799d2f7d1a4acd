@@ -1,0 +1,289 @@
+
+	
+<p>
+A minimalist interface means that your Emacs becomes a place of rest and contemplation away from the cacophony of contemporary software, filled with buttons and functionality you don&#39;t need. Emacs is an ugly duckling that you can configure into a beautiful swan. This article further explains how to improve the Emacs user interface. These settings are obviously opinionated, so this article is, more than anything else, an example of how to configure Emacs to your personal preferences.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+The source files of the book and EWS configuration are also freely available on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Improving the Emacs user interface
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>The default Emacs user interface is a hybrid between keyboard and mouse-driven operations. While using the mouse might seem convenient, a keyboard-driven system is more efficient because you don&#39;t have to move your hand that much and switch contexts when finding icons.</p>
+<p>
+<em>Emacs Writing Studio</em> is a keyboard-centric configuration and removed any distractions from the Emacs. The following code snippet modifies the Emacs interface to remove these distractions. The first line inhibits the splash or startup screen. If you want to see it again for nostalgia, use <code class="verbatim">C-h C-a</code> (<code>about-emacs</code>).</p>
+<p>
+Emacs has the <a href="https://www.youtube.com/watch?v=ZFJlxBPvzE0">paternalistic habbit</a> of asking for confirmation with either <code class="verbatim">y / n</code> or with <code class="verbatim">yes / no</code>, depending on the situation. The basic philosophy is that typing the whole word prevents accidentally killing unsaved buffers. While this functionality is a nice gesture, it can be annoying and confusing. The last line sets all yes / no confirmations to the one-letter abbreviation. The <code class="verbatim">use-short-answers</code> variable defines this behaviour.</p>
+<p>
+The following three lines remove the tool, menu and scroll bars because we don&#39;t need these in a keyboard-driven system. These lines don&#39;t set a variable but disable the various minor modes that control these graphical elements.</p>
+<p>
+This configuration also removes the menu bar. While the menus are a useful tool to discover functionality, there is no need to constantly keep it on the screen. You can access it by pressing <code class="verbatim">F10</code> (<code>menu-bar-open</code>) and selecting menu options with the arrow keys and <code class="verbatim">ENTER</code>. You exit the menu with <code class="verbatim">C-g</code> (<code>keyboard-quit</code>). But after using Emacs for a while, you&#39;ll quickly build muscle memory and revert to keyboard shortcuts.</p>
+<p>
+If you like to see the effect of each line of code, place your cursor at the end of each line and press <code class="verbatim">C-x C-e</code> to evaluate the expression (<code>eval-last-sexp</code>). If the cursor is inside the parenthesis, then use <code class="verbatim">C-M-x</code> (<code>eval-defun</code>). To evaluate all code in a buffer, run <code class="verbatim">M-x eval-buffer</code>.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; LOOK AND FEEL</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#888">;; Keyboard-centric user interface</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">setq-default</span> <span style="color:#963">inhibit-startup-message</span> <span style="color:#036;font-weight:bold">t</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#963">use-short-answers</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#963">tool-bar-mode</span> <span style="color:#00d;font-weight:bold">-1</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#963">menu-bar-mode</span> <span style="color:#00d;font-weight:bold">-1</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#963">scroll-bar-mode</span> <span style="color:#00d;font-weight:bold">-1</span>)</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Themes
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>A theme is a set of instructions describing the colours of headings and other text parts. Colours in a text editor play a different role than in a word processor. <a href="https://lucidmanager.org/productivity/why-use-emacs/">Colours in Emacs are semantic</a>, meaning they indicate the type of text, not how it looks when published. A heading might have a different colour than the text or metadata, which helps you find your way through the document.</p>
+<p>
+Emacs does this through <code class="verbatim">font-lock-mode</code>. Font locking assigns faces to (or &#39;fontifies&#39; in Emacs speak) various parts of your text using logical rules. Typing <code class="verbatim">M-x font-lock-mode</code> toggles between your buffer&#39;s themed and plain versions. Try this to see the effect of themes.</p>
+<p>
+Two basic classes of themes exist for text editors: light and dark. Light backgrounds, common with most modern word processing software, <a href="https://www.thewindowsclub.com/is-dark-mode-better-for-your-eyes">can cause asthenopia</a> (eye strain) after you stare at the screen for a while. Many text editor users, therefore, prefer dark themes. Light themes are, however, useful when you work in a brightly lit room.</p>
+<p>
+The code snippet below installs and activates the most recent version of Prot&#39;s <a href="https://protesilaos.com/emacs/modus-themes">Modus themes</a>. The Modus themes each have four versions. The <code class="verbatim">modus-operandi</code> theme is the primary light theme, while <code class="verbatim">modus-vivendi</code> is its dark counterpart.</p>
+<p>
+The primary Modus themes maximise contrast between background and foreground following the Web Content Accessibility Guidelines (WCAG). The Modus themes comply with the triple-A standard of the WCAG, which specifies <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-enhanced.html">contrast ratio between background and foreground of 7:1</a>. This high contrast ratio is legible for people with moderately low vision. Prot has also optimised versions for red-green and blue-yellow colour blindness (deuteranopia and tritanopia).</p>
+<p>
+<em>Emacs Writing Studio</em> uses the tinted versions as default. These versions have a slightly lower contrast ratio than the default and are as such suitable for people with normal vision. The Modus themes do not prescribe any keyboard shortcuts, so I have defined some for EWS. The <code class="verbatim">C-c w m</code> shortcut toggles between the light and dark side (insert Star Wars pun here). Using <code class="verbatim">C-c w M</code> provides a selection menu of all Modus themes. <em>Emacs Writing Studio</em> uses <code class="verbatim">C-c w</code> as its default keybinding for its specific functionality, where the <code class="verbatim">w</code> is a mnemonic for writing and <code class="verbatim">m/M</code> for Modus themes.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; Modus Themes</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">modus-themes</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">modus-themes-italic-constructs</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">modus-themes-bold-constructs</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">modus-themes-mixed-fonts</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">modus-themes-headings</span> <span style="color:#333">&#39;</span>((<span style="color:#00d;font-weight:bold">1</span> <span style="color:#333">.</span> (<span style="color:#60e;font-weight:bold">1.5</span>))
+</span></span><span style="display:flex;"><span>                             (<span style="color:#00d;font-weight:bold">2</span> <span style="color:#333">.</span> (<span style="color:#60e;font-weight:bold">1.3</span>))
+</span></span><span style="display:flex;"><span>                             (<span style="color:#036;font-weight:bold">t</span> <span style="color:#333">.</span> (<span style="color:#60e;font-weight:bold">1.1</span>))))
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">modus-themes-to-toggle</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#333">&#39;</span>(<span style="color:#963">modus-operandi-tinted</span> <span style="color:#963">modus-vivendi-tinted</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:bind</span>
+</span></span><span style="display:flex;"><span>    ((<span style="background-color:#fff0f0">&#34;C-c w m&#34;</span> <span style="color:#333">.</span> <span style="color:#963">modus-themes-toggle</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w M&#34;</span> <span style="color:#333">.</span> <span style="color:#963">modus-themes-select</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:init</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">load-theme</span> <span style="color:#a60;background-color:#fff0f0">&#39;modus-operandi-tinted</span> <span style="color:#007020">:no-confirm</span>))</span></span></code></pre></div>
+</div>
+<p>
+Let&#39;s unpack what this piece of code means. The <code class="verbatim">use-package</code> declaration has three sections.</p>
+<p>
+The <code class="verbatim">:custom</code> section does the same as the <code class="verbatim">setq-default</code> function described previously. This configuration adds more variety to the theme, such as italic text, bold text, mixed fonts, and headings are rendered a bit larger than the normal text. This configuration uses the <code class="verbatim">*-tinted</code> versions of the Modus themes (medium contrast).</p>
+<p>
+The <code class="verbatim">:bind</code> section binds the relevant keys to the function that toggles between light and dark Modus themes.</p>
+<p>
+Lastly, the <code class="verbatim">:init</code> section defines the functions run when the package is loaded. In this case, we load the tinted version of the dark Modus theme without confirmation.</p>
+<p>
+If you like your configuration to default to the high-contrast versions of the theme or one of the two colour blindness-safe versions, then customise the <code>modus-themes-to-toggle</code> variable to override this default and change the init version to the one you like Emacs to start with.</p>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+Other Themes
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>Several themes are part of Vanilla Emacs, which you can customise with the <code>customize-themes</code> function. When you click the <em>Save Theme Settings</em> function, the theme will be loaded next time you start Emacs. You will have to remove the Modus themes code to ensure that your other choice is loaded. When the theme is used for the first time, Emacs might ask you to confirm that it can run Elisp code.</p>
+<p>
+Emacs users have developed a ragtag collection of themes. You can browse the <a href="https://emacsthemes.com/">Emacs Themes Gallery</a> to pick your favourite. If the theme is available in the ELPA or MELPA package repositories, change the package and theme name in the code below to match the name of your favourite theme.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">dracula-theme</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:init</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">load-theme</span> <span style="color:#a60;background-color:#fff0f0">&#39;dracula</span>))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Setting the fonts
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>The default font in Emacs is a fixed-pitch (mono-spaced) font designed for writing code. In a fixed-pitch font, all characters have the same width. An <code class="verbatim">i</code> or an <code class="verbatim">m</code> will use the same amount of space, just like the traditional typewriters. This type of letter is ideal when writing code because it helps to align the text. Mono-spaced fonts are also necessary to create fantastic ASCII art, such as the dinosaur shown in <a href="https://lucidmanager.org/productivity/why-use-emacs/">another article</a>.</p>
+<p>
+A variable-pitch font is easier on the eye when writing prose. Not all characters have the same width in a variable-pitch font, as is common in natural writing. Ideally, we want the best of both worlds and configure Emacs to use the best font category for the best situation. For example, Emacs can define a different font for certain parts of the text, for individual buffers, or for a major mode.</p>
+<p>
+The configuration below uses Alex Branham&#39;s <a href="https://gitlab.com/jabranham/mixed-pitch">mixed-pitch package</a>, which assigns fixed and variable pitch fonts to the relevant elements in the buffer. For example, tables in Org mode become fixed pitch so that all columns are the same size. The <code class="verbatim">use-package</code> call hooks the mixed-pitch mode to all text modes, including Org mode.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>  <span style="color:#888">;; Set default, fixed and variable pitch fonts</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">mixed-pitch</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:hook</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">text-mode</span> <span style="color:#333">.</span> <span style="color:#963">mixed-pitch-mode</span>))</span></span></code></pre></div>
+</div>
+<p>
+The <em>Emacs Writing Studio</em> configuration does not specify any particular fonts and use your system&#39;s defaults. You can configure your favourite fonts, provided they are available on your computer. You need to define three font variable:</p>
+<ul>
+<li><code class="verbatim">default</code>: The default face settings when nothing else is specified (a fixed-pitch font).</li>
+<li><code class="verbatim">fixed-pitch</code>: The font used for computer code .</li>
+<li><code class="verbatim">variable-pitch</code>: The settings for prose.</li>
+</ul>
+<p>In Emacs, a &#39;face&#39; is a collection of attributes for displaying text. It defines the font, foreground colour, background colour, optional underlining, etc. Various <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html">face attributes</a> are available for configuration. The ones we use here are:</p>
+<ul>
+<li><code class="verbatim">font</code>: The name of the font</li>
+<li><code class="verbatim">height</code>: The font height as an integer in units of 1/10 point.</li>
+</ul>
+<p>The settings of the last two categories override the default. The <code class="verbatim">nil</code> in the <code class="verbatim">set-face-attribute</code> function sets the parameters for all Emacs frames.</p>
+<p>
+You can also use the customisation menu by evoking <code>customize-face</code> and select <code class="verbatim">default</code>, <code class="verbatim">fixed-pich</code> and <code class="verbatim">variable-pitch</code> and enter the font name in the <em>Font Family</em> box. Click <em>Apply and Save</em> for each font. This action saves the font settings to the <code class="verbatim">custom.el</code> file, which Emacs evaluates at the end of the startup sequence. See <a href="https://lucidmanager.org/productivity/configure-emacs/">Configure Emacs</a> for more information about the initialisation process.</p>
+<p>
+Please note that anything you configure here will override the theme settings, so only customise font family and size.</p>
+<p>
+To see which fonts are available, you can set the fonts in a graphical window, run <code>menu-set-font</code>. When you use the GUI to set the default font, the change is immediate but transient. Use <code>menu-bar-options-save</code> to save your default font and size to the <code class="verbatim">custom.el</code> file. </p>
+<p>
+Alternatively, add the following three lines, with your fonts of choice to your <code class="verbatim">init.el</code> file.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#963">set-face-attribute</span> <span style="color:#a60;background-color:#fff0f0">&#39;default</span> <span style="color:#036;font-weight:bold">nil</span> <span style="color:#007020">:font</span> <span style="background-color:#fff0f0">&#34;DejaVu Sans Mono&#34;</span> <span style="color:#007020">:height</span> <span style="color:#00d;font-weight:bold">130</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#963">set-face-attribute</span> <span style="color:#a60;background-color:#fff0f0">&#39;fixed-pitch</span> <span style="color:#036;font-weight:bold">nil</span> <span style="color:#007020">:font</span> <span style="background-color:#fff0f0">&#34;DejaVu Sans Mono&#34;</span>)
+</span></span><span style="display:flex;"><span>  (<span style="color:#963">set-face-attribute</span> <span style="color:#a60;background-color:#fff0f0">&#39;variable-pitch</span> <span style="color:#036;font-weight:bold">nil</span> <span style="color:#007020">:font</span> <span style="background-color:#fff0f0">&#34;DejaVu Sans&#34;</span>)</span></span></code></pre></div>
+</div>
+<p>
+This video by Prot explains the principles of setting fonts in Emacs beautifully.</p>
+<p>
+#+caption:Emacs: customize fonts (generic method and &#39;fontaine&#39; package).
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/qR8JRYr4BKE?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+</p>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Tooltips
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>Emacs supports <a href="https://www.gnu.org/s/emacs/manual/html_node/emacs/Tooltips.html">tooltips</a> when the mouse hovers over when there is a pause in mouse movement over parts of text in a window, the mode line, or some other part of the Emacs frame such as a tool bar button or menu item.</p>
+<p>
+The layout and typography of these tooltips is in most cases controlled by the window manager. To disable this behaviour, customise the variable <code>use-system-tooltips</code> to <code>nil</code>.</p>
+<p>
+With this option you can finetune the appearance of the tooltip by customising `tooltip-frame-parameters` and change the font with for example: <code>(set-face-attribute &#39;tooltip nil :font &#34;Monospace-16&#34;)</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>If you like to support my work, then please purchase the <em>Emacs Writing Studio</em> (EWS) book. this book explains everything you need to know to research, write and publish articles and books with Emacs in a no-code environment. </p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+You can find the source files for the book and the latest configuration files on GitHub:</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+Emacs is a malleable system, so everybody will have their personal preferences. Any article on how to use Emacs is thus opinionated. If you have a different way of doing things, please complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email or contact me on social media.</p>
+<p>
+The next article dives into enhancing the <a href="https://lucidmanager.org/productivity/emacs-completion-system/">minibuffer completion system</a> to make it easier to find files, buffers and other information.</p>
+</div>
+</div>
+
+      

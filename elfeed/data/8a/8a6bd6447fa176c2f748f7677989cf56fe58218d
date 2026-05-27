@@ -1,0 +1,132 @@
+
+         
+         <p>These are my minimalist themes. They use few colours and will appear
+mostly monochromatic in many contexts. Styles involve the careful use
+of typography, such as italics and bold italics.</p>
+
+<p>If you want maximalist themes in terms of colour, check my <code class="language-plaintext highlighter-rouge">ef-themes</code>
+package. For something in-between, which I would consider the best
+“default theme” for a text editor, opt for my <code class="language-plaintext highlighter-rouge">modus-themes</code>.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">doric-themes</code></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/doric-themes-pictures">https://protesilaos.com/emacs/doric-themes-pictures</a></li>
+  <li>Git repository: <a href="https://github.com/protesilaos/doric-themes">https://github.com/protesilaos/doric-themes</a></li>
+  <li>Backronym: Doric Only Really Intensifies Conservatively … themes.</li>
+</ul>
+
+<p>Below are the release notes.</p>
+
+<hr />
+
+<h2>Version 1.0.0 on 2026-02-09</h2>
+
+<h3>Two new themes</h3>
+
+<p><code class="language-plaintext highlighter-rouge">doric-jade</code> is a light theme with a predominantly green feel.</p>
+
+<p><code class="language-plaintext highlighter-rouge">doric-copper</code> is a dark theme with orange, magenta, and cyan colours.</p>
+
+<p>I have update all screenshots: <a href="https://protesilaos.com/emacs/doric-themes-pictures">https://protesilaos.com/emacs/doric-themes-pictures</a>.</p>
+
+<h3>Revised styles for Org TODO and DONE</h3>
+
+<p>The relevant faces now use a colour-coding scheme where TODO states
+are rendered in red while DONE are green.</p>
+
+<p>This is done to ensure cross-theme consistency. Those faces
+communicate a certain state and, therefore, it is better to not have
+to relearn which colour means what while switching between the Doric
+themes.</p>
+
+<h3>Org <code class="language-plaintext highlighter-rouge">~code~</code> faces stand out more</h3>
+
+<p>This is done to differentiate them from <code class="language-plaintext highlighter-rouge">=verbatim=</code>. It is especially
+important for users who choose to hide the markup with the user option
+<code class="language-plaintext highlighter-rouge">org-hide-emphasis-markers</code> (I used to do that but realised that the
+ambiguity was a problem in many cases, because <code class="language-plaintext highlighter-rouge">~code~</code> and <code class="language-plaintext highlighter-rouge">=verbatim=</code>
+have different semantics in some exported formats).</p>
+
+<h3>Refinements to all Org heading or heading-like faces</h3>
+
+<p>This covers the regular Org headings as well as anything that performs
+the same function, such as in the Org agenda buffer.</p>
+
+<p>All regular headings use the main foreground value. The document title
+and the Org agenda equivalent of that are rendered in an accent colour
+for greater effect.</p>
+
+<p>Combined with the aforementioned revision of the TODO and DONE
+states, Org buffers are easier to read and work with.</p>
+
+<h3>Tweaks for the Org agenda faces</h3>
+
+<p>The faces that communicate the current time and applicable filters are
+made more intense. The idea is to spot them more quickly.</p>
+
+<p>Faces that pertain to diary or diary-style events no longer use
+italics to avoid exaggerations.</p>
+
+<p>Blocked tasks are easier to spot.</p>
+
+<p>The applicable query in the structure header is made more prominent.</p>
+
+<p>Overall, Org agenda buffers should be easier to scan.</p>
+
+<h3>More obvious style for Org exporting</h3>
+
+<p>The active/available keys in the Org export dispatcher use more
+intense colours and have greater padding around them. This is what I
+also do with the Modus themes (and all derivatives) to improve the
+legibility of those keys.</p>
+
+<h3>Magit branch and author faces are redone</h3>
+
+<p>The authors in log views and elsewhere have a distinct colour to stand
+out a bit more. Branches use consistent typography, while the current
+branch stands out more than the others.</p>
+
+<h3>New colours for transient faces with background values</h3>
+
+<p>Enabled and disabled keys use a green-red coding scheme.</p>
+
+<p>Active values and arguments have a style that is the same across
+themes for the same reason as Org TODO and DONE.</p>
+
+<p>Transient headings use the main foreground colour to not draw more
+attention than they need to.</p>
+
+<h3>Git commit faces follow the aforementioned patterns</h3>
+
+<p>Those are seen when writing a commit message in Magit.</p>
+
+<h3>VC logs better differentiate the commit author</h3>
+
+<p>The relevant face uses a distinct foreground. It no longer applies a
+bold weight, as that had the effect of making the buffers much busier
+than necessary.</p>
+
+<h3>Colour-coded styles for Dired marks</h3>
+
+<p>Items that are marked for selection are rendered in a green style,
+while those marked for deletion are red.</p>
+
+<p>This is done for cross-theme consistency, so that users do not have to
+think twice before performing the relevant operations.</p>
+
+<h3>The <code class="language-plaintext highlighter-rouge">doric-themes-with-colors</code> macro for advanced users</h3>
+
+<p>This macro is effectively the same as a <code class="language-plaintext highlighter-rouge">let</code> for binding the colours
+of the active Doric theme. Advanced users can rely on this macro to
+write functions that, for example, set the theme-specific red colour
+value of a given face.</p>
+
+<h3>Miscellaneous</h3>
+
+<p>Symlinks in Dired buffers are easier to spot. Same for visited links
+in Info buffers.</p>
+
+<p>Org definitions no longer override the foreground of any other face
+present in them. Same for the notmuch header in view buffers.</p>
+        
+      

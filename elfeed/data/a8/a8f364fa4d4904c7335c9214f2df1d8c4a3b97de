@@ -1,0 +1,72 @@
+
+         
+         <p>I just published a new version of my <em>Emacs Lisp Elements</em>. Below are
+the release notes.</p>
+
+<ul>
+  <li>Official page: <a href="https://protesilaos.com/emacs/emacs-lisp-elements">https://protesilaos.com/emacs/emacs-lisp-elements</a></li>
+  <li>Git repository: <a href="https://github.com/protesilaos/emacs-lisp-elements">https://github.com/protesilaos/emacs-lisp-elements</a></li>
+</ul>
+
+<hr />
+
+<h2>Emacs Lisp Elements version 2.0.0</h2>
+
+<p>This is a major rewrite of the book. It has almost doubled in word
+count. I explain more concepts and do it from the ground up. Every
+single one of the original chapters is redone. They now contain
+insights into functionality they would previously hint at, such as how
+<code class="language-plaintext highlighter-rouge">apply</code> works in practice, what a non-local exit is, and how recursive
+editing is done.</p>
+
+<p>I have also added several new chapters. As before, chapters have
+cross references, so you will benefit from revisiting relevant topics.</p>
+
+<p>If you read the Info version of the book, note that all functions,
+variables, and concepts have their own indices. Use those as another
+means of navigating the book’s contents. To read the Info version,
+clone the Git repository, use <code class="language-plaintext highlighter-rouge">M-x dired</code> to open its directory,
+move the cursor over the file <code class="language-plaintext highlighter-rouge">elispelem.info</code> and do <code class="language-plaintext highlighter-rouge">M-x dired-info</code>.</p>
+
+<p>What follows is a brief description of the new chapters.</p>
+
+<ul>
+  <li>
+    <p>Basics of how Lisp works: A step-by-step guide to how Lisp code is
+written and how Emacs can tell apart a function call from a variable
+even when those have the same symbol.</p>
+  </li>
+  <li>
+    <p>Introspecting Emacs: Explores some of the ways we can learn about
+the present state of Emacs. The idea is to develop the habit of
+asking Emacs about itself before we do an online search. This way we
+can also expose ourselves to Elisp code, which helps us become
+better programmers.</p>
+  </li>
+  <li>
+    <p>Add metadata to symbols: An explanation of how we can associate
+symbols with data that can then be used for further computations.</p>
+  </li>
+  <li>
+    <p>What are major and minor modes: Presents the basics of modes in
+Emacs. It explains what major and minor modes have in common and how
+they differ, while also discussing relevant concepts of precedence.</p>
+  </li>
+  <li>
+    <p>Hooks and the advice mechanism: Explains what are hooks and how
+they work. It also covers the powerful advice mechanism, as some
+uses of it as similar to what hooks are supposed to do.</p>
+  </li>
+  <li>
+    <p>Autoloading symbols: Shows how Emacs manages to “lazy load” code
+when it needs to. This is especially helpful for package developers.</p>
+  </li>
+  <li>
+    <p>Emacs as a computing environment: A more general view of Emacs
+that helps us appreciate the value of Emacs Lisp. The more time we
+put into learning this programming language, the better we will get
+at controlling large parts of our computing life through Emacs.</p>
+  </li>
+</ul>
+        
+      

@@ -1,0 +1,403 @@
+
+	
+<p>
+Taking notes about the articles and books you read is an essential part of intellectual life. Many note-taking systems can connect to a bibliographic database (such as a plain text BibTeX file, or external software such as <a href="http://zotero.org/">Zotero</a>). These databases are helpful when adding citations to your writings. Electronic bibliographies also help you to create and find notes related to your literature collection. and provide access to related materials, such as links to online sources and electronic versions of relevant books or articles. </p>
+<p>
+The <em>Citar-Denote</em> Emacs package integrates the <a href="https://github.com/emacs-citar/citar">Citar</a> bibliography package with the <a href="https://protesilaos.com/emacs/denote">Denote</a> note-taking system. Citar lets you browse and act on bibliographic data in <a href="https://lucidmanager.org/productivity/emacs-bibtex-mode/">BibTeX, BibLaTeX</a> and <a href="https://citationstyles.org/">JSON-CSL</a> format. Denote is a is a versatile Emacs package for taking notes. Combining these two packages enables linking any note in your Denote collection to one or more bibliographic entries, providing a complete solution for documenting literature reviews. My article about <a href="https://lucidmanager.org/productivity/taking-notes-with-emacs-denote/">taking notes with Emacs</a> explains how to use Denote.</p>
+<p>
+This article is part of <a href="https://lucidmanager.org/tags/emacs/">Emacs Writing Studio</a>, a book that explains how to use Emacs to undertake research and write and publish articles, books, and websites. Emacs Writing Studio is available as an e-book from your favourite retailer.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+The source files of the book and EWS configuration are also freely available on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+To learn how to create and maintain a plain text bibliographic database in Emacs, read the <a href="https://lucidmanager.org/productivity/emacs-bibtex-mode/">article about BibTeX mode</a>. The article about <a href="https://lucidmanager.org/productivity/emacs-for-distraction-free-writing/">writing in Org mode</a> explains how to add citations. This page explains how to use the Citar-Denote package, which integrates a Citar bibliography with your Denote notes.</p>
+<p>
+<a href = "https://github.com/pprevos/citar-denote/" target="_blank"
+   title="Download citar-denote from GitHub"
+   alt="Download citar-denote from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">citar-denote</span>
+  </button>
+</a>
+
+</p>
+<figure>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/s7Mf6udiCSE?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<figcaption>
+Emacs Writing Studio (Create and manage literature notes with Citar-Denote).
+</figcaption>
+</figure>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Principles
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>A bibliographic note is a file that refers to one or more pieces of literature in your bibliography. The note and the entry in your literature database are intrinsically linked, making it easy to move between the two. Two types of relationships exist between your notes and your bibliography:</p>
+<ul>
+<li><em>Reference</em>: Relates the whole file to one or more publication (a bibliographic note). Indicated by the reference line in the front matter and the <code class="verbatim">bib</code> keyword.</li>
+<li><em>Citation</em>: A citation inside a note mentions one or more publications. A citation relates a portion of a text to a publication.</li>
+</ul>
+<p>The Citar-Denote package maintains a many-to-many relationship between your notes and your bibliographies. Each bibliographic entry can have one or more notes, and each note can reference one or more pieces of literature.</p>
+<p>
+You can create several atomic notes for each publication or write a complete literature review of a collection of references within one note. You could, for example, create a note about each chapter of a book, or write a single literature review note for a collection of journal articles. You can use Citar and Denote which ever way best suits your workflow.</p>
+<p>
+To enable references, we need a stable link between the collection of notes and the bibliography. The most common behaviour for bibliography managers in Emacs is that the filename for the relevant note includes the citation key (e.g. <code class="verbatim">marcuse_1969_essay.org</code>) to link it to the bibliography. However, Denote follows a strict naming convention, so we cannot use this approach to link notes and literature as it might contain characters that Denote disallows in its file names. The various citation system don&#39;t have strict naming conventions on citation keys, so we need to find another way to link literature to a note.</p>
+<p>
+In Citar-Denote, the citation key is part of the front matter through the <code class="verbatim">#+reference:</code> keyword. Citar-Denote stores the relationship between citation keys and note files in a cache. The package regenerates this cache after you edit a bibliography file or call any Citar functions. Each bibliographic note uses the configurable <code class="verbatim">bib</code> file tag. This tag reduces the number of Denote files the system needs to track. The front matter for a bibliographic note would look something like this:</p>
+<div class="src src-org">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-org" data-lang="org"><span style="display:flex;"><span>  #+title:      Marcuse: An Essay on Liberation
+</span></span><span style="display:flex;"><span>  #+date:       [2022-11-12 Sat 19:23]
+</span></span><span style="display:flex;"><span>  #+filetags:   :bib:culture:marketing:philosophy:
+</span></span><span style="display:flex;"><span>  #+identifier: 20221112T192310
+</span></span><span style="display:flex;"><span>  #+reference:  marcuse_1969_essay</span></span></code></pre></div>
+</div>
+<p>
+The Citar-Denote package also provides insight into citations used in the Denote directory, which uses the <code class="verbatim">xref</code> system. You can improve the search process by installing the faster <a href="https://github.com/BurntSushi/ripgrep">ripgrep</a> program and setting <code class="verbatim">xref-search-program</code> to <code class="verbatim">ripgrep</code>.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Create bibliographic notes
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>Open the Citar interface with <code class="verbatim">C-c w b c</code> (<code>citar-create-note</code>). The letters or icons at the start of the Citar menu indicate whether the entry has a link, note, attachment or is cited in the current buffer. Select the entry you want to create a note for, hit <code class="verbatim">ENTER</code> and follow the prompts.</p>
+<p>
+If a note already exists and you have set the <code class="verbatim">citar-open-always-create-notes</code> variable to <code class="verbatim">t</code>, then you can create additional notes for this entry. Otherwise, Citar will open the exiting note.</p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/citar-menu.png" alt="Screenshot of Citar with Vertico, indicating notes and links." title="Screenshot of Citar with Vertico, indicating notes and links."/>
+<figcaption>
+Screenshot of Citar with Vertico, indicating notes and links.
+</figcaption>
+</figure>
+<p>
+Various configuration options are available to fine-tune determine how Emacs creates now bibliographic notes.</p>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+Default file type
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>You can create bibliographic notes for each file type that Denote supports: Org mode, two flavours of Markdown and plain text. Citar-Denote uses the default file type set by the <code class="verbatim">denote-file-type</code> variable, which you can override with <code class="verbatim">citar-denote-file-type</code> to use a different file type for bibliographic notes. </p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Bibliographic note title
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>The default name for a new note is the title of the bibliographic entry. You can modify this behaviour with the <code class="verbatim">citar-denote-title-format</code> variable. Four options are available:</p>
+<ol>
+<li><code class="verbatim">title</code>: Extract the title from the bibliographic item (default)</li>
+<li><code class="verbatim">author-year</code>: Use citation format as &#34;author(s) (year)&#34; (or editors when no authors are defined)</li>
+<li><code class="verbatim">author-year-title</code>: Concatenate the first two options</li>
+<li><code class="verbatim">full</code>: Full citation of the entry</li>
+<li>Fallback option or <code class="verbatim">nil</code>: The citation key</li>
+</ol>
+<p>For example, using this citation: Coppa, Hass, Peck, Burger (2008) <em>Performing Magic on the Western Stage: From the Eighteenth Century to the Present</em>, Palgrave Macmillan.</p>
+<ol>
+<li><code class="verbatim">title</code>: &#34;Performing Magic on the Western Stage: From the Eighteenth Century to the Present&#34;.</li>
+<li><code class="verbatim">author-year</code>: &#34;Coppa et al. (2008)&#34;. </li>
+<li><code class="verbatim">author-year-title</code>: &#34;Coppa et al. (2008) Performing Magic on the Western Stage: From the Eighteenth Century to the Present&#34;.</li>
+<li><code class="verbatim">full</code>: &#34;Coppa, Hass, Peck, Burger (2008) <em>Performing Magic on the Western Stage: From the Eighteenth Century to the Present</em>, Palgrave Macmillan&#34;.</li>
+<li><code class="verbatim">nil</code>: &#34;coppa_2008_perf&#34;.</li>
+</ol>
+<p>Using <code class="verbatim">author-year</code> for entries allows for some further configuration. For entries with more than one author, you can specify the maximum number of names with <code class="verbatim">citar-denote-title-format-authors</code>, which is one by default. When the number of defined authors is more than the number in the citation, &#34;et al.&#34; is added to the end. When this variable exceeds the number of defined authors, all authors are listed. The default term between authors is &#34;and&#34;, which can be changed by customising <code class="verbatim">citar-denote-title-format-andstr</code>.</p>
+<p>
+For example, when using up to three authors and &#34;&amp;&#34; as connecting term, the title for the example above becomes Or  &#34;Coppa, Hass &amp; Peck et al. (2008)&#34; </p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-3">
+<h3 id="headline-5">
+Bibliographic keywords
+</h3>
+<div id="outline-text-headline-5" class="outline-text-3">
+<p>The <code class="verbatim">bib</code> file tag is added to every new bibliographic note. This tag minimises the search space when caching notes to accelerate the process. The <code class="verbatim">citar-denote-keyword</code> variable lets you change the tag to something else. For example, if you primay language is Welsh, you might want to change it to <code class="verbatim">lly</code>.</p>
+<p>
+Changing the default requires updating all your existing bibliographic notes, because the package only recognises a single string. The change will come into effect the next time the package is loaded. The <a href="https://lucidmanager.org/productivity/denote-explore/">Denote-Explore</a> package has a function to rename Denote keywords.</p>
+<p>
+The <code class="verbatim">citar-denote-use-bib-keywords</code> variable lets you include keywords defined in the bibliography as Denote keywords. When set to a non-nil value, Citar-Denote extracts the available keywords from the BibTeX <code class="verbatim">keywords</code> field.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-3">
+<h3 id="headline-6">
+Subdirectory
+</h3>
+<div id="outline-text-headline-6" class="outline-text-3">
+<p>If you prefer storing your bibliographic notes in a subdirectory of your Denote folder, then set the <code class="verbatim">citar-denote-subdir</code> variable to <code class="verbatim">t</code>. When this variable is non-nil, Denote asks for a subdirectory when creating a new bibliographic note. When this variable contains a string, then any new bibliographic notes are stored in the subdirectory that matches this name.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Signature
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>When the <code class="verbatim">citar-denote-signature</code> variable is non-nil, Denote will ask for a signature when creating a new bibliographic note. If you enter an empty line for a signature, then the citation key is used.</p>
+<p>
+Please note that Denote changes or removes punctuation marks in the citation key to enforce compliance with its file naming convention. For example, when the citation key is <code class="verbatim">einstein_1905</code>, the signature becomes <code class="verbatim">einstein=2005</code>.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Create notes using templates
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>Denote allows you to create template for various types of notes. You could, for example, have standard headings for bibliographic notes, other headings for meta notes, or whatever else you might need.</p>
+<p>
+To include templates in new bibliographic notes, set the <code>citar-denote-template</code> to non-nil and define a template.</p>
+<p>
+The example below lets the user choose between a note that has two headings (Abstract and Review), or a plain note without any template content. The extensive <a href="https://protesilaos.com/emacs/denote#h:f635a490-d29e-4608-9372-7bd13b34d56c">Denote manual</a> provides some more detailed information about using templates for all your notes.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">setq</span> <span style="color:#963">denote-templates</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#333">&#39;</span>((<span style="color:#963">biblio</span> <span style="color:#333">.</span> <span style="background-color:#fff0f0">&#34;* Abstract\n\n* Review&#34;</span>)
+</span></span><span style="display:flex;"><span>          (<span style="color:#963">plain</span> <span style="color:#333">.</span> <span style="color:#036;font-weight:bold">nil</span>)))</span></span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+Working with existing notes
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>Once you have some bibliographic notes you will want to access and modify them. You can access the attachments, links and other notes associated with the references from within via the Citar menu (<code>citar-open</code>), <code class="verbatim">C-c w b o</code>. Entries with a note are indicated with an <code class="verbatim">N</code> in the third column.</p>
+<div id="outline-container-headline-10" class="outline-3">
+<h3 id="headline-10">
+Open existing bibliographic notes
+</h3>
+<div id="outline-text-headline-10" class="outline-text-3">
+<p>There are two entry points to find notes that relate to literature, either as a reference or as a citation.</p>
+<p>
+Use <code>citar-denote-open-note</code> (<code class="verbatim">C-c w b n</code>) to open the Citar menu with only entries that have one or more associated notes. Select your target and hit <code class="verbatim">ENTER</code>.</p>
+<p>
+Citar provides a list of resources for the selected entry: attachments, existing notes, links and an option to create an additional note. Select the note you seek, hit <code class="verbatim">ENTER</code> again and select the Denote file you want to open. </p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/citar-menu-resources.png" alt="Screenshot of Citar and options for one of the entries" title="Screenshot of Citar and options for one of the entries"/>
+<figcaption>
+Screenshot of Citar and options for one of the entries.
+</figcaption>
+</figure>
+<p>
+The previous function shows all literature that has one or more bibliographic note(s). The <code>citar-denote-find-citation</code> function (<code class="verbatim">C-c w c f</code>) lists all bibliographic entries cited inside your Denote collection, from where you can open the relevant note. Some of these will also have their own bibliographic note, indicated in the Citar menu sidebar.</p>
+<p>
+Searching through all your notes for citations can take a moment, depending on the size of your digital garden.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Open attachments, links and notes
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<p>The <code>citar-denote-dwim</code> function (<code class="verbatim">C-c w b d</code>) provides access to the Citar menu from where you can open attachments, other notes, and links related to the citation references associated with the current Denote buffer.</p>
+<p>
+Select the required bibliographic item when there is more than one reference. You can then select the attachment, link or note you like to access and hit <code class="verbatim">ENTER</code>, after which you select your link, note or attachment. Alternatively, you can also create a new note </p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-12" class="outline-3">
+<h3 id="headline-12">
+Open bibliographic entry
+</h3>
+<div id="outline-text-headline-12" class="outline-text-3">
+<p>The <code>citar-denote-open-reference-entry</code> function (<code class="verbatim">C-c w b e</code>) opens the bibliographic entry (BibTeX, BibLaTeX or CSL file) for a selected reference from where you can edit the bibliographic data.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-3">
+<h3 id="headline-13">
+Convert existing notes to bibliographic notes
+</h3>
+<div id="outline-text-headline-13" class="outline-text-3">
+<p>The <code>citar-denote-add-citekey</code> function (<code class="verbatim">C-c w b k</code>) adds citation keys or converts an existing Denote file to a bibliographic note. When converting a regular Denote file, the function adds the <code class="verbatim">bib</code> keyword to the front matter and renames the file accordingly.</p>
+<p>
+This function opens the Citar selection menu and adds the selected citation keys to the front matter. Use the <code class="verbatim">TAB</code> key to select multiple entries.</p>
+&nbsp;
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-3">
+<h3 id="headline-14">
+Remove references from bibliographic notes
+</h3>
+<div id="outline-text-headline-14" class="outline-text-3">
+<p>You remove citation references with the <code>citar-denote-remove-citekey</code> command (<code class="verbatim">C-c w b K</code>). If more than one piece of literature is referenced, select the unwanted item in the minibuffer first. The bibliography keyword is also removed, and the file is renamed when removing the only reference.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-2">
+<h2 id="headline-15">
+Citation management
+</h2>
+<div id="outline-text-headline-15" class="outline-text-2">
+<p>What is the point of building a bibliography without using each entry as a citation or a reference in a bibliographic note? The last two functions let you cite literature or create a new bibliographic note for any item not used in your Denote collection.</p>
+<p>
+The <code>citar-denote-nocite</code> (<code class="verbatim">C-c w b x</code>)  function opens the Citar menu and shows all items in your bibliography that are neither cited nor referenced. From there you can create a new bibliographic note, follow a link or read the file.</p>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-2">
+<h2 id="headline-16">
+Configuration
+</h2>
+<div id="outline-text-headline-16" class="outline-text-2">
+<p>The <em>Emacs Writing Studio</em> configuration builds on the <code class="verbatim">C-c w</code> prefix keys. Pressing <code class="verbatim">C-c w b</code> provides access to bibliographic commands using the <a href="https://lucidmanager.org/productivity/emacs-completion-system/">keystroke completion menu</a> provided by the <em>Which Key</em> package .</p>
+<p>
+This configuration also sets a variable from the Citar package that allows you to create multiple notes for a bibliographic entry.</p>
+<div class="src src-elisp">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-elisp" data-lang="elisp"><span style="display:flex;"><span>  (<span style="color:#007020">use-package</span> <span style="color:#963">citar-denote</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:custom</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">citar-open-always-create-notes</span> <span style="color:#036;font-weight:bold">t</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:init</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#963">citar-denote-mode</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#007020">:bind</span>
+</span></span><span style="display:flex;"><span>    ((<span style="background-color:#fff0f0">&#34;C-c w b c&#34;</span> <span style="color:#333">.</span> <span style="color:#963">citar-create-note</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w b n&#34;</span> <span style="color:#333">.</span> <span style="color:#963">citar-denote-open-note</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w b x&#34;</span> <span style="color:#333">.</span> <span style="color:#963">citar-denote-nocite</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w b k&#34;</span> <span style="color:#333">.</span> <span style="color:#963">citar-denote-add-citekey</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w b K&#34;</span> <span style="color:#333">.</span> <span style="color:#963">citar-denote-remove-citekey</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w b d&#34;</span> <span style="color:#333">.</span> <span style="color:#963">citar-denote-dwim</span>)
+</span></span><span style="display:flex;"><span>     (<span style="background-color:#fff0f0">&#34;C-c w b e&#34;</span> <span style="color:#333">.</span> <span style="color:#963">citar-denote-open-reference-entry</span>)))</span></span></code></pre></div>
+</div>
+<p>
+The source code for Citar-Denote is available on GitHub and the package is available through <a href="https://melpa.org/#/citar-denote">MELPA</a>.</p>
+<p>
+<a href = "https://github.com/pprevos/citar-denote/" target="_blank"
+   title="Download citar-denote from GitHub"
+   alt="Download citar-denote from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">citar-denote</span>
+  </button>
+</a>
+
+</p>
+<p>
+This page is a previous version of the manual. You can read the recent manual with <code class="verbatim">C-h R citar-denote</code> or evaluate <code>(info &#34;citar-denote&#34;)</code></p>
+</div>
+</div>
+<div id="outline-container-headline-17" class="outline-2">
+<h2 id="headline-17">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-17" class="outline-text-2">
+<p>If you like to support my work, then please purchase the <em>Emacs Writing Studio</em> book.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+Emacs is a malleable system, and everybody has personal preferences on how to undertake a task and configure Emacs. Any article on how to use Emacs is thus opinionated. If you have a different way of doing things, please complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email or contact me on social media.</p>
+<p>
+The next article in this series describes how to use Emacs Org mode for <a href="https://lucidmanager.org/productivity/emacs-for-distraction-free-writing/">distraction-free writing</a>.</p>
+</div>
+</div>
+
+      

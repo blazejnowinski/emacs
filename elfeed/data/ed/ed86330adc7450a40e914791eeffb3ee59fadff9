@@ -1,0 +1,355 @@
+
+	
+<p>
+Most people believe that the first step in becoming more productive is finding the perfect suite of software tools to manage the vast amounts of information we consume daily. I also used to hop from application to application to perform what I needed—jumping from the action list to my schedule, onward to the word processor and spreadsheet, PDF reader and so on. Wouldn&#39;t it be nice if there was one program that could help you with almost all your tasks?</p>
+<p>
+Welcome to the Emacs computing system, the Swiss army chainsaw of productivity.</p>
+<p>
+This article explains why you should use Emacs for writing and undertake almost every task in your writing project, from ideation to publication in one application. This article is part of the <a href="https://lucidmanager.org/tags/emacs/">Emacs Writing Studio</a> starter kit, which explains how to use Emacs to write and publish articles, books, theatre or film scripts and websites. </p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+You can find the most recent configuration files on GitHub.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+What is Emacs?
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>The official tagline of <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a> is that it is an &#34;extensible self-documenting text editor&#34;. However, these words barely do justice to Emacs because they focus on its original purpose as a software development tool.</p>
+<p>
+Emacs is a multi-purpose computing environment that can help you manage your information, track projects, write and publish articles, books, websites and any other text-based activity. Emacs is a text processor on steroids. The first version of Emacs was released forty years ago, which might seem obsolete software. However, a vibrant community of developers continually improves the system.</p>
+<blockquote>
+<p>Emacs is not a productivity hack; it is a productivity hacking system.</p>
+</blockquote>
+<p>
+The term text editor requires clarification because it is more akin to developing software. Emacs is not merely a text editor but a <em>text processor</em>, which is more than just a word processor. Editing is the last step in the process of writing an article or book. Software developers refer to the whole process as editing.</p>
+<p>
+When you use a computer, you more than likely write a memo in a word processor, then switch to a spreadsheet to create a graph, which you copy and paste into your memo. Next, you open your email client to send the message to your colleague. The last step is to close the action in your productivity tool. After this hard work, you might play a game and open Tetris. When using these pieces of software, you have to learn different skills for each program. You have to use the software the way the developers intended you to use it.</p>
+<p>
+Working with Emacs is a different experience. You write the memo in Emacs, create the graph with Emacs, email the result and close the action with Emacs. Finally, you <a href="https://www.masteringemacs.org/article/fun-games-in-emacs">play the game</a>, you guessed it, within Emacs. If you use Emacs, you only need to learn one piece of software, and you can configure and extend it to how you prefer to use it, not how a programmer wants you to use the software.</p>
+<p>
+At first instance, Emacs looks more like an <a href="https://www.urbandictionary.com/define.php?term=angry%20fruit%20salad">angry fruit salad</a> than a modern piece of software. The default interface looks dreary, but don&#39;t let these simple looks fool you. Under the hood, Emacs is a modern and robust computing environment that is <a href="https://lucidmanager.org/productivity/configure-emacs/">fully configurable</a> to your liking.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+Why use Emacs?
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>Emacs is a <a href="https://malleable.systems/blog/2020/04/01/the-most-successful-malleable-system-in-history/">malleable software</a> platform, which means that you are free to change and enhance how it works. This malleability ensures that  Emacs can perform any task that you can undertake with a keyboard. Emacs is, as such, the Swiss Army Chainsaw of productivity.</p>
+<p>
+The first principle of malleable software is that it is easy to change. You can build applications using the Emacs LISP language (Elisp). This task might sound daunting, but it is about the possibility. Writing code is optional because most Emacs users share what they have developed through thousands of external packages you can freely install.</p>
+<p>
+<em>Emacs Writing Studio</em> makes it easy for you to get started as this configuration has almost everything you need to write prose.</p>
+<p>
+Users can configure almost everything in the system with little knowledge of Elisp. This knowledge requirement might seem like a hurdle, but learning how to use it will give you virtually unlimited power over how you use your computer. Software should adjust to the user, not vice versa, as is the case with most modern packages.</p>
+<p>
+The advantage of this approach is that you have complete freedom in using this software. You can instruct it to do almost anything you like and configure it to your specific needs. The disadvantage is that it requires a different computing approach than contemporary software. Using Emacs throws you back to the original intent of using a computer and genuine user-friendliness.</p>
+<p>
+Are you ready to change the way you use your computer? To paraphrase a famous scene from The Matrix:</p>
+<blockquote>
+<p>You take the blue Microsoft pill—the story ends, and everything stays the same. You take the purple Emacs pill—you stay in Wonderland, and I show you how deep the rabbit hole goes.</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+Redefining user-friendliness
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>Emacs&#39; lack of a slick graphical interface might discourage new users. Unfortunately, most software developers confuse user-friendliness with a smooth design and using a mouse. However, the graphical mouse-driven approach is not user-friendly because your dominant hand constantly moves between the mouse and the keyboard. Graphically-driven software is a gilded cage. It might be pleasant, but it is still a cage.</p>
+<p>
+Emacs is a <a href="https://en.wikipedia.org/wiki/Plain_text">plain text</a> editor, which means that there is limited markup, such as images, bold and italics. Plain text is not the same as <a href="https://en.wikipedia.org/wiki/Plain_English">plain English</a>; it relates to how the information is stored on disk. Plain text is the opposite of rich text, which includes hidden definitions for font sizes, colours and other text and formatting attributes.</p>
+<p>
+Plain text is not formatted and most commonly has a <code class="verbatim">.txt</code> extension. There are, however, many other plain text formats, such as HTML, Markdown, LaTeX and Emacs Org Mode. Windows users might be familiar with the venerable Notepad software (which is, by the way, almost as old as Emacs, but with only limited functionality).</p>
+<p>
+Plain text is intelligible across computer systems, so you never have to worry about locking your writing into a proprietary format and being locked-in by a software package. The internet runs on plain text files, which is highly unlikely to change in the long term.</p>
+<p>
+Text modes can display ‘graphics’. In primary school in the 1970s our teacher showed us some art printed with a computer. The art consisted of a series of keyboard characters that resemble a picture, such as this cute stegosaurus below, borrowed from the <a href="https://www.asciiart.website/index.php?art=creatures/dragons">ASCII Art Website</a>.</p>
+<pre class="example">
+                         .       .
+                        / `.   .’ \
+                .---.  &lt;    &gt; &lt;    &gt;  .---.
+                |    \  \ - ~ ~ - /  /    |
+                 ~-..-~             ~-..-~
+             \~~~\.&#39;                    `./~~~/
+   .-~~^-.    \__/                        \__/
+ _/  O    \     /               /       \  \
+(_____,    `._.&#39;               |         }  \/~~~/
+ `----.          /       }     |        /    \__/
+       `-.      |       /      |       /      `. ,~~|
+           ~-.__|      /_ - ~ ^|      /- _      `..-&#39;   f: f:
+                |     /        |     /     ~-.     `-. _||_||_
+                |_____|        |_____|         ~ - . _ _ _ _ _&gt;
+</pre>
+<p>
+The main benefit of using plain text over rich text is that it provides a distraction-free writing environment. In word processors, the screen looks like a printed page. While this might be aesthetically pleasing, it distracts the writer from creating content and instead fiddle with the design.</p>
+<p>
+Only a tiny part of written text is printed on paper, so the <a href="https://en.wikipedia.org/wiki/WYSIWYG">What You See is What You Get</a> (WYSIWYG) approach does not make much sense in the digital age. Plain text writing follows a different philosophy and uses the <a href="https://en.wikipedia.org/wiki/WYSIWYM">What You See Is What You Mean</a> (WYSIWYM) approach.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+What You See is What You Mean
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>Graphical interfaces simulate the physical world by making objects on the screen look like pieces of paper and folders on a desk. You point, click and drag documents into folders; documents appear as they would on paper and when done, they go into the rubbish bin. Graphical interfaces are a magic trick that makes you believe you are doing something physical. This approach might be convenient, but it moves the user away from understanding how a computer works.</p>
+<p>
+The WYSIWYG approach distracts the mind from the content and lures the user into fiddling with style instead of writing text. Office workers around the globe waste a lot of time trying to format or typeset documents. Following the Emacs way will help you become more productive by not worrying about the document’s design until you complete the text. As I write this book, it only takes a few keystrokes to convert the text into a fully formatted ebook or web page, ready for distribution.</p>
+<p>
+As I write this website, I don’t see what it will look like in published form. In Emacs, I only see text, images and some instructions for the computer on what the final product should look like (the What You Mean  part of WYSIWYM). This approach lets me focus on writing text instead of worrying about the end product.</p>
+<p>
+The image below shows what this looks like in action. The left side shows this article while writing it. The right side shows the result after creating the content. The colours on the screen indicate the function of the text, such as headers, italic text, or metadata, instead of the actual colour. The fonts are uniform, and Org mode hides images to allow me to focus on the text. Org mode can show the images inside the text with a simple keystroke. The image and the text remain separate files. I rarely view a live preview of the eventual output, as that negates the benefits of writing in plain text. </p>
+<figure>
+<img src="https://lucidmanager.org/images/emacs/wysiwym.jpg" alt="The WYSIWYM approach with Emacs Org mode and Hugo." title="The WYSIWYM approach with Emacs Org mode and Hugo." width="600"/>
+<figcaption>
+The WYSIWYM approach: Left: this article as I am writing it in Emacs. Right: The exported result in Firefox.
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Principles of writing plain text
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>When I export this document to a web page or any other format, a template and/or style sheet are attached to the text, which define the design of the published work. Another advantage of this approach is that your text can be easily exported to multiple formats.</p>
+<p>
+In my workflow, the <a href="https://lucidmanager.org/productivity/create-websites-with-org-mode-and-hugo/">Hugo software</a> converts the text in Emacs to a usable website using my <a href="https://github.com/pprevos/hugo-thirdhemisphere">custom template</a> and a CSS style sheet. When I convert a text to PDF, the LaTeX software attaches a document class to the text to define the layout and typography. Each export format has its own method to convert plain text to published content.</p>
+<p>
+To publish any text your text will have four elements:</p>
+<ol>
+<li>Content: The text itself.</li>
+<li>Semantics: Context (markers for headings, rich text, tables, images and so on).</li>
+<li>Template: Translates the structure of the document</li>
+<li>Style sheet: The design of the publication.</li>
+</ol>
+<p>In a WYSIWYG word processor, all these elements are embedded in one file, but only the text is visible with the semantics and style sheet applied to show the printed result. In plain text, the content and semantics are directly visible, depending on the text format. Please note that <code class="verbatim">TXT</code> files don’t contain any semantics; they are the simplest form of plain text. The table below shows how italic text is signified in four common plain text formats.</p>
+<figure>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Italic semantics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.w3.org/">HTML</a></td>
+<td><code class="verbatim">&lt;i&gt;Italic Text&lt;/i&gt;</code></td>
+</tr>
+<tr>
+<td><a href="https://www.latex-project.org/">LaTeX</a></td>
+<td><code class="verbatim">\emph{Italic Text}</code></td>
+</tr>
+<tr>
+<td><a href="https://www.markdownguide.org/">Markdown</a></td>
+<td><code class="verbatim">**Italic Text**</code></td>
+</tr>
+<tr>
+<td><a href="https://orgmode.org/">Org mode</a></td>
+<td><code class="verbatim">/Italic Text/</code></td>
+</tr>
+</tbody>
+</table>
+<figcaption>
+Italic text in common plain text formats.
+</figcaption>
+</figure>
+<p>
+The style sheet exists separate from the text. This means that you can easily export your document to various formats with fine control over the end result. <a href="https://lucidmanager.org/productivity/publishing-with-org-mode-export/">Org mode has a versatile export engine</a> that allows you to convert your writings to a website, ebook or physical book with just a few keystrokes and some configuration.</p>
+<p>
+These are only some example of using plain text for writing projects. Many other markup and markdown formats are available to turn your thoughts into a published work. For example, <a href="https://lilypond.org/index.html">LilyPond</a> is a plain text music notation format and <a href="https://fountain-mode.org/">Fountain</a> is a format to write screenplays.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+The Emacs learning curve
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>The second hurdle is the steep learning curve. To make Emacs work for you, you will need to learn the <a href="https://lucidmanager.org/productivity/getting-started-with-emacs/">basics principles</a> and learn some of the associated add-on packages. As Emacs is old software, some default settings and terminology differ from contemporary graphical software. For example, opening a file is &#39;visiting a file&#39;. Pasting a text is&#39; yanking&#39;; cutting it is the same as killing. Emacs terminology is certainly more poetic than the current handicraft terms, such as cutting and pasting. Closing Emacs itself is called killing.</p>
+<blockquote>
+<p>The steeper the learning curve, the bigger the reward.</p>
+</blockquote>
+<p>
+The key to learning Emacs is to not get overwhelmed by the virtually infinite configuration options but to only learn those bits of functionality that you need to do what you need to do. Even without any configuration, you can do a lot with Emacs. </p>
+<p>
+Learning some Elisp enables you to configure the software to your wishes. While that might sound daunting, you can simply copy and paste (kill and yank) examples from the Internet. Even better, <em>Emacs Writing Studio</em> is a starter kit to shorten this learning curve as it optimises Emacs for the writing workflow.</p>
+<p>
+The articles on this website guide you through what you need to know for Emacs to become your favourite writing tool. You can also download and use the complete configuration file from these articles to get you started.</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+Advantages of using Emacs
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>In summary, these are some of the significant advantages of using Emacs to create written content:</p>
+<ol>
+<li>One piece of software to undertake most of your computing activities makes you more productive because you only need to master one system.</li>
+<li>You store all your information in plain text files. You will never have any problems with compatibility due to esoteric file formats.</li>
+<li>You can modify almost everything in the software to suit your workflow.</li>
+<li>Emacs runs on all major operating systems: All Linux flavours, <a href="https://lucidmanager.org/productivity/emacs-windows/">Windows</a>, <a href="https://lucidmanager.org/productivity/emacs-chromebook/">Chrome OS</a>, and macOS.</li>
+<li>Emacs is open source and supported by a large community willing to help.</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-2">
+<h2 id="headline-8">
+Limitations of Emacs
+</h2>
+<div id="outline-text-headline-8" class="outline-text-2">
+<p>After singing the praises of this multi-functional editor, you would almost think that Emacs is the omnipotent god of software. Some people even have established the <a href="https://www.emacswiki.org/emacs/ChurchOfEmacs">Church of Emacs</a> as a mock religion to express their admiration.</p>
+<p>
+Emacs can display images and integrate them with text. Still, it has limited functionality to create or <a href="https://lucidmanager.org/productivity/using-emacs-image-dired/">modify graphical files</a>. If you need to create or edit pictures, consider using GIMP (<a href="https://www.gimp.org/">GNU Image Manipulation Program</a>). Video content is currently not supported and cannot be easily integrated with text other than hyperlinks to a file or web page.</p>
+<p>
+The focus on text limits working in Emacs to serial thinking to the exclusion of <a href="https://en.wikipedia.org/wiki/Visual_thinking">visual thinking</a>. I like to scribble little diagrams in my notebook to help me solve problems. Emacs is limited to text. But you can import your doodles as images.</p>
+<p>
+The second disadvantage is that Emacs does not have a fully operational web browser. There are packages to surf the web within Emacs, but they have limited functionality.</p>
+<p>
+Emacs has the risk of becoming a productivity sink. But remember that just because you can configure everything does not mean you should. Don&#39;t spend too much time worrying about the minutia of your workflow. Spend this time inside your workflow and create new things. Most productivity hacks do not affect your output because you write with your mind, not the keyboard.</p>
+<p>
+The best way to learn Emacs is one step at a time. Start with a simple configuration and then build on this starting point once you need further enhancements.</p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-2">
+<h2 id="headline-9">
+Emacs Writing Studio
+</h2>
+<div id="outline-text-headline-9" class="outline-text-2">
+<p>If you like to support my work, then please purchase the <em>Emacs Writing Studio</em> book.</p>
+<p>
+
+  <div class="box">
+    <div class="media">
+      <figure class="media-left">
+        <p class="image is-128x128">
+          <img src="https://lucidmanager.org/images/books/2024-ews.jpg" alt = "Emacs Writing Studio" title = "Emacs Writing Studio">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">Emacs Writing Studio</p>
+          <p class="mb-2">A comprehensive guide for writers seeking to streamline their workflow using Emacs. The book covers everything from organising ideas and writing distraction-free to publishing in multiple formats. It’s perfect for both beginners and experienced Emacs users, offering practical tips and a tailored configuration to enhance your writing process.</p>
+          <div class="buttons">
+            <a class="button is-info" href="https://payhip.com/b/alhIJ" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Payhip</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=ebook" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>e-readers</span>
+            </a>
+            <a class="button is-info" href="https://books2read.com/u/4NpgQ9?format=print" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>Paperback</span>
+            </a>
+            <a class="button is-info" href="https://leanpub.com/emacswritingstudio" target="_blank">
+              <span class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+              <span>LeanPub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p>
+<p>
+You can find the source files for the book and the latest configuration files on GitHub:</p>
+<p>
+<a href = "https://github.com/pprevos/emacs-writing-studio/" target="_blank"
+   title="Download emacs-writing-studio from GitHub"
+   alt="Download emacs-writing-studio from GitHub">
+  <button class="button is-medium is-primary">
+    <span class="icon is-large">
+      <i class="fab fa-github"></i>
+    </span>
+    <span style="font-family: monospace">emacs-writing-studio</span>
+  </button>
+</a>
+
+</p>
+<p>
+Emacs is a malleable system, and everybody has personal preferences on how to undertake a task and configure Emacs. Any article on how to use Emacs is thus opinionated. If you have a different way of doing things, please complete the <a href="https://lucidmanager.org/contact/">contact form</a> to send me an email or contact me on social media.</p>
+<p>
+The next article discusses <a href="https://lucidmanager.org/productivity/getting-started-with-emacs/">getting started with Emacs</a> and introduces the basic principles.</p>
+</div>
+</div>
+
+      

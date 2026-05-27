@@ -1,0 +1,83 @@
+
+         
+         <p>Substitute provides a set of commands that perform text replacement
+(i) throughout the buffer, (ii) limited to the current definition (per
+<code class="language-plaintext highlighter-rouge">narrow-to-defun</code>), (iii) from point to the end of the buffer, and
+(iv) from point to the beginning of the buffer. Variations of these
+scopes are also available.</p>
+
+<p>These substitutions are meant to be as quick as possible and, as such,
+differ from the standard <code class="language-plaintext highlighter-rouge">query-replace</code> (which I still use when
+necessary). The provided commands prompt for substitute text and
+perform the substitution outright, without moving the point. The
+target is the symbol/word at point or the text corresponding to the
+currently marked region. All matches in the given scope are
+highlighted by default.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">substitute</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/substitute">https://protesilaos.com/emacs/substitute</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/substitute">https://github.com/protesilaos/substitute</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/substitute">https://gitlab.com/protesilaos/substitute</a></li>
+    </ul>
+  </li>
+  <li>Video demo: <a href="https://protesilaos.com/codelog/2023-01-16-emacs-substitute-package-demo/">https://protesilaos.com/codelog/2023-01-16-emacs-substitute-package-demo/</a></li>
+  <li>Backronym: Substitutions Uniformly Beget Standardisation for Text Invariably Transfigured Unto This Entry.</li>
+</ul>
+
+<p>Below are the release notes.</p>
+
+<hr />
+
+<h2>Version 0.5.0 on 2026-01-05</h2>
+
+<p>This is a small release that fixes a bug and adds a relevant user
+option.</p>
+
+<p>The bug pertained to the scope of the substitution when buffer
+narrowing was in effect. All commands would ignore narrowing and also
+fail to properly clear the highlights they apply (highlights are
+transiently in effect to show what the target of the substitution is
+while the minibuffer is waiting for user input).</p>
+
+<p>Now all commands do the right thing with respect to buffer narrowing.
+Though their exact behaviour depends on the value of the new user
+option <code class="language-plaintext highlighter-rouge">substitute-ignore-narrowing</code>:</p>
+
+<ul>
+  <li>
+    <p>When the value of <code class="language-plaintext highlighter-rouge">substitute-ignore-narrowing</code> is non-<code class="language-plaintext highlighter-rouge">nil</code>, then
+substitutions apply to the actual scope of the given command. For
+example, <code class="language-plaintext highlighter-rouge">substitute-target-in-buffer</code> will cover the whole buffer
+from the absolute minimum position to the absolute maximum position
+even if narrowing is in effect.</p>
+  </li>
+  <li>
+    <p>When the value of <code class="language-plaintext highlighter-rouge">substitute-ignore-narrowing</code> is <code class="language-plaintext highlighter-rouge">nil</code>, then
+substitutions apply to their scope subject to the boundaries of the
+narrowed buffer. For example, <code class="language-plaintext highlighter-rouge">substitute-target-in-buffer</code> will
+understand as “whole buffer” the region between the minimum and
+maximum positions of the narrowed buffer.</p>
+  </li>
+</ul>
+
+<p>Users can write small convenience commands that do either of those,
+depending on preference. For example:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">defun</span> <span class="nv">my-substitute-target-in-buffer-with-narrowing</span> <span class="p">()</span>
+  <span class="s">"Call `substitute-target-in-buffer' with `substitute-ignore-narrowing' as `nil'."</span>
+  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">substitute-ignore-narrowing</span> <span class="no">nil</span><span class="p">))</span>
+    <span class="p">(</span><span class="nv">call-interactively</span> <span class="ss">'substitute-target-in-buffer</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my-substitute-target-in-buffer-without-narrowing</span> <span class="p">()</span>
+  <span class="s">"Call `substitute-target-in-buffer' with `substitute-ignore-narrowing' as non-`nil'."</span>
+  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">substitute-ignore-narrowing</span> <span class="no">t</span><span class="p">))</span>
+    <span class="p">(</span><span class="nv">call-interactively</span> <span class="ss">'substitute-target-in-buffer</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>Thanks to zauberen for reporting the bug in issue 11:
+<a href="https://github.com/protesilaos/substitute/issues/11">https://github.com/protesilaos/substitute/issues/11</a>.</p>
+        
+      

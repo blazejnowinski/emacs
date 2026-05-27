@@ -1,0 +1,15 @@
+
+         
+         <p>I just added <code class="language-plaintext highlighter-rouge">.epub</code> and <code class="language-plaintext highlighter-rouge">.pdf</code> versions of my free book <em>Emacs Lisp Elements</em>. All files are available in the Git repository: <a href="https://github.com/protesilaos/emacs-lisp-elements">https://github.com/protesilaos/emacs-lisp-elements</a>.</p>
+
+<p>I produced both of those from the source Org file. Here are the steps for posterity:</p>
+
+<ul>
+  <li>From the <code class="language-plaintext highlighter-rouge">elispelem.org</code> use the Org export mechanism to generate an Info manual (by default: <code class="language-plaintext highlighter-rouge">C-c C-e i i</code>).</li>
+  <li>This will generate a <code class="language-plaintext highlighter-rouge">.texi</code> file, which is then used as the source for the <code class="language-plaintext highlighter-rouge">.info</code> file.</li>
+  <li>From the command-line do <code class="language-plaintext highlighter-rouge">texi2any --epub elispelem.texi</code> to get the EPUB file.</li>
+  <li>For the PDF, install the dependencies with something like <code class="language-plaintext highlighter-rouge">sudo apt install texlive</code>.</li>
+  <li>Finally, run <code class="language-plaintext highlighter-rouge">texi2any --pdf elispelem.texi</code>.</li>
+</ul>
+        
+      
