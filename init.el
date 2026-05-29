@@ -71,19 +71,19 @@
   (electric-pair-mode t)      ;; Turns on automatic parens pairing
 
   (blink-cursor-mode nil)     ;; Don't blink cursor
-  (global-auto-revert-mode t) ;; Automatically reload file and show
-  ;; changes if the file has changed
-  (use-short-answers t)   ;; Since Emacs 29, `yes-or-no-p' will use
-  ;; `y-or-n-p'
+  (global-auto-revert-mode t) ;; Automatically reload file and show changes if the file has changed
+  (use-short-answers t)   ;; Since Emacs 29, `yes-or-no-p' will use 'y-or-n-p'
 
   ;;(dired-kill-when-opening-new-dired-buffer t) ;; Dired don't create new buffer
   ;;(recentf-mode t) ;; Enable recent file mode
   (when (display-graphic-p)(context-menu-mode t)) ;; Right-click menu
 
   (global-visual-line-mode t)           ;; Enable line wrapping (NOTE: breaks vundo)
+
   ;;(global-display-line-numbers-mode t)  ;; Display line numbers
   ;;(display-line-numbers-type 'relative) ;; Relative line numbers
   (global-hl-line-mode t)               ;; Highlight current line
+  (fill-column 70)
 
   (native-comp-async-report-warnings-errors 'silent) ;; Don't show native comp errors
   (warning-minimum-level :error) ;; Only show errors in warnings buffer
@@ -101,7 +101,7 @@
   (c-ts-mode-indent-offset 4) ;; Fix weird indentation in c-ts (C, C++)
   (go-ts-mode-indent-offset 4) ;; Fix weird indentation in go-ts
 
-  (display-fill-column-indicator-column 80) ;; Set line length indicator to 80 characters
+  ;; (display-fill-column-indicator-column 80) ;; Set line length indicator to 80 characters
   (whitespace-style '(face tabs tab-mark trailing))
   (winner-mode 1)
 
@@ -112,6 +112,7 @@
   (prog-mode . hs-minor-mode) ;; Enable folding hide/show globally
   ;; (prog-mode . display-fill-column-indicator-mode) ;; Display line length indicator
   (prog-mode . whitespace-mode)
+  (text-mode . auto-fill-mode)
   :config
   ;; Move customization variables to a separate file and load it, avoid filling up init.el with unnecessary variables
   (setq custom-file (locate-user-emacs-file "custom-vars.el"))
@@ -135,21 +136,31 @@
   (vertical-motion (- (/ (window-body-height) 2)))
   (recenter))
 
+(defun baej-consult-ripgrep-docs ()
+       (interactive)
+       (require 'consult)
+       (consult-ripgrep "/home/baej/docs"))
+
+(defun baej-consult-fd-docs ()
+       (interactive)
+       (require 'consult)
+       (consult-fd "/home/baej/docs"))
+
 (global-set-key (kbd "C-v") #'baej-scroll-half-page-down-and-center)
 (global-set-key (kbd "M-v") #'baej-scroll-half-page-up-and-center)
 
-(defun baej/open-init-file ()
+(defun baej-open-init-file ()
   "Open init.org configuration file"
   (interactive)
   (find-file "~/.config/emacs/init.org"))
 
-(global-set-key (kbd "C-c i") 'baej/open-init-file)
+(global-set-key (kbd "C-c i") 'baej-open-init-file)
 
-(defun baej/reload-config ()
+(defun baej-reload-config ()
   "Reload init.el configuration file"
   (interactive)
   (load-file "~/.config/emacs/init.el"))
-(global-set-key (kbd "C-c r") 'baej/reload-config)
+(global-set-key (kbd "C-c r") 'baej-reload-config)
 
 (keymap-global-set "C-c w v" 'customize-variable)
 (setq-default custom-file (expand-file-name
@@ -182,6 +193,13 @@
 ;;   (line-spacing 3)
 ;;   (spacious-padding-mode 1))
 
+(use-package olivetti
+  :custom
+  (olivetti-body-width 80)
+  :hook
+  (text-mode . olivetti-mode)
+  (org-mode . olivetti-mode))
+
 (use-package doom-modeline
   :custom
   (doom-modeline-height 25) ;; Set modeline height
@@ -203,11 +221,11 @@
 (use-package ace-link
   :config
   (ace-link-setup-default)
-  (global-set-key (kbd "M-o") 'ace-link-addr))
+  (global-set-key (kbd "M-O") 'ace-link-addr))
   (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "M-o") 'ace-link-org))
+    (define-key org-mode-map (kbd "M-O") 'ace-link-org))
 
-(global-set-key (kbd "M-O") 'other-window)
+(global-set-key (kbd "M-o") 'other-window)
 
 (use-package helpful
   :bind
@@ -259,6 +277,49 @@
   (nerd-icons-completion-mode)
   :hook
   (marginalia-mode . nerd-icons-completion-marginalia-setup))
+
+(use-package corfu
+  ;; Optional customizations
+  :custom
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto nil)                 ;; Enable auto completion
+  (corfu-auto-prefix 2)          ;; Minimum length of prefix for auto completion.
+  (corfu-popupinfo-mode t)       ;; Enable popup information
+  (corfu-popupinfo-delay 0.5)    ;; Lower popup info delay to 0.5 seconds from 2 seconds
+  (corfu-separator ?\s)          ;; Orderless field separator, Use M-SPC to enter separator
+  ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
+  ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
+  ;; (corfu-preview-current nil)    ;; Disable current candidate preview
+  ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
+  ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
+  ;; (corfu-scroll-margin 5)        ;; Use scroll margin
+  (completion-ignore-case t)
+
+  ;; Emacs 30 and newer: Disable Ispell completion function.
+  ;; Try `cape-dict' as an alternative.
+  (text-mode-ispell-word-completion nil)
+
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (tab-always-indent 'complete)
+
+  (corfu-preview-current nil) ;; Don't insert completion without confirmation
+  ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
+  ;; be used globally (M-/).  See also the customization variable
+  ;; `global-corfu-modes' to exclude certain modes.
+  :init
+  (global-corfu-mode)
+  :bind (
+      :map corfu-map
+          ("RET" . nil)
+          ("<return>" . nil)
+          ([remap keyboard-escape-quit] . nil)
+          ("ESC" . corfu-quit)
+          ("<escape>" . corfu-quit)))
+
+(use-package nerd-icons-corfu
+  :after corfu
+  :init (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package yasnippet-capf :defer)
 
@@ -334,8 +395,6 @@
   (ediff-keep-variants nil)
   (ediff-split-window-function 'split-window-horizontally)
   (ediff-window-setup-function 'ediff-setup-windows-plain))
-
-;; Recent files
 
 (use-package recentf
   :config
@@ -469,6 +528,7 @@
   :custom
   (dired-listing-switches
    "-goah --group-directories-first --time-style=long-iso")
+  (dired-listing-switches "-lth")
   (dired-dwim-target t)
   (delete-by-moving-to-trash t)
   :init
@@ -478,7 +538,9 @@
 
 (use-package dired
   :ensure nil
-  :hook (dired-mode . dired-omit-mode)
+  :hook
+  (dired-mode . dired-omit-mode)
+  (dired-mode . dired-hide-details-mode)
   :bind (:map dired-mode-map
               ( "."     . dired-omit-mode))
   :custom (dired-omit-files "^\\.[a-zA-Z0-9]+"))
@@ -685,11 +747,13 @@
 (use-package denote-sequence)
 
 ;; Consult convenience functions
-
 (use-package consult
   :bind
   (("C-c w h" . consult-org-heading)
-   ("C-c w g" . consult-grep))
+   ("C-c w g" . consult-ripgrep)
+   ("C-c w G" . baej-consult-ripgrep-docs) ;; described in custom functions
+   ("C-c w F" . baej-consult-fd-docs) ;; described in custom functions
+   ("C-c w f" . consult-fd))
   :config
   (add-to-list 'consult-preview-allowed-hooks 'visual-line-mode))
 
@@ -709,10 +773,11 @@
 (use-package citar-denote
   :custom
   (citar-open-always-create-notes t)
+  (citar-denote-subdir "literature")
   :init
   (citar-denote-mode)
   :bind
-  (("C-c w b c" . citar-create-note)
+  (("C-c w b c" . citar-create-note)    ;; Create a bibliographic note
    ("C-c w b n" . citar-denote-open-note)
    ("C-c w b x" . citar-denote-nocite)
    :map org-mode-map
@@ -762,9 +827,7 @@
     (setq lorem-ipsum-sentence-separator
           (if sentence-end-double-space "  " " "))
     :bind
-    (("C-c w s i" . lorem-ipsum-insert-paragraphs)))
-
-;; Biblio package for adding BibTeX records
+    (("C-c w i" . lorem-ipsum-insert-paragraphs)))
 
 (use-package biblio
   :bind
@@ -772,6 +835,19 @@
 
 (use-package bibtex
   :custom
+  (bibtex-autokey-names 1)
+  (bibtex-autokey-year-length 2)
+  (bibtex-autokey-titlewords 0)
+
+  (bibtex-autokey-name-year-separator "")
+  (bibtex-autokey-year-title-separator "")
+  (bibtex-autokey-titleword-separator "")
+
+  (bibtex-autokey-name-change-strings
+   '(("ą" . "a") ("ć" . "c") ("ę" . "e") ("ł" . "l") ("ń" . "n")
+     ("ó" . "o") ("ś" . "s") ("ż" . "z") ("ź" . "z")
+     ("Ą" . "A") ("Ć" . "C") ("Ę" . "E") ("Ł" . "L") ("Ń" . "N")
+     ("Ó" . "O") ("Ś" . "S") ("Ż" . "Z") ("Ź" . "Z")))
   (bibtex-user-optional-fields
    '(("keywords" "Keywords to describe the entry" "")
      ("file"     "Relative or absolute path to attachments" "" )))
@@ -779,7 +855,9 @@
   :config
   (ews-bibtex-register)
   :bind
-  (("C-c w b r" . ews-bibtex-register)))
+  (("C-c w b r" . ews-bibtex-register))
+  :hook
+  (bibtex-mode . (lambda () (setq-local completion-at-point-functions nil))))
 
 ;; Citar to access bibliographies
 

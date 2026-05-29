@@ -1,0 +1,14 @@
+#+title: Elfeed Configuration
+
+* Feeds                                    :elfeed:
+** Emacs                                   :emacs:
+Emacs-related information.
+*** https://lucidmanager.org/tags/emacs/index.xml
+*** http://www.reddit.com/r/emacs/.rss
+** Protesilaos                                                         :prot:
+*** [[https://protesilaos.com/books.xml][Prot: Books and Essays]]
+*** [[https://protesilaos.com/codelog.xml][Prot: Coding]]
+*** [[https://protesilaos.com/commentary.xml][Prot: Life & Practical Philosophy]]
+*** [[https://protesilaos.com/interpretations.xml][Prot: Critiques]]
+*** [[https://protesilaos.com/poems.xml][Prot: Poetry]]
+*** [[https://protesilaos.com/keeb.xml][Prot: Keyboards]]
